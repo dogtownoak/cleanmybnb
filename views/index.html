@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="google-signin-client_id" content="774533786896-dohjpfek9pnvkiqt5ltikdq5ek1jtdn6.apps.googleusercontent.com"> -->
+    <title>Clean My Airbnb JS Version</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="scripts/jQuery.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!-- <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous" defer></script> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css" >
+    
+    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+</head>
+<body>
+  <header class="hidden">
+    <nav>
+      <h1>Under Construction</h1>
+      <ul>
+          <li><a class="checkForLogin" href="/">Login</a></li>
+          <li><a class="checkForLogin" href="/m">Sample Landing Page</a></li> 
+          <li><a class="checkForLogin" href="/fullcalendar">Full Calendar</a></li>
+          <li><a class="checkForLogin" href="/calendar">Toast Calendar</a></li>
+          <li><a class="checkForLogin" href="/googlecalendar">Google Calendar</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- <img src="images/background2.jpg" > -->
+  <section class="signIn">
+    <h2>Sign In</h2>
+    <form class="signInForm" enctype="multipart/form-data" method="POST">
+      <!-- <label>User Name</label>
+      <input
+        id="signIn-username"  
+        type="text"
+        name="username"
+        placeholder="username"
+      /> -->
+        <label>Email</label>
+        <input
+        id="signIn-email"  
+        type="text"
+        name="email"
+        placeholder="email"
+        />
+        <label>Password</label>
+        <input
+        id="signIn-password"
+        type="password"
+        name="password"
+        placeholder="password"
+        />
+        <div class="formControlsSignIn">
+          <button type="submit">Sign In</button>
+          <button>Cancel</button>
+        </div>
+      </form>
+    </section>
+    <section>
+      <h2>Sign Out</h2>
+      <button class="logOut">Sign Out</button>
+    </section>
+    <section class="signUp">
+      <h2>Sign Up</h2>
+      <div id="form-messages"></div>
+      <form class="signUpForm" enctype="multipart/form-data" method="POST">
+        <label>User Name</label>
+        <input
+          id="signup-username"
+          type="text"
+          name="username"
+          placeholder="username"
+        />
+        <label>Password</label>
+        <input
+          id="signup-password"
+          type="password"
+          name="password"
+          placeholder="password"
+        />
+        <label>Email</label>
+        <input
+          id="signup-email"
+          type="email"
+          name="email"
+          placeholder="email"
+        />
+        <br/>
+        <label>Host or Cleaner?</label>
+        <br/> 
+        <input
+        
+        class="hostOrCleaner"
+        type="checkbox"
+        name="cleaner"
+        value="true"
+        >Host
+        <br/>
+        <input
+        class="hostOrCleaner"
+        type="checkbox"
+        name="cleaner"
+        value="true"
+        >Cleaner
+        <br/>
+        <!-- <label >Upload a profile picture:</label>
+        <input
+          type="file"
+          accept="image/*"
+          name="profilePic"
+          id="signup-profilePic"
+        />
+        <br/> -->
+          <button class="submitSignUp" type="submit" >Submit</button>
+          <button>Cancel</button>
+      </form>
+    </section>
+    <section>
+      <h2>Update: User</h2>
+      <form class="updateUser">
+      <label>Name</label>
+        <input
+          id="userName"
+          type="text"
+          name="name"
+          placeholder="name"
+        />
+        <br/>
+        <label>Username</label>
+        <input
+          id="userUsername"
+          type="text"
+          name="username"
+          placeholder="username"
+        />
+        <br/>
+        <label>About Me</label>
+        <input
+          id="userAboutMe"
+          type="text"
+          name="about"
+          placeholder=""
+        />
+        <br/>
+        <!-- <label>Profile Pic</label>
+        <input
+        type="file"
+        accept="image/*"
+        name="profilePic"
+        id="userProfilePic"
+        />
+        <br/> -->
+        <!-- <label>Password</label> -->
+        <!-- <input
+          id="userPassword"
+          type="password"
+          name="password"
+          placeholder="password"
+        /> -->
+        <!-- <br/> -->
+        <label>Email</label>
+        <input
+          id="userEmail"
+          type="email"
+          name="email"
+          placeholder="email"
+        />
+        <br/>
+        <label>Phone</label>
+        <input
+          id="userPhone"
+          type="tel"
+          name="phone"
+          placeholder=""
+        />
+        <br/>
+        <label>Cell Phone</label>
+        <input
+          id="userCell"
+          type="tel"
+          name="cellPhone"
+          placeholder=""
+        />
+        <br/>
+        <label>Business Phone</label>
+        <input
+          id="userBusinessPhone"
+          type="tel"
+          name="businesPhone"
+          placeholder=""
+        />
+        <br/>
+        <label>Company</label>
+        <input
+          id="userCompany"
+          type="text"
+          name="company"
+          placeholder=""
+        />
+        <br/>
+        <label>Email Alerts</label>
+        <input
+          id="userEmailAlerts"
+          type="checkbox"
+          value="false"
+          name="emailAlerts"
+          placeholder=""
+        />
+        <br/>
+        <label>Text Alerts</label>
+        <input
+          id="userTextAlerts"
+          type="checkbox"
+          value="false"
+          name="textAlerts"
+          placeholder=""
+        />
+        <br/>
+        <label>Host Airbnb Calendar</label>
+        <input
+          id="userHostAirbnbCalendar"
+          type="url"
+          name="hostAirbnbCalendar"
+          placeholder=""
+        />
+        <br/>
+        <label>Cleaning Radius</label>
+        <input
+          id="userCleaningRadius"
+          type="number"
+          name="cleaningRadius"
+          placeholder=""
+        />
+        <br/>
+        <!-- <label>Admin</label>
+        <input
+          id="userAdmin"
+          type="checkbox"
+          name="admin"
+          placeholder=""
+        />
+        <br/> -->
+        <label>Cleaner</label>
+        <input
+          id="userCleaner"
+          type="checkbox"
+          value="false"
+          name="cleaner"
+          placeholder=""
+        />
+        <br/>
+        <button type="submit">Update</button>
+        <button>Cancel</button>
+        </form>
+
+    </section>
+
+  <main>
+
+  </main>
+  <footer>
+    <h4>Footer</h4>
+  </footer>
+  
+  <script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
+  <script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
+  <script src="scripts/app.js" defer></script>
+</body>
+</html>
