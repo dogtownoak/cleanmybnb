@@ -72,6 +72,7 @@ function submitLogin(e){
         console.log("LOG IN SUCCESSFUL")
         console.log(json);
         localStorage.token = json.token;
+        
         checkForLogin();
     }).fail(function signupError(e1,e2,e3) {
         console.log(e2);
@@ -92,6 +93,7 @@ function checkForLogin(){
             }
         }).done(function (response) {
             console.log(response)
+            localStorage.userId = response.id
         }).fail(function (err) {
             console.log(err)
         })
@@ -110,7 +112,7 @@ function checkLocation(){
 function handleLogout(e) {
     e.preventDefault();
     console.log("LOGGED OUT")
-    delete localStorage.token;
+    delete localStorage.token && localStorage.userId;
     user = null;
     checkForLogin();
 }
@@ -119,7 +121,7 @@ function updateUser(e) {
     e.preventDefault();
     console.log("Update User Form Submit")
     let userUpdateData = {
-        _id: "5c4b2f45679e003e8cc1d403",
+        _id: localStorage.userId,
         name: $('#userName').val(),
         username: $('#userUsername').val(),
         about: $('#userAboutMe').val(),

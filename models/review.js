@@ -9,23 +9,23 @@ const ReviewSchema = new Schema({
     cleanerReview: String,
     reviewerId: {
         type: Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'User'
     },
     revieweeId: {
         type: Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'User'
     },
     housingUnitId: {
         type: Schema.Types.ObjectId,
-        ref: 'housingUnit'
+        ref: 'HousingUnit'
     },
     cleaningEventId: {
         type: Schema.Types.ObjectId,
-        ref: 'cleaningEvent'
+        ref: 'CleaningEvent'
     }
 
 });
 
-const Review = mongoose.model('review', ReviewSchema);
+const Review = mongoose.model('Review', ReviewSchema);
 
 module.exports = Review;

@@ -30,7 +30,7 @@ const HousingUnitSchema = new Schema({
     },
     preferredCleaers: [{
         type: Schema.Types.ObjectId,
-        ref: 'housingUnit'
+        ref: 'User'
     }]
 
 });

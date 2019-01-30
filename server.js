@@ -47,6 +47,10 @@ app.get('/googlecalendar', (req, res) => {
     res.sendFile(__dirname + '/views/googlecalendar.html');
 });
 
+app.get('/housingunit', (req, res) => {
+    res.sendFile(__dirname + '/views/housingunit.html');
+});
+
 
 
 //Routes: 

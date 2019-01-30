@@ -40,11 +40,11 @@ const CleaningEventSchema = new Schema({
     cleaningActualFinish: Date,
     housingUnit: {
         type: Schema.Types.ObjectId,
-        ref: 'housingUnit'
+        ref: 'HousingUnit'
     },
     cleanerId: {
         type: Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'User'
     }
 
 
