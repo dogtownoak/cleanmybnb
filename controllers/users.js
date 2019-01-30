@@ -139,7 +139,7 @@ module.exports = {
     })
   },
   updateCleaningEvent: (req, res) => {
-    console.log(req.body)
+    console.log(req.body._id)
     CleaningEvent.findByIdAndUpdate(req.body._id, req.body, {new : true}, (err, cleaningEvent) => {
           if (err) return res.status(500).send(err);
           return res.send(cleaningEvent)

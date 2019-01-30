@@ -30,167 +30,591 @@
       </ul>
     </nav>
   </header>
-
+    <section>
       <h2>Create Housing Unit</h2>
       <div id="form-messages"></div>
       <form class="createHousingUnitForm" enctype="multipart/form-data" method="POST">
-        <label>User Name</label>
+        <label>Address</label>
         <input
-          id="signup-username"
+          id="housingUnitAddress"
           type="text"
-          name="username"
-          placeholder="username"
-        />
-        <label>Password</label>
-        <input
-          id="signup-password"
-          type="password"
-          name="password"
-          placeholder="password"
-        />
-        <label>Email</label>
-        <input
-          id="signup-email"
-          type="email"
-          name="email"
-          placeholder="email"
+          name="address"
+          placeholder="Address"
         />
         <br/>
-        <label>Host or Cleaner?</label>
-        <br/> 
+        <label>Unit Description</label>
         <input
-        
-        class="hostOrCleaner"
-        type="checkbox"
-        name="cleaner"
-        value="true"
-        >Host
+          id="housingUnitDescription"
+          type="text"
+          name="unitdescription"
+          placeholder="Unit Description"
+        />
         <br/>
+        <label>Airbnb URL</label>
         <input
-        class="hostOrCleaner"
-        type="checkbox"
-        name="cleaner"
-        value="true"
-        >Cleaner
+          id="housingUnitAirbnbURL"
+          type="url"
+          name="aribnburl"
+          placeholder="Airbnb URL"
+        />
         <br/>
-          <button class="submitSignUp" type="submit" >Submit</button>
+        <label>Special Requirements</label>
+        <input
+          id="housingUnitSpecialReq"
+          type="text"
+          name="specialrequirements"
+          placeholder="Special Requirements"
+        />
+        <br/>
+        <label>Host Tips</label>
+        <input
+          id="housingUnitHostTips"
+          type="text"
+          name="hosttips"
+          placeholder="Host Tips"
+        />
+        <br/>
+        <label>Cleaner Tips</label>
+        <input
+          id="housingUnitCleanerTips"
+          type="text"
+          name="cleanertips"
+          placeholder="Cleaner Tips"
+        />
+        <br/>
+        <label>Square Footage</label>
+        <input
+          id="housingUnitSizeSqFt"
+          type="number"
+          name="squarefootage"
+          placeholder="Square Footage"
+        />
+        <br/>
+        <label>Rooms</label>
+        <input
+          id="housingUnitSizeRooms"
+          type="number"
+          name="rooms"
+          placeholder="Rooms"
+        />
+        <br/>
+        <label>Bathrooms</label>
+        <input
+          id="housingUnitSizeBathrooms"
+          type="number"
+          name="bathrooms"
+          placeholder="Bathrooms"
+        />
+        <br/>
+        <label>Beds</label>
+        <input
+          id="housingUnitSizeBeds"
+          type="number"
+          name="beds"
+          placeholder="Beds"
+        />
+        <br/>
+        <label>Kitchen</label>
+        <input
+          id="housingUnitSizeKitchen"
+          type="text"
+          name="kitchen"
+          placeholder="Kitchen"
+        />
+        <br/>
+          <button type="submit" >Submit</button>
           <button>Cancel</button>
       </form>
     </section>
     <section>
       <h2>Update: Housing Unit</h2>
-      <form class="updateHousingUnit">
-      <label>Name</label>
-        <input
-          id="userName"
-          type="text"
-          name="name"
-          placeholder="name"
-        />
-        <br/>
-        <label>Username</label>
-        <input
-          id="userUsername"
-          type="text"
-          name="username"
-          placeholder="username"
-        />
-        <br/>
-        <label>About Me</label>
-        <input
-          id="userAboutMe"
-          type="text"
-          name="about"
-          placeholder=""
-        />
-        <br/>
-        <label>Email</label>
-        <input
-          id="userEmail"
-          type="email"
-          name="email"
-          placeholder="email"
-        />
-        <br/>
-        <label>Phone</label>
-        <input
-          id="userPhone"
-          type="tel"
-          name="phone"
-          placeholder=""
-        />
-        <br/>
-        <label>Cell Phone</label>
-        <input
-          id="userCell"
-          type="tel"
-          name="cellPhone"
-          placeholder=""
-        />
-        <br/>
-        <label>Business Phone</label>
-        <input
-          id="userBusinessPhone"
-          type="tel"
-          name="businesPhone"
-          placeholder=""
-        />
-        <br/>
-        <label>Company</label>
-        <input
-          id="userCompany"
-          type="text"
-          name="company"
-          placeholder=""
-        />
-        <br/>
-        <label>Email Alerts</label>
-        <input
-          id="userEmailAlerts"
-          type="checkbox"
-          value="false"
-          name="emailAlerts"
-          placeholder=""
-        />
-        <br/>
-        <label>Text Alerts</label>
-        <input
-          id="userTextAlerts"
-          type="checkbox"
-          value="false"
-          name="textAlerts"
-          placeholder=""
-        />
-        <br/>
-        <label>Host Airbnb Calendar</label>
-        <input
-          id="userHostAirbnbCalendar"
-          type="url"
-          name="hostAirbnbCalendar"
-          placeholder=""
-        />
-        <br/>
-        <label>Cleaning Radius</label>
-        <input
-          id="userCleaningRadius"
-          type="number"
-          name="cleaningRadius"
-          placeholder=""
-        />
-        <br/>
-        <label>Cleaner</label>
-        <input
-          id="userCleaner"
-          type="checkbox"
-          value="false"
-          name="cleaner"
-          placeholder=""
-        />
-        <br/>
+      <form class="updateHousingUnitForm">
+          <label>Address</label>
+          <input
+            id="housingUnitAddressU"
+            type="text"
+            name="address"
+            placeholder="Address"
+          />
+          <br/>
+          <label>Unit Description</label>
+          <input
+            id="housingUnitDescriptionU"
+            type="text"
+            name="unitdescription"
+            placeholder="Unit Description"
+          />
+          <br/>
+          <label>Airbnb URL</label>
+          <input
+            id="housingUnitAirbnbURLU"
+            type="url"
+            name="aribnburl"
+            placeholder="Airbnb URL"
+          />
+          <br/>
+          <label>Special Requirements</label>
+          <input
+            id="housingUnitSpecialReqU"
+            type="text"
+            name="specialrequirements"
+            placeholder="Special Requirements"
+          />
+          <br/>
+          <label>Host Tips</label>
+          <input
+            id="housingUnitHostTipsU"
+            type="text"
+            name="hosttips"
+            placeholder="Host Tips"
+          />
+          <br/>
+          <label>Cleaner Tips</label>
+          <input
+            id="housingUnitCleanerTipsU"
+            type="text"
+            name="cleanertips"
+            placeholder="Cleaner Tips"
+          />
+          <br/>
+          <label>Square Footage</label>
+          <input
+            id="housingUnitSizeSqFtU"
+            type="number"
+            name="squarefootage"
+            placeholder="Square Footage"
+          />
+          <br/>
+          <label>Rooms</label>
+          <input
+            id="housingUnitSizeRoomsU"
+            type="number"
+            name="rooms"
+            placeholder="Rooms"
+          />
+          <br/>
+          <label>Bathrooms</label>
+          <input
+            id="housingUnitSizeBathroomsU"
+            type="number"
+            name="bathrooms"
+            placeholder="Bathrooms"
+          />
+          <br/>
+          <label>Beds</label>
+          <input
+            id="housingUnitSizeBedsU"
+            type="number"
+            name="beds"
+            placeholder="Beds"
+          />
+          <br/>
+          <label>Kitchen</label>
+          <input
+            id="housingUnitSizeKitchenU"
+            type="text"
+            name="kitchen"
+            placeholder="Kitchen"
+          />
+          <br/>
         <button type="submit">Update</button>
         <button>Cancel</button>
         </form>
     </section>
+    <section>
+      <h2>Delete: Housing Unit</h2>
+      <form class="deleteHousingUnitForm" enctype="multipart/form-data" method="DELETE">
+        <label>Housing Unit ID</label>
+        <input
+          id="signup-username"
+          type="text"
+          name="username"
+          placeholder="HousingUnitID"
+        />
+        <button type="submit">Submit</button>
+        <button>Cancel</button>
+      </form>
+    </section>
+
+
+    <section>
+        <h2>Create Cleaning Event</h2>
+        <div id="form-messages"></div>
+        <form class="createCleaningEventForm" enctype="multipart/form-data" method="POST">
+          <label>Cal. Title</label>
+          <input
+            id="cleaningEventTitle"
+            type="text"
+            name="title"
+            placeholder="Title"
+          />
+          <br/>
+          <label>Cal. Start</label>
+          <input
+            id="cleaningEventTitle"
+            type="datetime-local"
+            name="start"
+            placeholder="Start"
+          />
+          <br/>
+          <label>Cal. End</label>
+          <input
+            id="cleaningEventEnd"
+            type="datetime-local"
+            name="end"
+            placeholder="End"
+          />
+          <br/>
+          <label>Cal. URL</label>
+          <input
+            id="cleaningEventEnd"
+            type="url"
+            name="url"
+            placeholder="URL"
+          />
+          <br/>
+          <label>Cal. ClassName</label>
+          <input
+            id="cleaningEventClassName"
+            type="text"
+            name="classname"
+            placeholder="ClassName"
+          />
+          <br/>
+          <label>Cal. Color</label>
+          <input
+            id="cleaningEventColor"
+            type="text"
+            name="color"
+            placeholder="Color"
+          />
+          <br/>
+          <label>Cal. Background Color</label>
+          <input
+            id="cleaningEventBackgroundColor"
+            type="text"
+            name="backgroundcolor"
+            placeholder="Background Color"
+          />
+          <br/>
+          <label>Cal. Text Color</label>
+          <input
+            id="cleaningEventTextColor"
+            type="text"
+            name="textcolor"
+            placeholder="Text Color"
+          />
+          <br/>
+          <label>Cal. Description</label>
+          <input
+            id="cleaningEventDescription"
+            type="text"
+            name="description"
+            placeholder="Description"
+          />
+          <br/>
+          <label>Address</label>
+          <input
+            id="cleaningEventAddress"
+            type="text"
+            name="address"
+            placeholder="Address"
+          />
+          <br/>
+          <label>Guest Checkout</label>
+          <input
+            id="cleaningEventGuestCheckout"
+            type="datetime-local"
+            name="guestcheckout"
+            placeholder="Guest Checkout"
+          />
+          <br/>
+          <label>Next Guest Check In</label>
+          <input
+            id="cleaningEventNextGuestCheckIn"
+            type="datetime-local"
+            name="nextguestcheckin"
+            placeholder="Next Guest Check In"
+          />
+          <br/>
+          <label>Price Offered for: Cleaning</label>
+          <input
+            id="cleaningEventFinalPriceCleaning"
+            type="number"
+            name="amountdue"
+            placeholder="Price Offered for Cleaning"
+          />
+          <br/>
+          <label>Amount Due</label>
+          <input
+            id="cleaningEventAmountDue"
+            type="number"
+            name="amountdue"
+            placeholder="Amount Due"
+          />
+          <br/>
+          <label>Paid</label>
+          <input
+            id="cleaningEventPaid"
+            type="checkbox"
+            name="paid"
+            value="true"
+            placeholder="Paid?"
+          />
+          <br/>
+            <button type="submit" >Submit</button>
+            <button>Cancel</button>
+        </form>
+      </section>
+      <section>
+        <h2>Update: Cleaning Event</h2>
+        <form class="updateCleaningEventForm">
+          <label>Cal. Title</label>
+          <input
+            id="cleaningEventTitleU"
+            type="text"
+            name="title"
+            placeholder="Title"
+          />
+          <br/>
+          <label>Cal. Start</label>
+          <input
+            id="cleaningEventStartU"
+            type="datetime-local"
+            name="start"
+            placeholder="Start"
+          />
+          <br/>
+          <label>Cal. End</label>
+          <input
+            id="cleaningEventEndU"
+            type="datetime-local"
+            name="end"
+            placeholder="End"
+          />
+          <br/>
+          <label>Cal. URL</label>
+          <input
+            id="cleaningEventEndU"
+            type="url"
+            name="url"
+            placeholder="URL"
+          />
+          <br/>
+          <label>Cal. ClassName</label>
+          <input
+            id="cleaningEventClassNameU"
+            type="text"
+            name="classname"
+            placeholder="ClassName"
+          />
+          <br/>
+          <label>Cal. Color</label>
+          <input
+            id="cleaningEventColorU"
+            type="text"
+            name="color"
+            placeholder="Color"
+          />
+          <br/>
+          <label>Cal. Background Color</label>
+          <input
+            id="cleaningEventBackgroundColorU"
+            type="text"
+            name="backgroundcolor"
+            placeholder="Background Color"
+          />
+          <br/>
+          <label>Cal. Text Color</label>
+          <input
+            id="cleaningEventTextColorU"
+            type="text"
+            name="textcolor"
+            placeholder="Text Color"
+          />
+          <br/>
+          <label>Cal. Description</label>
+          <input
+            id="cleaningEventDescriptionU"
+            type="text"
+            name="description"
+            placeholder="Description"
+          />
+          <br/>
+          <label>Address</label>
+          <input
+            id="cleaningEventAddressU"
+            type="text"
+            name="address"
+            placeholder="Address"
+          />
+          <br/>
+          <label>Guest Checkout</label>
+          <input
+            id="cleaningEventGuestCheckoutU"
+            type="datetime-local"
+            name="guestcheckout"
+            placeholder="Guest Checkout"
+          />
+          <br/>
+          <label>Next Guest Check In</label>
+          <input
+            id="cleaningEventNextGuestCheckInU"
+            type="datetime-local"
+            name="nextguestcheckin"
+            placeholder="Next Guest Check In"
+          />
+          <br/>
+          <label>Price Offered for: Cleaning</label>
+          <input
+            id="cleaningEventFinalPriceCleaningU"
+            type="number"
+            name="amountdue"
+            placeholder="Price Offered for Cleaning"
+          />
+          <br/>
+          <label>Amount Due</label>
+          <input
+            id="cleaningEventAmountDueU"
+            type="number"
+            name="amountdue"
+            placeholder="Amount Due"
+          />
+          <br/>
+          <label>Paid</label>
+          <input
+            id="cleaningEventPaidU"
+            type="checkbox"
+            name="paid"
+            value="true"
+            placeholder="Paid?"
+          />
+          <br/>
+            <button type="submit" >Submit</button>
+            <button>Cancel</button>
+        </form>
+      </section>
+          <button type="submit">Update</button>
+          <button>Cancel</button>
+          </form>
+      </section>
+      <section>
+        <h2>Delete: Cleaning Event</h2>
+        <form class="deleteHousingUnitForm" enctype="multipart/form-data" method="DELETE">
+          <label>Housing Unit ID</label>
+          <input
+            id="signup-username"
+            type="text"
+            name="username"
+            placeholder="HousingUnitID"
+          />
+          <button type="submit">Submit</button>
+          <button>Cancel</button>
+        </form>
+      </section>
+
+
+
+      <section>
+          <h2>Create Review</h2>
+          <div id="form-messages"></div>
+          <form class="createReviewForm" enctype="multipart/form-data" method="POST">
+            <label>Type</label>
+            <input
+              id="reviewType"
+              type="text"
+              name="type"
+              placeholder="Type"
+            />
+            <br/>
+            <label>Host's Rating for Cleaner</label>
+            <input
+              id="reviewHostRatingCleaner"
+              type="number"
+              name="hostratingcleaner"
+              placeholder="Rate on a Scale of 0-5 Stars"
+            />
+            <br/>
+            <label>Cleaner's Rating for Host</label>
+            <input
+              id="reviewCleanerRatingHost"
+              type="number"
+              name="cleanerratinghost"
+              placeholder="Rate on a Scale of 0-5 Stars"
+            />
+            <br/>
+            <label>Host Review</label>
+            <input
+              id="reviewHostReview"
+              type="text"
+              name="hostReview"
+              placeholder="Host Comment Here"
+            />
+            <br/>
+            <label>Cleaner Review</label>
+            <input
+              id="reviewCleanerReview"
+              type="text"
+              name="cleanerreview"
+              placeholder="Cleaner Comment Here"
+            />
+            <br/>
+              <button type="submit" >Submit</button>
+              <button>Cancel</button>
+          </form>
+        </section>
+
+        <section>
+            <h2>Update Review</h2>
+            <div id="form-messages"></div>
+            <form class="createReviewForm" enctype="multipart/form-data" method="POST">
+              <label>Type</label>
+              <input
+                id="reviewTypeU"
+                type="text"
+                name="type"
+                placeholder="Type"
+              />
+              <br/>
+              <label>Host's Rating for Cleaner</label>
+              <input
+                id="reviewHostRatingCleanerU"
+                type="number"
+                name="hostratingcleaner"
+                placeholder="Rate on a Scale of 0-5 Stars"
+              />
+              <br/>
+              <label>Cleaner's Rating for Host</label>
+              <input
+                id="reviewCleanerRatingHostU"
+                type="number"
+                name="cleanerratinghost"
+                placeholder="Rate on a Scale of 0-5 Stars"
+              />
+              <br/>
+              <label>Host Review</label>
+              <input
+                id="reviewHostReviewU"
+                type="text"
+                name="hostReview"
+                placeholder="Host Comment Here"
+              />
+              <br/>
+              <label>Cleaner Review</label>
+              <input
+                id="reviewCleanerReviewU"
+                type="text"
+                name="cleanerreview"
+                placeholder="Cleaner Comment Here"
+              />
+              <br/>
+                <button type="submit" >Submit</button>
+                <button>Cancel</button>
+            </form>
+          </section>
+
+
+
   <main>
   </main>
   <footer>
