@@ -86,7 +86,6 @@ module.exports = {
       })
   },
 
-
 // HousingUnit
   indexHousingUnit: (req, res) => {
     console.log(req.body)
