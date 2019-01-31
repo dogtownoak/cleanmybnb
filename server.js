@@ -6,9 +6,7 @@ const
     ctrl = require('./controllers'),
     passport = require('./config/passport')(),
     routes = require('./routes')
-    // Calendar = require('tui-calendar')
-    // util = require('tui-code-snippet');
-    // var moment = require('moment');
+    var moment = require('moment');
 
 
 
@@ -20,7 +18,6 @@ const app = express()
 app.use(parser.json())
 app.use(cors());
 app.use(passport.initialize())
-// app.use(moment().format())
 
 
 //serve static files from public folder

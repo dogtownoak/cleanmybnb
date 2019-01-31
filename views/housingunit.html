@@ -4,18 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- <meta name="google-signin-client_id" content="774533786896-dohjpfek9pnvkiqt5ltikdq5ek1jtdn6.apps.googleusercontent.com"> -->
-    <title>Clean My Airbnb JS Version</title>
+    <title>Clean My BNB</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="scripts/jQuery.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <!-- <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous" defer></script> -->
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css" >
-    
-    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 </head>
 <body>
   <header class="hidden">
@@ -25,15 +18,21 @@
           <li><a class="checkForLogin" href="/">Login</a></li>
           <li><a class="checkForLogin" href="/m">Sample Landing Page</a></li> 
           <li><a class="checkForLogin" href="/fullcalendar">Full Calendar</a></li>
-          <li><a class="checkForLogin" href="/calendar">Toast Calendar</a></li>
           <li><a class="checkForLogin" href="/googlecalendar">Google Calendar</a></li>
       </ul>
     </nav>
   </header>
+
     <section>
-      <h2>Create Housing Unit</h2>
+      <h2>Your Housing Units</h2>
+      <div class="userHUWrapper">
+      </div>
+    </section>
+    <section>
+      <button class="hideButton">Create Housing Unit</button>
       <div id="form-messages"></div>
-      <form class="createHousingUnitForm" enctype="multipart/form-data" method="POST">
+      <form class="createHousingUnitForm hide" enctype="multipart/form-data" method="POST">
+        <h2>Create Housing Unit</h2>
         <label>Address</label>
         <input
           id="housingUnitAddress"
@@ -122,13 +121,14 @@
           placeholder="Kitchen"
         />
         <br/>
-          <button type="submit" >Submit</button>
-          <button>Cancel</button>
+          <button class="hideButton" type="submit" >Submit</button>
+          <button class="hideButton" >Cancel</button>
       </form>
     </section>
     <section>
-      <h2>Update: Housing Unit</h2>
-      <form class="updateHousingUnitForm">
+      <button class="hideButtonUpdate">Update Housing Unit</button> 
+      <form class="updateHousingUnitForm hide">
+        <h2>Update: Housing Unit</h2>
           <label>Address</label>
           <input
             id="housingUnitAddressU"
@@ -217,8 +217,8 @@
             placeholder="Kitchen"
           />
           <br/>
-        <button type="submit">Update</button>
-        <button>Cancel</button>
+        <button class="hideButtonUpdate" type="submit">Update</button>
+        <button class="hideButtonUpdate">Cancel</button>
         </form>
     </section>
     <section>
@@ -238,9 +238,10 @@
 
 
     <section>
-        <h2>Create Cleaning Event</h2>
+        <button class="hideButtonCreateC">Create Cleaning Event</button>  
         <div id="form-messages"></div>
-        <form class="createCleaningEventForm" enctype="multipart/form-data" method="POST">
+        <form class="createCleaningEventForm hide" enctype="multipart/form-data" method="POST">
+          <h2>Create Cleaning Event</h2>
           <label>Cal. Title</label>
           <input
             id="cleaningEventTitle"
@@ -251,7 +252,7 @@
           <br/>
           <label>Cal. Start</label>
           <input
-            id="cleaningEventTitle"
+            id="cleaningEventStart"
             type="datetime-local"
             name="start"
             placeholder="Start"
@@ -354,21 +355,20 @@
           />
           <br/>
           <label>Paid</label>
-          <input
-            id="cleaningEventPaid"
-            type="checkbox"
-            name="paid"
-            value="true"
-            placeholder="Paid?"
-          />
+          <select id="cleaningEventPaid">
+              <option value="false" selected="selected">Paid?</option>
+              <option value="false">No</option>
+              <option value="true">Ues</option>
+            </select>
           <br/>
-            <button type="submit" >Submit</button>
-            <button>Cancel</button>
+            <button class="hideButtonCreateC" type="submit" >Submit</button>
+            <button class="hideButtonCreateC">Cancel</button>
         </form>
       </section>
       <section>
+        <button class="hideButtonUpdateC">Update Cleaning Event</button>
+        <form class="updateCleaningEventForm hide">
         <h2>Update: Cleaning Event</h2>
-        <form class="updateCleaningEventForm">
           <label>Cal. Title</label>
           <input
             id="cleaningEventTitleU"
@@ -482,21 +482,15 @@
           />
           <br/>
           <label>Paid</label>
-          <input
-            id="cleaningEventPaidU"
-            type="checkbox"
-            name="paid"
-            value="true"
-            placeholder="Paid?"
-          />
+          <select id="cleaningEventPaidU">
+              <option value="false" selected="selected">Paid?</option>
+              <option value="false">No</option>
+              <option value="true">Ues</option>
+            </select>
           <br/>
-            <button type="submit" >Submit</button>
-            <button>Cancel</button>
+            <button class="hideButtonUpdateC" type="submit" >Submit</button>
+            <button class="hideButtonUpdateC">Cancel</button>
         </form>
-      </section>
-          <button type="submit">Update</button>
-          <button>Cancel</button>
-          </form>
       </section>
       <section>
         <h2>Delete: Cleaning Event</h2>
@@ -513,12 +507,11 @@
         </form>
       </section>
 
-
-
       <section>
-          <h2>Create Review</h2>
+          <button class="hideButtonCreateR">Create Review</button>
           <div id="form-messages"></div>
-          <form class="createReviewForm" enctype="multipart/form-data" method="POST">
+          <form class="createReviewForm hide" enctype="multipart/form-data" method="POST">
+            <h2>Create Review</h2>
             <label>Type</label>
             <input
               id="reviewType"
@@ -559,15 +552,16 @@
               placeholder="Cleaner Comment Here"
             />
             <br/>
-              <button type="submit" >Submit</button>
-              <button>Cancel</button>
+              <button class="hideButtonCreateR" type="submit" >Submit</button>
+              <button class="hideButtonCreateR">Cancel</button>
           </form>
         </section>
 
         <section>
-            <h2>Update Review</h2>
+            <button class="hideButtonUpdateR">Update Review</button>
             <div id="form-messages"></div>
-            <form class="createReviewForm" enctype="multipart/form-data" method="POST">
+            <form class="updateReviewForm hide" enctype="multipart/form-data" method="POST">
+            <h2>Update Review</h2>
               <label>Type</label>
               <input
                 id="reviewTypeU"
@@ -608,11 +602,10 @@
                 placeholder="Cleaner Comment Here"
               />
               <br/>
-                <button type="submit" >Submit</button>
-                <button>Cancel</button>
+                <button class="hideButtonUpdateR" type="submit" >Submit</button>
+                <button class="hideButtonUpdateR">Cancel</button>
             </form>
           </section>
-
 
 
   <main>
@@ -621,7 +614,8 @@
     <h4>Footer</h4>
   </footer>
   
-
+  <script src="scripts/moment.js" defer></script>
   <script src="scripts/app.js" defer></script>
+
 </body>
 </html>

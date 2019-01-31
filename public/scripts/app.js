@@ -1,5 +1,16 @@
+// import moment = require("moment");
+
 $(document).ready(function(){
     console.log("jQuery up and running");
+    // let now = new Date()
+    // let testMoment = moment(now).format('LLLL')
+    // console.log(testMoment)
+
+    
+
+
+
+
 
 
 // CRUD API Endpoints
@@ -7,12 +18,15 @@ let signUpUrl = '/users/signup'
 let verifyUrl = '/verify'
 let loginUrl = '/users/login'
 let updateUserUrl = '/users/update'
+let getUserUrl = '/users/'
+let getHousingUnitsUrl = '/users/housingunits/index'
 let createHousingUnitUrl = '/users/housingunits/create'
 let updateHousingUnitUrl = '/users/housingunits/update'
+let updateHouseingUnitForm = '/users/housingunits/'
 let deleteHousingUnitUrl = '/users/housingunits/'
 let createCleaningEventUrl = '/users/housingunits/cleaningevents/create'
-let updateCleaningEventUrl = '/users/housingunits/cleaningevents/review/update'
-let deleteCleaningEventUrl = '/users/housingunits/cleaningevents/review/:_id'
+let updateCleaningEventUrl = '/users/housingunits/cleaningevents/update'
+let deleteCleaningEventUrl = '/users/housingunits/cleaningevents/:_id'
 let createReviewUrl = '/users/housingunits/cleaningevents/review/create'
 let updateReviewUrl = '/users/housingunits/cleaningevents/review/update'
 let deleteReviewUrl = '/users/housingunits/cleaningevents/review/:_id'
@@ -21,19 +35,74 @@ let deleteReviewUrl = '/users/housingunits/cleaningevents/review/:_id'
 
 let user ;
 let loggedIn ;
+let userIdHU;
+
 
 checkForLogin()
+getUserHousingUnits()
+
+$('.hideButton').on('click', hideUserForm)
+function hideUserForm(e) {
+    e.preventDefault()
+    $('.updateUser').toggleClass('hide')
+}
+
+$('.hideButton').on('click', hideHUCreateForm)
+function hideHUCreateForm(e) {
+    e.preventDefault()
+    $('.createHousingUnitForm').toggleClass('hide')
+}
+
+$('.hideButtonUpdate').on('click', hideHUUpdateForm)
+function hideHUUpdateForm(e) {
+    updateHousingUnitFormData()
+    e.preventDefault()
+    $('.updateHousingUnitForm').toggleClass('hide')
+}
+
+$('.hideButtonCreateC').on('click', hideCEForm)
+function hideCEForm(e) {
+    e.preventDefault()
+    $('.createCleaningEventForm').toggleClass('hide')
+}
+
+$('.hideButtonUpdateC').on('click', hideCEUForm)
+function hideCEUForm(e) {
+    e.preventDefault()
+    $('.updateCleaningEventForm').toggleClass('hide')
+}
+
+$('.hideButtonCreateR').on('click', hideRCreateForm)
+function hideRCreateForm(e) {
+    e.preventDefault()
+    $('.createReviewForm').toggleClass('hide')
+}
+
+$('.hideButtonUpdateR').on('click', hideRUForm)
+function hideRUForm(e) {
+    e.preventDefault()
+    $('.updateReviewForm').toggleClass('hide')
+}
+
+$('.userHUWrapper').on('click', '.hideButtonUpdate', function() {
+    userIdHU = $(this).data()
+    console.log(userIdHU)
+    updateHousingUnitFormData()
+})
+
 
 // User
 $('.signUpForm').on('submit', submitSignup)
 $('.signInForm').on('submit', submitLogin)
 $('.logOut').on('click', handleLogout)
 $('.updateUser').on('submit', updateUser)
+$('.updateUserButton').on('click', updateUserFormData)
 
 // Housing Unit
 $('.createHousingUnitForm').on('submit', createHousingUnit)
 $('.updateHousingUnitForm').on('submit', updateHousingUnit)
 // $('.deleteHousingUnitFomr').on('submit', deleteHousingUnit)
+// $('.updateHousingUnitButton').on('click', updateHousingUnitFormData)
 
 // Cleaning Event
 $('.createCleaningEventForm').on('submit', createCleaningEvent)
@@ -53,7 +122,8 @@ function submitSignup(e){
     let signUpData = {
         password: $('#signup-password').val(),
         username: $('#signup-username').val(),
-        email: $('#signup-email').val()
+        email: $('#signup-email').val(),
+        cleaner: $('#signup-cleaner').val()
     }
     console.log(signUpData)
     console.log(JSON.stringify(signUpData))
@@ -73,9 +143,9 @@ function submitSignup(e){
         function onSuccess (newUser) {
             console.log(`User Created:`, newUser)
             localStorage.token = newUser.token
+            localStorage.userId = newUser.payload.user._id
             user = newUser.payload
             console.log(user)
-            checkForLogin()
     }   
     };
 
@@ -87,7 +157,6 @@ function submitLogin(e){
         password: $('#signIn-password').val(),
         email: $('#signIn-email').val()
     }
-
     console.log("LOGIN: ", signInData)
     $.ajax({
         method: "POST",
@@ -98,8 +167,7 @@ function submitLogin(e){
     }).done(function signupSuccess(json) {
         console.log("LOG IN SUCCESSFUL")
         console.log(json);
-        localStorage.token = json.token;
-        
+        localStorage.token = json.token;    
         checkForLogin();
     }).fail(function signupError(e1,e2,e3) {
         console.log(e2);
@@ -138,7 +206,11 @@ function checkLocation(){
 function handleLogout(e) {
     e.preventDefault();
     console.log("LOGGED OUT")
-    delete localStorage.token && localStorage.userId &&localStorage.housingUnitId
+    delete localStorage.token
+    delete localStorage.userId
+    delete localStorage.housingUnitId
+    delete localStorage.reviewId
+    delete localStorage.cleaningEventId
     user = null;
     checkForLogin();
 }
@@ -153,11 +225,12 @@ function updateUser(e) {
         about: $('#userAboutMe').val(),
         email: $('#userEmail').val(),
         phone: $('#userPhone').val(),
-        cellPhone: $('#userPhone').val(),
+        cellPhone: $('#userCell').val(),
         businessPhone: $('#userBusinessPhone').val(),
         company: $('#userCompany').val(),
         emailAlerts: $('#userEmailAlerts').val(),
-        textAlerts: $('#userTextAlerts').val()
+        cleaningRadius: $('#userCleaningRadius').val(),
+        hostAirbnbCalendar: $('#userHostAirbnbCalendar').val()
     }
     console.log(userUpdateData)
     $.ajax({
@@ -178,7 +251,99 @@ function updateUser(e) {
     }   
     };
 
+function updateUserFormData(e) {
+        e.preventDefault();
+        $('.updateUser').toggleClass('hide')
+        console.log("Update User Form with Data")
+        $.ajax({
+            method: 'GET',
+            url: getUserUrl + localStorage.userId,
+            success: onSuccess,
+            error: onError
+        });
+            function onError ( err ) {
+                console.log( err );
+                console.log("get user error",err)
+            }
+            function onSuccess (user) {
+                console.log(`User Form Updated:`, user)
+                $('input[id="userUsername"]').val(user[0].username)
+                $('input[id="userName"]').val(user[0].name)
+                $('input[id="userUsername"]').val(user[0].username)
+                $('input[id="userAboutMe"]').val(user[0].about),
+                $('input[id="userEmail"]').val(user[0].email),
+                $('input[id="userPhone"]').val(user[0].phone),
+                $('input[id="userCell"]').val(user[0].cellPhone),
+                $('input[id="userBusinessPhone"]').val(user[0].businessPhone),
+                $('input[id="userCompany"]').val(user[0].company),
+                $('input[id="userEmailAlerts"]').val(user[0].emailAlerts),
+                $('input[id="userTextAlerts"]').val(user[0].textAlerts),
+                $('input[id="userHostAirbnbCalendar"]').val(user[0].hostAirbnbCalendar),
+                $('input[id="userCleaningRadius"]').val(user[0].cleaningRadius)
+        }   
+        };
+
+
 // Housing Unit
+
+function getUserHousingUnits(){
+    $.ajax({
+        method: 'GET',
+        url: getHousingUnitsUrl ,
+        success: onSuccess,
+        error: onError
+    });
+        function onError ( err ) {
+            console.log( err );
+            console.log("post error",err)
+        }
+        function onSuccess (housingUnits) {
+            console.log(`HousingUnit Arr:`, housingUnits)
+            let userHUnits = housingUnits.filter(housingUnit => housingUnit.hostID === localStorage.userId)
+            console.log(`Host's HousingUnits`, userHUnits)
+        
+            userHUnits.forEach(unit => {
+                let card1 =
+                `<div data=${unit._id}>
+                <li>Address: ${unit.address}</li>
+                <li>Unit Description: ${unit.unitDescription}</li>
+                <li>Airbnb: ${unit.airbnbURL}</li>
+                <li>Square Footage: ${unit.sizeSqFt}</li>
+                <li>Rooms: ${unit.sizeRooms}</li>
+                <li>Beds: ${unit.sizeBeds}</li>
+                <li>Bathrooms: ${unit.sizeBathrooms}</li>
+                <li>Kithchen: ${unit.sizeKitchen}</li>
+                <li>Special Requirements: ${unit.specialRequirements}</li>
+                <li>Cleaning Tips: ${unit.cleanerTip}</li>
+                <li>Host Tips: ${unit.hostTips}</li>
+                </div>
+                <button data-id=${unit._id} class="hideButtonUpdate">Update Housing Unit</button> 
+                `
+            $('.userHUWrapper').append(card1)
+            })   
+        }   
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function createHousingUnit(e){
     e.preventDefault();
     console.log("submit create housing unit clicked")
@@ -221,7 +386,7 @@ function updateHousingUnit(e){
     e.preventDefault();
     console.log("submit update housing unit clicked")
     let signUpData = {
-        _id: "5c5115ab6e745275b86f588d",
+        _id: userIdHU,
         address: $('#housingUnitAddressU').val(),
         unitDescription: $('#housingUnitDescriptionU').val(),
         airbnbURL: $('#housingUnitAirbnbURLU').val(),
@@ -254,6 +419,75 @@ function updateHousingUnit(e){
         }   
         };
 
+function updateHousingUnitFormData(){
+    $('.updateHousingUnitForm').toggleClass('hide')
+    console.log("submit update housing unit form data clicked")
+    $.ajax({
+        method: 'GET',
+        url: updateHouseingUnitForm + userIdHU.id,
+        success: onSuccess,
+        error: onError
+    });
+        function onError ( err ) {
+        console.log( err );
+        console.log("GET  error",err)
+        }
+        function onSuccess (housingUnit) {
+            console.log(`HousingUnit Form Updated:`, housingUnit)
+            $('input[id="housingUnitAddressU"]').val(housingUnit[0].address)
+            $('input[id="housingUnitDescriptionU"]').val(housingUnit[0].unitDescription)
+            $('input[id="housingUnitAirbnbURLU"]').val(housingUnit[0].airbnbURL)
+            $('input[id="housingUnitSpecialReqU"]').val(housingUnit[0].specialRequirements),
+            $('input[id="housingUnitHostTipsU"]').val(housingUnit[0].hostTips),
+            $('input[id="housingUnitCleanerTipsU"]').val(housingUnit[0].cleanerTips),
+            $('input[id="housingUnitSizeSqFtU"]').val(housingUnit[0].sizeSqFt),
+            $('input[id="housingUnitSizeRoomsU"]').val(housingUnit[0].sizeRooms),
+            $('input[id="housingUnitSizeBathroomsU"]').val(housingUnit[0].sizeBathrooms),
+            $('input[id="housingUnitSizeBedsU"]').val(housingUnit[0].sizeBeds),
+            $('input[id="housingUnitSizeKitchenU"]').val(housingUnit[0].sizeKitchen)
+        }   
+    
+    
+    }   
+
+
+
+
+
+    // let signUpData = {
+    //     _id: "5c5115ab6e745275b86f588d",
+    //     address: $('#housingUnitAddressU').val(),
+    //     unitDescription: $('#housingUnitDescriptionU').val(),
+    //     airbnbURL: $('#housingUnitAirbnbURLU').val(),
+    //     specialRequirements: $('#housingUnitSpecialReqU').val(),
+    //     hostTips: $('#housingUnitHostTipsU').val(),
+    //     cleanerTips: $('#housingUnitCleanerTipsU').val(),
+    //     sizeSqFt: $('#housingUnitSizeSqFtU').val(),
+    //     sizeRooms: $('#housingUnitSizeRoomsU').val(),
+    //     sizeBathrooms: $('#housingUnitSizeBathroomsU').val(),
+    //     sizeBeds: $('#housingUnitSizeBedsU').val(),
+    //     sizeKitchen: $('#housingUnitSizeKitchenU').val()
+    //     }
+    //         console.log(signUpData)
+    //         console.log(JSON.stringify(signUpData))
+    //         $.ajax({
+    //             method: 'PATCH',
+    //             url: updateHousingUnitUrl,
+    //             json: true,
+    //             contentType : 'application/json',
+    //             data: JSON.stringify(signUpData),
+    //             success: onSuccess,
+    //             error: onError
+    //         });
+    //             function onError ( err ) {
+    //             console.log( err );
+    //             console.log("PATCH update error",err)
+    //             }
+    //             function onSuccess (updatedHousingUnit) {
+    //             console.log(`HousingUnit Updated:`, updatedHousingUnit)
+    //             }   
+    //             };
+
 // Cleaning Event
 function createCleaningEvent(e){
     e.preventDefault();
@@ -261,8 +495,8 @@ function createCleaningEvent(e){
     let signUpData = {
         housingUnit: localStorage.housingUnitId,
         title: $('#cleaningEventTitle').val(),
-        start: $('#cleaningEventStart').val(),
-        end: $('#cleaningEventEnd').val(),
+        start: moment($('#cleaningEventStart').val()).toISOString(),
+        end: moment($('#cleaningEventEnd').val()).toISOString(),
         url: $('#cleaningEventURL').val(),
         className: $('#cleaningEventClassName').val(),
         color: $('#cleaningEventColor').val(),
@@ -270,14 +504,18 @@ function createCleaningEvent(e){
         textColor: $('#cleaningEventTextColor').val(),
         description: $('#cleaningEventDescription').val(),
         address: $('#cleaningEventAddress').val(),
-        guestCheckout: $('#cleaningEventGuestCheckout').val(),
-        nextGuestCheckIn: $('#cleaningEventNextGuestCheckIn').val(),
+        guestCheckout: moment($('#cleaningEventGuestCheckout').val()).toISOString(),
+        nextGuestCheckIn: moment($('#cleaningEventNextGuestCheckIn').val()).toISOString(),
         finalPriceCleaning: $('#cleaningEventFinalPriceCleaning').val(),
         amountDue: $('#cleaningEventAmountDue').val(),
         paid: $('#cleaningEventPaid').val()
         }
+    let startCE = $('#cleaningEventStart').val()
+    let testMomentCE = moment(startCE).toISOString()
+    console.log(testMomentCE)
     console.log(signUpData)
     console.log(JSON.stringify(signUpData))
+    
     $.ajax({
         method: 'POST',
         url: createCleaningEventUrl,
@@ -297,14 +535,15 @@ function createCleaningEvent(e){
         }   
         };    
 
+
 function updateCleaningEvent(e){
     e.preventDefault();
     console.log("submit update cleaning event clicked")
     let signUpData = {
-        _id: "5c513fce8af8d5019ce3c338",
+        _id: "5c520e0d2d4a2822081d9384",
         title: $('#cleaningEventTitleU').val(),
-        start: $('#cleaningEventStartU').val(),
-        end: $('#cleaningEventEndU').val(),
+        start: moment($('#cleaningEventStartU').val()).toISOString(),
+        end: moment($('#cleaningEventEndU').val()).toISOString(),
         url: $('#cleaningEventURLU').val(),
         className: $('#cleaningEventClassNameU').val(),
         color: $('#cleaningEventColorU').val(),
@@ -312,13 +551,17 @@ function updateCleaningEvent(e){
         textColor: $('#cleaningEventTextColorU').val(),
         description: $('#cleaningEventDescriptionU').val(),
         address: $('#cleaningEventAddressU').val(),
-        guestCheckout: $('#cleaningEventGuestCheckoutU').val(),
-        nextGuestCheckIn: $('#cleaningEventNextGuestCheckInU').val(),
+        guestCheckout: moment($('#cleaningEventGuestCheckoutU').val()).toISOString(),
+        nextGuestCheckIn: moment($('#cleaningEventNextGuestCheckInU').val()).toISOString(),
         finalPriceCleaning: $('#cleaningEventFinalPriceCleaningU').val(),
         amountDue: $('#cleaningEventAmountDueU').val(),
         paid: $('#cleaningEventPaidU').val()
         }
+    let start = $('#cleaningEventStartU').val()
+    let testMoment = moment(start).toISOString()
+    console.log(testMoment)
     console.log(signUpData)
+    console.log(moment($('#cleaningEventStartU').val()).toISOString())
     console.log(JSON.stringify(signUpData))
     $.ajax({
         method: 'PATCH',

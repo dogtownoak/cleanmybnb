@@ -15,6 +15,13 @@ module.exports = {
     User.find({})
         .then(users => res.json(users))
   },
+  findUser: (req, res) => {
+    console.log(req.params._id)
+      User.find({ _id: req.params._id}, (err, user) => {
+        if (err) return res.status(500).send(err);
+        return res.send(user)
+    })
+  },
   signup: (req, res) => {
     console.log(req.body)
     if (req.body.email && req.body.password) { 
@@ -139,7 +146,8 @@ module.exports = {
     })
   },
   updateCleaningEvent: (req, res) => {
-    console.log(req.body._id)
+    console.log("udateCleaningEventRoute")
+    // console.log(req.body._id)
     CleaningEvent.findByIdAndUpdate(req.body._id, req.body, {new : true}, (err, cleaningEvent) => {
           if (err) return res.status(500).send(err);
           return res.send(cleaningEvent)

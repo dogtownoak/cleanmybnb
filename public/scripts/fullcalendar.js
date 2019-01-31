@@ -8,7 +8,25 @@ $(document).ready(function(){
     $('.viewAgendaWeek').on('click', viewAgendaWeek)
     $('.viewListWeek').on('click', viewListWeek)
     
-  
+    let indexCleaningEventUrl = 'users/housingunits/cleaningevents/index'
+
+    $.ajax({
+        method: 'GET',
+        url: indexCleaningEventUrl,
+        // json: true,
+        // contentType : 'application/json',
+        // data: JSON.stringify(signUpData),
+        success: onSuccess,
+        error: onError
+    });
+        function onError ( err ) {
+            console.log( err );
+            console.log("post error",err)
+        }
+        function onSuccess (cleaningEvents) {
+            console.log(`CleaningEvents:`, cleaningEvents)
+
+        
     $('#calendar').fullCalendar({
         defaultView: 'month',
         // sample callback function
@@ -35,47 +53,49 @@ $(document).ready(function(){
         eventResourceEditable: true,       
         eventLimit: true,
         droppable: true,
+        events: cleaningEvents,
 
-        events: [
-            {
-                title  : 'Cleaning',
-                start  : '2019-01-19',
-                end    : '2019-01-20'
-            },
-            {
-                title  : 'Checkout',
-                start  : '2019-01-18T11:30:00',
-                end    : '2019-01-18T12:30:00'
-            },
-            {
-                title  : 'Cleaning',
-                start  : '2019-01-18T11:30:00',
-                end    : '2019-01-18T12:30:00'
-            },
-            {
-                title  : 'Checkout',
-                start  : '2019-01-18T11:30:00',
-                end    : '2019-01-18T12:30:00'
-            },
-            {
-                title  : 'Cleaning',
-                start  : '2019-01-18T11:30:00',
-                end    : '2019-01-18T12:30:00'
-            },
-            {
-                title  : 'Checkout',
-                start  : '2019-01-09T12:30:00',
-                allDay : false // will make the time show
-            },
-            {
-                title : "Cleaning Event Request 1",
-                start : "2019-01-29T11:46:31Z",
-                end : "2019-01-29T16:46:31Z",
-                url : "https://google.com",
-            }
-        ]
+        // events: [
+        //     {
+        //         title  : 'Cleaning',
+        //         start  : '2019-01-19',
+        //         end    : '2019-01-20'
+        //     },
+        //     {
+        //         title  : 'Checkout',
+        //         start  : '2019-01-18T11:30:00',
+        //         end    : '2019-01-18T12:30:00'
+        //     },
+        //     {
+        //         title  : 'Cleaning',
+        //         start  : '2019-01-18T11:30:00',
+        //         end    : '2019-01-18T12:30:00'
+        //     },
+        //     {
+        //         title  : 'Checkout',
+        //         start  : '2019-01-18T11:30:00',
+        //         end    : '2019-01-18T12:30:00'
+        //     },
+        //     {
+        //         title  : 'Cleaning',
+        //         start  : '2019-01-18T11:30:00',
+        //         end    : '2019-01-18T12:30:00'
+        //     },
+        //     {
+        //         title  : 'Checkout',
+        //         start  : '2019-01-09T12:30:00',
+        //         allDay : false // will make the time show
+        //     },
+        //     {
+        //         title : "Cleaning Event Request 1",
+        //         start : "2019-01-29T11:46:31Z",
+        //         end : "2019-01-29T16:46:31Z",
+        //         url : "https://google.com",
+        //     }
+        
     
     })
+}
 
     function viewMonth(e){
         e.preventDefault()

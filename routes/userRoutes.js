@@ -6,6 +6,7 @@ const
 module.exports = router
 // User CRUD Routes
   .get('/', userController.index)
+  .get('/:_id', userController.findUser)
   .post('/signup', userController.signup)
   .post('/login', userController.login)
   .patch('/update', userController.update)
