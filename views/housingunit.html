@@ -121,12 +121,12 @@
           placeholder="Kitchen"
         />
         <br/>
-          <button class="hideButton" type="submit" >Submit</button>
+          <button type="submit" >Submit</button>
           <button class="hideButton" >Cancel</button>
       </form>
     </section>
     <section>
-      <button class="hideButtonUpdate">Update Housing Unit</button> 
+      <!-- <button class="hideButtonUpdate">Update Housing Unit</button>  -->
       <form class="updateHousingUnitForm hide">
         <h2>Update: Housing Unit</h2>
           <label>Address</label>
@@ -221,24 +221,10 @@
         <button class="hideButtonUpdate">Cancel</button>
         </form>
     </section>
-    <section>
-      <h2>Delete: Housing Unit</h2>
-      <form class="deleteHousingUnitForm" enctype="multipart/form-data" method="DELETE">
-        <label>Housing Unit ID</label>
-        <input
-          id="signup-username"
-          type="text"
-          name="username"
-          placeholder="HousingUnitID"
-        />
-        <button type="submit">Submit</button>
-        <button>Cancel</button>
-      </form>
-    </section>
-
+    
 
     <section>
-        <button class="hideButtonCreateC">Create Cleaning Event</button>  
+        <!-- <button class="hideButtonCreateC">Create Cleaning Event</button>   -->
         <div id="form-messages"></div>
         <form class="createCleaningEventForm hide" enctype="multipart/form-data" method="POST">
           <h2>Create Cleaning Event</h2>
@@ -361,12 +347,19 @@
               <option value="true">Ues</option>
             </select>
           <br/>
-            <button class="hideButtonCreateC" type="submit" >Submit</button>
+            <button type="submit" >Submit</button>
             <button class="hideButtonCreateC">Cancel</button>
         </form>
       </section>
+
+<section>
+          <h2>Your Housing Units</h2>
+          <div class="userHUWrapper">
+          </div>
+</section>
+
       <section>
-        <button class="hideButtonUpdateC">Update Cleaning Event</button>
+        <button class="submit">Update Cleaning Event</button>
         <form class="updateCleaningEventForm hide">
         <h2>Update: Cleaning Event</h2>
           <label>Cal. Title</label>
@@ -502,8 +495,8 @@
             name="username"
             placeholder="HousingUnitID"
           />
-          <button type="submit">Submit</button>
-          <button>Cancel</button>
+          <button  type="submit">Submit</button>
+          <button class="hideButton">Cancel</button>
         </form>
       </section>
 

@@ -2,16 +2,6 @@
 
 $(document).ready(function(){
     console.log("jQuery up and running");
-    // let now = new Date()
-    // let testMoment = moment(now).format('LLLL')
-    // console.log(testMoment)
-
-    
-
-
-
-
-
 
 // CRUD API Endpoints
 let signUpUrl = '/users/signup'
@@ -23,7 +13,6 @@ let getHousingUnitsUrl = '/users/housingunits/index'
 let createHousingUnitUrl = '/users/housingunits/create'
 let updateHousingUnitUrl = '/users/housingunits/update'
 let updateHouseingUnitForm = '/users/housingunits/'
-let deleteHousingUnitUrl = '/users/housingunits/'
 let createCleaningEventUrl = '/users/housingunits/cleaningevents/create'
 let updateCleaningEventUrl = '/users/housingunits/cleaningevents/update'
 let deleteCleaningEventUrl = '/users/housingunits/cleaningevents/:_id'
@@ -32,10 +21,9 @@ let updateReviewUrl = '/users/housingunits/cleaningevents/review/update'
 let deleteReviewUrl = '/users/housingunits/cleaningevents/review/:_id'
 
 
-
 let user ;
 let loggedIn ;
-let userIdHU;
+let housingUnitId;
 
 
 checkForLogin()
@@ -62,6 +50,7 @@ function hideHUUpdateForm(e) {
 
 $('.hideButtonCreateC').on('click', hideCEForm)
 function hideCEForm(e) {
+
     e.preventDefault()
     $('.createCleaningEventForm').toggleClass('hide')
 }
@@ -85,11 +74,22 @@ function hideRUForm(e) {
 }
 
 $('.userHUWrapper').on('click', '.hideButtonUpdate', function() {
-    userIdHU = $(this).data()
-    console.log(userIdHU)
+    housingUnitId = $(this).data()
+    console.log(housingUnitId)
     updateHousingUnitFormData()
 })
 
+$('.userHUWrapper').on('click', '.deleteHousingUnitButton', function() {
+    housingUnitId = $(this).data()
+    console.log(housingUnitId)
+    deleteHousingUnit()  
+})
+
+$('.userHUWrapper').on('click', '.hideButtonCreateC', function() {
+    housingUnitId = $(this).data()
+    console.log(housingUnitId)
+    $('.createCleaningEventForm').toggleClass('hide')
+})
 
 // User
 $('.signUpForm').on('submit', submitSignup)
@@ -316,8 +316,10 @@ function getUserHousingUnits(){
                 <li>Special Requirements: ${unit.specialRequirements}</li>
                 <li>Cleaning Tips: ${unit.cleanerTip}</li>
                 <li>Host Tips: ${unit.hostTips}</li>
+                <button data-id=${unit._id} class="hideButtonUpdate">Update Housing Unit</button>
+                <button data-id=${unit._id} class="deleteHousingUnitButton">Delete Housing Unit</button>
+                <button data-id=${unit._id} class="hideButtonCreateC">Create Cleaning Event</button>
                 </div>
-                <button data-id=${unit._id} class="hideButtonUpdate">Update Housing Unit</button> 
                 `
             $('.userHUWrapper').append(card1)
             })   
@@ -325,27 +327,9 @@ function getUserHousingUnits(){
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function createHousingUnit(e){
     e.preventDefault();
+    $('.createHousingUnitForm').toggleClass('hide')
     console.log("submit create housing unit clicked")
     let signUpData = {
         hostID: localStorage.userId,
@@ -379,6 +363,7 @@ function createHousingUnit(e){
         function onSuccess (newHousingUnit) {
             console.log(`HousingUnit Created:`, newHousingUnit)
             localStorage.housingUnitId = newHousingUnit._id
+            getUserHousingUnits()
         }   
         };    
 
@@ -424,7 +409,7 @@ function updateHousingUnitFormData(){
     console.log("submit update housing unit form data clicked")
     $.ajax({
         method: 'GET',
-        url: updateHouseingUnitForm + userIdHU.id,
+        url: updateHouseingUnitForm + housingUnitId.id,
         success: onSuccess,
         error: onError
     });
@@ -450,8 +435,21 @@ function updateHousingUnitFormData(){
     
     }   
 
-
-
+function deleteHousingUnit(){
+    $.ajax({
+        method: 'DELETE',
+        url: updateHouseingUnitForm + housingUnitId.id,
+        success: onSuccess,
+        error: onError
+    });
+    function onError ( err ) {
+        console.log( err );
+        console.log("Delete  error",err)
+        }
+    function onSuccess (deletedHousingUnit) {
+        console.log("Deleted Housing Unit", deletedHousingUnit)
+}
+}
 
 
     // let signUpData = {
@@ -493,7 +491,7 @@ function createCleaningEvent(e){
     e.preventDefault();
     console.log("submit create cleaning event clicked")
     let signUpData = {
-        housingUnit: localStorage.housingUnitId,
+        housingUnit: housingUnitId.id,
         title: $('#cleaningEventTitle').val(),
         start: moment($('#cleaningEventStart').val()).toISOString(),
         end: moment($('#cleaningEventEnd').val()).toISOString(),
