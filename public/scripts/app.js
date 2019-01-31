@@ -181,15 +181,22 @@ function submitLogin(e){
         json: true,
         contentType : 'application/json',
         data: JSON.stringify(signInData),
-    }).done(function signupSuccess(json) {
-        console.log("LOG IN SUCCESSFUL")
-        console.log(json);
-        localStorage.token = json.token;
-        localStorage.cleaner = json.cleaner.cleaner 
-        checkForLogin();
-    }).fail(function signupError(e1,e2,e3) {
-        console.log(e2);
+        success: function signupSuccess(json) {
+            console.log(json);
+            if (json.token){
+                localStorage.token = json.token;
+                localStorage.cleaner = json.cleaner.cleaner 
+                checkForLogin();
+            } else {
+                console.log(json)
+            }
+            
+        },
+        error: function signupError(e1,e2,e3) {
+            console.log(e2);
+        }
     })
+    
 }
 
 function checkForLogin(){
