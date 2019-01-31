@@ -61,9 +61,10 @@ module.exports = {
         if (user) {
           bcrypt.compare(req.body.password, user.password, (err, match) => {
             if (match) {
+              let cleaner = { cleaner: user.cleaner }
               let payload = { id: user.id }
               let token = jwt.encode(payload, config.jwtSecret)
-              res.json({ token })
+              res.json({ token, cleaner })
             } else {
               res.json({error:'username/password incorrect'})
             }

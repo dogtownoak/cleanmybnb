@@ -31,10 +31,14 @@ $(document).ready(function(){
         defaultView: 'month',
         // sample callback function
         eventClick: function(calEvent, jsEvent, view) {
-
-            alert('Event: ' + calEvent.title);
-            alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-            alert('View: ' + view.name);
+            console.log(`Cleaning Event Clicked:`, calEvent)
+            if (event.url) {
+                window.open(event.url);
+                return false;
+            }
+            // alert('Event: ' + calEvent.title);
+            // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+            // alert('View: ' + view.name);
         
             // change the border color just for fun
             $(this).css('border-color', 'red');
@@ -43,17 +47,24 @@ $(document).ready(function(){
         header: {
             left: 'prev,next today myCustomButton',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            right: 'month,agendaWeek,agendaDay,listMonth'
             },
         selectable: true,
         selectableHelper: true,
+        selectHelper: true,
         editable: true,
         eventStartEditable: true,
         eventDurationEditable: true,
         eventResourceEditable: true,       
         eventLimit: true,
         droppable: true,
+        nowIndicator: true,
         events: cleaningEvents,
+        // eventRender: function(event, element) {
+        //     element.qtip({
+        //         content: event.description
+        //     });
+        // }
 
         // events: [
         //     {

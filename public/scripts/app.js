@@ -13,6 +13,7 @@ let getHousingUnitsUrl = '/users/housingunits/index'
 let createHousingUnitUrl = '/users/housingunits/create'
 let updateHousingUnitUrl = '/users/housingunits/update'
 let updateHouseingUnitForm = '/users/housingunits/'
+let getUserCleaningEventsUrl = '/users/housingunits/cleaningevents/index'
 let createCleaningEventUrl = '/users/housingunits/cleaningevents/create'
 let updateCleaningEventUrl = '/users/housingunits/cleaningevents/update'
 let deleteCleaningEventUrl = '/users/housingunits/cleaningevents/:_id'
@@ -28,6 +29,7 @@ let housingUnitId;
 
 checkForLogin()
 getUserHousingUnits()
+getUserCleaningEvents()
 
 $('.hideButton').on('click', hideUserForm)
 function hideUserForm(e) {
@@ -144,6 +146,7 @@ function submitSignup(e){
             console.log(`User Created:`, newUser)
             localStorage.token = newUser.token
             localStorage.userId = newUser.payload.user._id
+            localStorage.cleaner = newUser.payload.user.cleaner
             user = newUser.payload
             console.log(user)
     }   
@@ -157,7 +160,6 @@ function submitLogin(e){
         password: $('#signIn-password').val(),
         email: $('#signIn-email').val()
     }
-    console.log("LOGIN: ", signInData)
     $.ajax({
         method: "POST",
         url: loginUrl,
@@ -167,7 +169,8 @@ function submitLogin(e){
     }).done(function signupSuccess(json) {
         console.log("LOG IN SUCCESSFUL")
         console.log(json);
-        localStorage.token = json.token;    
+        localStorage.token = json.token;
+        localStorage.cleaner = json.cleaner.cleaner 
         checkForLogin();
     }).fail(function signupError(e1,e2,e3) {
         console.log(e2);
@@ -211,6 +214,7 @@ function handleLogout(e) {
     delete localStorage.housingUnitId
     delete localStorage.reviewId
     delete localStorage.cleaningEventId
+    delete localStorage.cleaner
     user = null;
     checkForLogin();
 }
@@ -485,6 +489,76 @@ function deleteHousingUnit(){
     //             console.log(`HousingUnit Updated:`, updatedHousingUnit)
     //             }   
     //             };
+    function getUserCleaningEvents(){
+        $.ajax({
+            method: 'GET',
+            url: getUserCleaningEventsUrl ,
+            success: onSuccess,
+            error: onError
+        });
+            function onError ( err ) {
+                console.log( err );
+                console.log("get error",err)
+            }
+            function onSuccess (cleaningEvents) {
+                console.log(`cleaningEvent Arr:`, cleaningEvents)
+
+                let userCleaningEvents = cleaningEvents.filter(cleaningEvent => cleaningEvent.hostId === localStorage.userId || cleaningEvent.cleanerId === localStorage.userId)
+                console.log(`User Cleaning Events`, userCleaningEvents)
+
+                userCleaningEvents.forEach(cleaningEvent => {
+                    let card1 =
+                    `<div data=${cleaningEvent._id}>
+                    <li>housingUnit: ${cleaningEvent.housingUnit}</li>
+                    <li>Title: ${cleaningEvent.title}</li>
+                    <li>Start: ${cleaningEvent.start}</li>
+                    <li>End: ${cleaningEvent.end}</li>
+                    <li>Address: ${cleaningEvent.address}</li>
+                    <li>Guest Checkout: ${cleaningEvent.guestCheckout}</li>
+                    <li>Next Guest Checkin: ${cleaningEvent.nextGuestCheckIn}</li>
+                    <li>Cleaning Price: ${cleaningEvent.finalPriceCleaning}</li>
+                    <li>Paid: ${cleaningEvent.paid}</li>
+                    
+                    <button data-id=${cleaningEvent._id} class="hideButtonUpdate">Update Cleaning Event</button>
+                    <button data-id=${cleaningEvent._id} class="deleteHousingUnitButton">Delete Cleaning Event</button>
+                    <button data-id=${cleaningEvent._id} class="hideButtonCreateC">Create Cleaning Event</button>
+                    </div>
+                    `
+                $('.userCEWrapper').append(card1)
+                })   
+            }   
+    };
+
+    function deleteC(){
+        $.ajax({
+            method: 'DELETE',
+            url: updateHouseingUnitForm + housingUnitId.id,
+            success: onSuccess,
+            error: onError
+        });
+        function onError ( err ) {
+            console.log( err );
+            console.log("Delete  error",err)
+            }
+        function onSuccess (deletedHousingUnit) {
+            console.log("Deleted Housing Unit", deletedHousingUnit)
+    }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Cleaning Event
 function createCleaningEvent(e){
@@ -492,6 +566,7 @@ function createCleaningEvent(e){
     console.log("submit create cleaning event clicked")
     let signUpData = {
         housingUnit: housingUnitId.id,
+        hostId: localStorage.userId,
         title: $('#cleaningEventTitle').val(),
         start: moment($('#cleaningEventStart').val()).toISOString(),
         end: moment($('#cleaningEventEnd').val()).toISOString(),

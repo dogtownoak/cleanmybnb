@@ -45,6 +45,10 @@ const CleaningEventSchema = new Schema({
     cleanerId: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    hostId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 
 
