@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Clean My BNB</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <script src="scripts/jQuery.js" defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css">
     <link rel="stylesheet" type="text/css" href="styles/fullcalendar.css" />
 
@@ -27,20 +28,46 @@
     </nav>
   </header>
     <section>
-        <div id='calendar'></div>
+        <div class="" id='calendar'></div>
     </section>
+    <section>
+        <div class="calCEModalWrapper">
+        </div>
+    </section>
+    <section>
     
+    </section>
   <main>
-
+      <div class="ui modal">
+          <i class="close icon"></i>
+          <div class="header">
+            Modal Title
+          </div>
+          <div class="image content">
+            <div class="image">
+              An image can appear on left or an icon
+            </div>
+            <div class="description">
+              A description can appear on the right
+            </div>
+          </div>
+          <div class="actions">
+            <div class="ui button">Cancel</div>
+            <div class="ui button">OK</div>
+          </div>
+        </div>
   </main>
   <footer>
+      
     <h4>Footer</h4>
   </footer>
   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js" defer></script>
   <script src="scripts/moment.js"></script>
   <script src="scripts/app.js" defer></script>
-  <script src="scripts/fullcalendar.js" defer></script>
+  <script src="scripts/fullcalendar.js" async defer></script>
+  <script src="semantic/dist/semantic.min.js"></script>
+
 
 
 </body>

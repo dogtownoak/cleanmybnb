@@ -1,5 +1,7 @@
 * {
     font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+
 }
 
 li a {
@@ -9,3 +11,18 @@ li a {
 .hide {
     display: none;
 }
+
+#map {
+    height: 100%;
+  }
+  /* Optional: Makes the sample page fill the window. */
+  /* html, body {
+    height: 50%;
+    margin: 0;
+    padding: 0;
+  } */
+
+
+
+
+

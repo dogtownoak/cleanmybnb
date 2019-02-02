@@ -108,7 +108,7 @@ module.exports = {
     })
   },
   updateHousingUnit: (req, res) => {
-    console.log(req.body)
+    console.log("req.body")
         HousingUnit.findByIdAndUpdate(req.body._id, req.body, {new : true}, (err, housingUnit) => {
           if (err) return res.status(500).send(err);
           return res.send(housingUnit)

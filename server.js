@@ -6,10 +6,6 @@ const
     ctrl = require('./controllers'),
     passport = require('./config/passport')(),
     routes = require('./routes')
-    var moment = require('moment');
-
-
-
 
 const app = express()
 

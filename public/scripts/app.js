@@ -34,77 +34,249 @@ getUserCleaningEvents()
 $('.hideButton').on('click', hideUserForm)
 function hideUserForm(e) {
     e.preventDefault()
-    $('.updateUser').toggleClass('hide')
+    // $('.updateUser').toggleClass('hide')
 }
 
 $('.hideButton').on('click', hideHUCreateForm)
 function hideHUCreateForm(e) {
     e.preventDefault()
-    $('.createHousingUnitForm').toggleClass('hide')
+    // $('.createHousingUnitForm').toggleClass('hide')
 }
 
-$('.hideButtonUpdate').on('click', hideHUUpdateForm)
-function hideHUUpdateForm(e) {
-    updateHousingUnitFormData()
-    e.preventDefault()
-    $('.updateHousingUnitForm').toggleClass('hide')
-}
+// $('.hideButtonUpdate').on('click', hideHUUpdateForm)
+// function hideHUUpdateForm(e) {
+//     updateHousingUnitFormData()
+//     e.preventDefault()
+//     // $('.updateHousingUnitForm').toggleClass('hide')
+// }
 
 $('.hideButtonCreateC').on('click', hideCEForm)
 function hideCEForm(e) {
 
     e.preventDefault()
-    $('.createCleaningEventForm').toggleClass('hide')
+    // $('.createCleaningEventForm').toggleClass('hide')
 }
 
-$('.hideButtonUpdateC').on('click', hideCEUForm)
-function hideCEUForm(e) {
-    e.preventDefault()
-    $('.updateCleaningEventForm').toggleClass('hide')
-}
+// $('.hideButtonUpdateC').on('click', hideCEUForm)
+// function hideCEUForm(e) {
+//     e.preventDefault()
+//     // $('.updateCleaningEventForm').toggleClass('hide')
+// }
 
 $('.hideButtonCreateR').on('click', hideRCreateForm)
 function hideRCreateForm(e) {
     e.preventDefault()
-    $('.createReviewForm').toggleClass('hide')
+    // $('.createReviewForm').toggleClass('hide')
 }
 
 $('.hideButtonUpdateR').on('click', hideRUForm)
 function hideRUForm(e) {
     e.preventDefault()
-    $('.updateReviewForm').toggleClass('hide')
+    // $('.updateReviewForm').toggleClass('hide')
 }
 
-$('.userHUWrapper').on('click', '.hideButtonUpdate', function() {
-    housingUnitId = $(this).data()
-    console.log(housingUnitId)
-    updateHousingUnitFormData()
 
-})
 
 $('.userHUWrapper').on('click', '.deleteHousingUnitButton', function() {
     housingUnitId = $(this).data()
     console.log(housingUnitId)
-    deleteHousingUnit()  
+    deleteHousingUnit()
+    location.reload()
 })
 
 $('.userHUWrapper').on('click', '.hideButtonCreateC', function() {
     housingUnitId = $(this).data()
     console.log(housingUnitId)
-    $('.createCleaningEventForm').toggleClass('hide')
-})
-$('.userCEWrapper').on('click', '.deleteCleaningEventButton', function() {
-    cleaningEventId = $(this).data()
-    console.log(cleaningEventId)
-    deleteCleaningEvent() 
+    showCreateCEmodal()
+
+
 })
 
-$('.userCEWrapper').on('click', '.hideButtonUpdate', function() {
+
+$('.userHUWrapper').on('click', '.hideButtonUpdateHU', function() {
+    
+    housingUnitId = $(this).data()
+    console.log(`this is it ${housingUnitId.id}`)
+    updateHousingUnitFormData()
+    showUpdateHUmodal()
+    
+})
+
+$('.userHUWrapper').on('click', '.hideButtonCreateHU', function() {
+    
+    housingUnitId = $(this).data()
+    console.log(`this is it ${housingUnitId.id}`)
+    showCreateHUmodal()
+    
+})
+
+// $('.userHUWrapper').on('click', '.hideButtonUpdateHU', function() {
+//     closeModalHE()
+
+// })
+
+
+
+
+$('.userCEWrapper').on('click', '.hideButtonUpdateCE', function(e) {
+    e.preventDefault()
     cleaningEventId = $(this).data()
     console.log(cleaningEventId)
     console.log("udpate cleaning event form clicked")
     updateCleaningEventFormData()
+    showModal()
 })
+
+$('.userCEWrapper').on('click', '.deleteCleaningEventButton', function() {
+    cleaningEventId = $(this).data()
+    console.log(cleaningEventId)
+    deleteCleaningEvent()
+    location.reload()
+})
+
+$('.userCEWrapper').on('click', '.assignCleanerButton', function() {
+    cleaningEventId = $(this).data()
+    console.log(cleaningEventId)
+    console.log("assign cleaner clicked")
+    addCleanerCleaningEvent()
+    if(localStorage.cleaner === true ){
+        console.log("I'm a cleaner")
+        addCleanerCleaningEvent()
+    } else {
+        console.log("Hey you are not a cleaner!")
+    }
+})
+
+$('.userCEWrapper').on('click', '.deleteCleanerButton', function() {
+    cleaningEventId = $(this).data()
+    console.log(cleaningEventId)
+    console.log("delete cleaner clicked")
+    deleteCleanerCleaningEvent()
+    if(localStorage.cleaner === true ){
+        console.log("I'm a cleaner")
+    } else {
+        console.log("Hey you are not a cleaner!")
+    }
+    location.reload()
+})
+
+
+$('.body').on('click', '.sendData', function(){
+
+$('.updateHousingUnitForm').form('submit', updateHousingUnit())
+})
+
+function showModal() {
+        console.log('open modal')
+        $('.longer.modal.CE').modal({
+            blurring: true,
+            closable : false,
+            useCSS   : true
+        })
+        .modal('show') 
+}
+
+function showUpdateHUmodal() { $('.modal.updateHUModal').modal({
+        blurring: true,
+        closable : false,
+        useCSS   : true
+    })
+    .modal('show') 
+}
+
+function showCreateHUmodal() { $('.modal.createHUModal').modal({
+    blurring: true,
+    closable : false,
+    useCSS   : true
+})
+.modal('show') 
+}
+
+function showCreateCEmodal() { $('.modal.createCE').modal({
+    blurring: true,
+    closable : false,
+    useCSS   : true
+})
+.modal('show') 
+}
+
+// // Hide HU Update Modal
+// $('.cancelModalHU').on('click', function(){
+//     location.reload()
+// })
+
+
+// used on form stubmit: using "this modal" works but there is a delay when closing
+// function closeModalCE() {
+//         $('.longer.modal.CE').modal('hide') 
+// }
+function closeModalHU() {
+    $('.modal.updateHUModal').modal('hide') 
+}
+// function closeModalU() {
+//     $('.longer.modal').modal('hide') 
+// }
+// function closeModalR() {
+//     $('.longer.modal').modal('hide') 
+// }
+
+$('.modalTestButton').on('click', function(){
+    console.log('click')
+    $('.longer.modal').modal({
+        blurring: true,
+        closable : false,
+        useCSS   : true
+    })
+    .modal('show')      
+})
+
+$('.cancelMo').on('click', function(){
+    $('.longer.modal')
+    .modal('hide')
+    location.reload()
+})
+
+$('.cancelModalHU').on('click', function(){
+    $('.longer.modal')
+    .modal('hide')
+    location.reload()
+})
+
+$('.cancelModalCHU').on('click', function(){
+    $('.longer.modal')
+    .modal('hide')
+    location.reload()
+})
+
+$('.cancelModalCE').on('click', function(){
+    $('.longer.modal')
+    .modal('hide')
+    location.reload()
+})
+
+$('.updateHUModal').on('click', function(){
+    console.log('click')
+    $('.modal.updateHUModal').modal({
+        blurring: true,
+        closable : false,
+        useCSS   : true
+    })
+    .modal('show')      
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -278,8 +450,9 @@ function updateUser(e) {
     };
 
 function updateUserFormData(e) {
+        
         e.preventDefault();
-        $('.updateUser').toggleClass('hide')
+        // $('.updateUser').toggleClass('hide')
         console.log("Update User Form with Data")
         $.ajax({
             method: 'GET',
@@ -333,7 +506,7 @@ function getUserHousingUnits(){
                 `<div data=${unit._id}>
                 <li>Address: ${unit.address}</li>
                 <li>Unit Description: ${unit.unitDescription}</li>
-                <li>Airbnb: ${unit.airbnbURL}</li>
+                <li>Airbnb: <a href="${unit.airbnbURL}" >Airbnb Unit</a></li>
                 <li>Square Footage: ${unit.sizeSqFt}</li>
                 <li>Rooms: ${unit.sizeRooms}</li>
                 <li>Beds: ${unit.sizeBeds}</li>
@@ -342,9 +515,14 @@ function getUserHousingUnits(){
                 <li>Special Requirements: ${unit.specialRequirements}</li>
                 <li>Cleaning Tips: ${unit.cleanerTip}</li>
                 <li>Host Tips: ${unit.hostTips}</li>
-                <button data-id=${unit._id} class="hideButtonUpdate">Update Housing Unit</button>
-                <button data-id=${unit._id} class="deleteHousingUnitButton">Delete Housing Unit</button>
-                <button data-id=${unit._id} class="hideButtonCreateC">Create Cleaning Event</button>
+                
+                <button data-id=${unit._id} class="ui button createHUModal hideButtonCreateHU">Create Housing Unit</button>
+                
+                <button data-id=${unit._id} class="ui button updateHUModal hideButtonUpdateHU">Update Housing Unit</button>
+
+
+                <button data-id=${unit._id} class="ui button deleteHousingUnitButton">Delete Housing Unit</button>
+                <button data-id=${unit._id} class="ui button hideButtonCreateC">Create Cleaning Event</button>
                 </div>
                 `
             $('.userHUWrapper').append(card1)
@@ -355,7 +533,7 @@ function getUserHousingUnits(){
 
 function createHousingUnit(e){
     e.preventDefault();
-    $('.createHousingUnitForm').toggleClass('hide')
+    // $('.createHousingUnitForm').toggleClass('hide')
     console.log("submit create housing unit clicked")
     let signUpData = {
         hostID: localStorage.userId,
@@ -394,10 +572,11 @@ function createHousingUnit(e){
         };    
 
 function updateHousingUnit(e){
+    console.log(housingUnitId.id)
     e.preventDefault();
     console.log("submit update housing unit clicked")
     let signUpData = {
-        _id: userIdHU,
+        _id: housingUnitId.id,
         address: $('#housingUnitAddressU').val(),
         unitDescription: $('#housingUnitDescriptionU').val(),
         airbnbURL: $('#housingUnitAirbnbURLU').val(),
@@ -410,11 +589,10 @@ function updateHousingUnit(e){
         sizeBeds: $('#housingUnitSizeBedsU').val(),
         sizeKitchen: $('#housingUnitSizeKitchenU').val()
         }
-    console.log(signUpData)
     console.log(JSON.stringify(signUpData))
     $.ajax({
         method: 'PATCH',
-        url: updateHousingUnitUrl,
+        url: updateHousingUnitUrl ,
         json: true,
         contentType : 'application/json',
         data: JSON.stringify(signUpData),
@@ -431,7 +609,7 @@ function updateHousingUnit(e){
         };
 
 function updateHousingUnitFormData(){
-    $('.updateHousingUnitForm').toggleClass('hide')
+    // $('.updateHousingUnitForm').toggleClass('hide')
     console.log("submit update housing unit form data clicked")
     $.ajax({
         method: 'GET',
@@ -479,6 +657,7 @@ function deleteHousingUnit(){
 
     // Cleaning Events
 function getUserCleaningEvents(){
+
         $.ajax({
             method: 'GET',
             url: getUserCleaningEventsUrl ,
@@ -508,8 +687,11 @@ function getUserCleaningEvents(){
                     <li>Cleaning Price: ${cleaningEvent.finalPriceCleaning}</li>
                     <li>Paid: ${cleaningEvent.paid}</li>
                     
-                    <button type="submit" data-id=${cleaningEvent._id} class="hideButtonUpdate">Update Cleaning Event</button>
-                    <button data-id=${cleaningEvent._id} class="deleteCleaningEventButton">Delete Cleaning Event</button>
+                    <button type="submit" data-id=${cleaningEvent._id} class="ui button hideButtonUpdateCE">Update Cleaning Event</button>
+
+                    <button data-id=${cleaningEvent._id} class="ui button deleteCleaningEventButton">Delete Cleaning Event</button>
+                    <button data-id=${cleaningEvent._id} class="ui button assignCleanerButton">Assign Cleaner</button>
+                    <button data-id=${cleaningEvent._id} class="ui button deleteCleanerButton">Delete Cleaner</button>
                     </div>
                     `
                 $('.userCEWrapper').append(card1)
@@ -534,7 +716,7 @@ function getUserCleaningEvents(){
     }
 
     function updateCleaningEventFormData(){
-        $('.updateCleaningEventForm').toggleClass('hide')
+        
         console.log("submit update cleaning event form data clicked")
         $.ajax({
             method: 'GET',
@@ -559,7 +741,7 @@ function getUserCleaningEvents(){
                 $('input[id="cleaningEventPaidU"]').val(cleaningEvent[0].paid)
     
             }   
-        
+            // $('.updateCleaningEventForm').toggleClass('hide')
         
         }   
 
@@ -656,6 +838,56 @@ function updateCleaningEvent(e){
         }   
         };
 
+function addCleanerCleaningEvent(){
+    console.log("cleaner ajax function")
+    let cleanerUpdate = {
+        _id: cleaningEventId.id,
+        cleanerId: localStorage.userId
+    }
+
+    $.ajax({
+        method: 'PATCH',
+        url: updateCleaningEventUrl,
+        json: true,
+        contentType : 'application/json',
+        data: JSON.stringify(cleanerUpdate),
+        success: onSuccess,
+        error: onError
+    });
+        function onError ( err ) {
+        console.log( err );
+        console.log("PATCH update error",err)
+        }
+        function onSuccess (updatedCleaningEvent) {
+        console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+        }   
+        };
+
+function deleteCleanerCleaningEvent(){
+    console.log("cleaner delete ajax")
+    let cleanerUpdate = {
+        _id: cleaningEventId.id,
+        cleanerId: null
+    }
+
+    $.ajax({
+        method: 'PATCH',
+        url: updateCleaningEventUrl,
+        json: true,
+        contentType : 'application/json',
+        data: JSON.stringify(cleanerUpdate),
+        success: onSuccess,
+        error: onError
+    });
+        function onError ( err ) {
+        console.log( err );
+        console.log("PATCH update error",err)
+        }
+        function onSuccess (updatedCleaningEvent) {
+        console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+        }
+}
+
 // Review
 function createReview(e){
     e.preventDefault();
@@ -726,4 +958,10 @@ function updateReview(e){
         console.log(`Review Updated:`, updatedReview)
         }   
         };
+
+
+
+
+        
+
 });

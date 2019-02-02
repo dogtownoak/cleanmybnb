@@ -8,6 +8,9 @@ $(document).ready(function(){
     $('.viewAgendaWeek').on('click', viewAgendaWeek)
     $('.viewListWeek').on('click', viewListWeek)
     
+    
+;
+
     let indexCleaningEventUrl = 'users/housingunits/cleaningevents/index'
 
     $.ajax({
@@ -32,6 +35,18 @@ $(document).ready(function(){
         // sample callback function
         eventClick: function(calEvent, jsEvent, view) {
             console.log(`Cleaning Event Clicked:`, calEvent)
+            console.log(calEvent.title)
+
+            let card2 =(
+                `<p>Test ${calEvent.title}</p>
+                <button data-id=${calEvent._id} class="assignCleanerButton">Assign Cleaner</button>
+                <button data-id=${calEvent._id} class="deleteCleanerButton">Delete Cleaner</button>
+                    </div>`
+            )
+            $('.calCEModalWrapper').append(card2)
+
+
+
             if (event.url) {
                 window.open(event.url);
                 return false;
@@ -59,50 +74,8 @@ $(document).ready(function(){
         eventLimit: true,
         droppable: true,
         nowIndicator: true,
-        events: cleaningEvents,
-        // eventRender: function(event, element) {
-        //     element.qtip({
-        //         content: event.description
-        //     });
-        // }
+        events: cleaningEvents
 
-        // events: [
-        //     {
-        //         title  : 'Cleaning',
-        //         start  : '2019-01-19',
-        //         end    : '2019-01-20'
-        //     },
-        //     {
-        //         title  : 'Checkout',
-        //         start  : '2019-01-18T11:30:00',
-        //         end    : '2019-01-18T12:30:00'
-        //     },
-        //     {
-        //         title  : 'Cleaning',
-        //         start  : '2019-01-18T11:30:00',
-        //         end    : '2019-01-18T12:30:00'
-        //     },
-        //     {
-        //         title  : 'Checkout',
-        //         start  : '2019-01-18T11:30:00',
-        //         end    : '2019-01-18T12:30:00'
-        //     },
-        //     {
-        //         title  : 'Cleaning',
-        //         start  : '2019-01-18T11:30:00',
-        //         end    : '2019-01-18T12:30:00'
-        //     },
-        //     {
-        //         title  : 'Checkout',
-        //         start  : '2019-01-09T12:30:00',
-        //         allDay : false // will make the time show
-        //     },
-        //     {
-        //         title : "Cleaning Event Request 1",
-        //         start : "2019-01-29T11:46:31Z",
-        //         end : "2019-01-29T16:46:31Z",
-        //         url : "https://google.com",
-        //     }
         
     
     })
@@ -124,6 +97,88 @@ $(document).ready(function(){
         e.preventDefault()
         $('#calendar').fullCalendar('changeView', 'listWeek'); 
     }
+
+    let updateCleaningEventUrl = '/users/housingunits/cleaningevents/update'
+
+    $('.calCEModalWrapper').on('click', '.assignCleanerButton', function() {
+        cleaningEventId = $(this).data()
+        console.log(cleaningEventId)
+        console.log("assign cleaner clicked")
+        addCleanerCleaningEvent()
+        if(localStorage.cleaner === true ){
+            console.log("I'm a cleaner")
+            addCleanerCleaningEvent()
+        } else {
+            console.log("Hey you are not a cleaner!")
+        }
+    })
+    
+    $('.calCEModalWrapper').on('click', '.deleteCleanerButton', function() {
+        cleaningEventId = $(this).data()
+        console.log(cleaningEventId)
+        console.log("delete cleaner clicked")
+        deleteCleanerCleaningEvent()
+        if(localStorage.cleaner === true ){
+            console.log("I'm a cleaner")
+        } else {
+            console.log("Hey you are not a cleaner!")
+        }
+    })
+
+    function addCleanerCleaningEvent(){
+        console.log("cleaner ajax function")
+        let cleanerUpdate = {
+            _id: cleaningEventId.id,
+            cleanerId: localStorage.userId
+        }
+    
+        $.ajax({
+            method: 'PATCH',
+            url: updateCleaningEventUrl,
+            json: true,
+            contentType : 'application/json',
+            data: JSON.stringify(cleanerUpdate),
+            success: onSuccess,
+            error: onError
+        });
+            function onError ( err ) {
+            console.log( err );
+            console.log("PATCH update error",err)
+            }
+            function onSuccess (updatedCleaningEvent) {
+            console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+            }   
+            };
+    
+    function deleteCleanerCleaningEvent(){
+        console.log("cleaner delete ajax")
+        let cleanerUpdate = {
+            _id: cleaningEventId.id,
+            cleanerId: null
+        }
+    
+        $.ajax({
+            method: 'PATCH',
+            url: updateCleaningEventUrl,
+            json: true,
+            contentType : 'application/json',
+            data: JSON.stringify(cleanerUpdate),
+            success: onSuccess,
+            error: onError
+        });
+            function onError ( err ) {
+            console.log( err );
+            console.log("PATCH update error",err)
+            }
+            function onSuccess (updatedCleaningEvent) {
+            console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+            }
+    }
+
+
+
+
+
 
 
 

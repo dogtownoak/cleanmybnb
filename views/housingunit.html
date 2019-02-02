@@ -6,11 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Clean My BNB</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="scripts/jQuery.js"></script>
+    <script src="scripts/jQuery.js" ></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css" >
+
+
+    <script src="semantic/dist/semantic.min.js" async defer ></script>
+    <script src="semantic/dist/semantic.min.js" ></script>
+    <script src="scripts/moment.js" ></script>
+    <script src="scripts/app.js" ></script>
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
 </head>
-<body>
+<body class="body">
   <header class="hidden">
     <nav>
       <h1>Under Construction</h1>
@@ -25,13 +32,14 @@
 
     <section>
       <h2>Your Housing Units</h2>
+      <button class="ui button">Test Semantic UI</button>
       <div class="userHUWrapper">
       </div>
     </section>
-    <section>
-      <button class="hideButton">Create Housing Unit</button>
+    <!-- <section>
+      <button class="ui button hideButton">Create Housing Unit</button>
       <div id="form-messages"></div>
-      <form class="createHousingUnitForm hide" enctype="multipart/form-data" method="POST">
+      <form class="createHousingUnitForm" enctype="multipart/form-data" method="POST">
         <h2>Create Housing Unit</h2>
         <label>Address</label>
         <input
@@ -125,9 +133,22 @@
           <button class="hideButton" >Cancel</button>
       </form>
     </section>
-    <section>
-      <!-- <button class="hideButtonUpdate">Update Housing Unit</button>  -->
-      <form class="updateHousingUnitForm hide">
+    <section> -->
+
+
+
+
+
+        <!-- <button class="ui button updateHUModal">Update Housing Unit Modal</button> -->
+        <!-- <div class="ui modal updateHUModal ">
+        <div class="content">
+
+
+
+    
+        <form id="updateHousingUnitForm" class="ui equal width form updateHousingUnitForm">
+       <div class="fields">
+          <div class="field">
         <h2>Update: Housing Unit</h2>
           <label>Address</label>
           <input
@@ -136,7 +157,8 @@
             name="address"
             placeholder="Address"
           />
-          <br/>
+        </div>
+        <div class="field">
           <label>Unit Description</label>
           <input
             id="housingUnitDescriptionU"
@@ -144,7 +166,8 @@
             name="unitdescription"
             placeholder="Unit Description"
           />
-          <br/>
+        </div>
+        <div class="field">
           <label>Airbnb URL</label>
           <input
             id="housingUnitAirbnbURLU"
@@ -152,7 +175,8 @@
             name="aribnburl"
             placeholder="Airbnb URL"
           />
-          <br/>
+        </div>
+        <div class="field">
           <label>Special Requirements</label>
           <input
             id="housingUnitSpecialReqU"
@@ -160,7 +184,8 @@
             name="specialrequirements"
             placeholder="Special Requirements"
           />
-          <br/>
+        </div>
+        <div class="field">
           <label>Host Tips</label>
           <input
             id="housingUnitHostTipsU"
@@ -168,7 +193,8 @@
             name="hosttips"
             placeholder="Host Tips"
           />
-          <br/>
+        </div>
+        <div class="field">
           <label>Cleaner Tips</label>
           <input
             id="housingUnitCleanerTipsU"
@@ -176,57 +202,78 @@
             name="cleanertips"
             placeholder="Cleaner Tips"
           />
-          <br/>
-          <label>Square Footage</label>
-          <input
-            id="housingUnitSizeSqFtU"
-            type="number"
-            name="squarefootage"
-            placeholder="Square Footage"
-          />
-          <br/>
-          <label>Rooms</label>
-          <input
-            id="housingUnitSizeRoomsU"
-            type="number"
-            name="rooms"
-            placeholder="Rooms"
-          />
-          <br/>
-          <label>Bathrooms</label>
-          <input
-            id="housingUnitSizeBathroomsU"
-            type="number"
-            name="bathrooms"
-            placeholder="Bathrooms"
-          />
-          <br/>
-          <label>Beds</label>
-          <input
-            id="housingUnitSizeBedsU"
-            type="number"
-            name="beds"
-            placeholder="Beds"
-          />
-          <br/>
-          <label>Kitchen</label>
-          <input
-            id="housingUnitSizeKitchenU"
-            type="text"
-            name="kitchen"
-            placeholder="Kitchen"
-          />
-          <br/>
-        <button class="hideButtonUpdate" type="submit">Update</button>
-        <button class="hideButtonUpdate">Cancel</button>
-        </form>
+        </div>
+        <div class="five fields">
+          <div class="field">
+            <label>Square Footage</label>
+            <input
+              id="housingUnitSizeSqFtU"
+              type="number"
+              name="squarefootage"
+              placeholder="Square Footage"
+            />
+          </div>
+          <div class="field">
+            <label>Rooms</label>
+            <input
+              id="housingUnitSizeRoomsU"
+              type="number"
+              name="rooms"
+              placeholder="Rooms"
+            />
+          </div>
+          <div class="field">
+            <label>Bathrooms</label>
+            <input
+              id="housingUnitSizeBathroomsU"
+              type="number"
+              name="bathrooms"
+              placeholder="Bathrooms"
+            />
+          </div>
+          <div class="field">
+            <label>Beds</label>
+            <input
+              id="housingUnitSizeBedsU"
+              type="number"
+              name="beds"
+              placeholder="Beds"
+            />
+          </div>
+          <div class="field">
+            <label>Kitchen</label>
+            <input
+              id="housingUnitSizeKitchenU"
+              type="text"
+              name="kitchen"
+              placeholder="Kitchen"
+            />
+          </div>
+        </div>
+      <div class="two fields">
+          <div class="field">
+              <button type="submit" class="ui button" >Submit</button>
+            </div>
+        <div class="field">
+          <button class="ui button hideButtonUpdateHU cancelMoHU">Cancel</button>
+        </div>
+      </div>
+    </div>
+    </form>
+
+</div>
+</div> -->
+
+
+
+
     </section>
     
 
     <section>
         <!-- <button class="hideButtonCreateC">Create Cleaning Event</button>   -->
-        <div id="form-messages"></div>
-        <form class="createCleaningEventForm hide" enctype="multipart/form-data" method="POST">
+        <!-- <div id="form-messages"></div>
+        <form class="createCleaningEventForm " enctype="multipart/form-data" method="POST">
           <h2>Create Cleaning Event</h2>
           <label>Cal. Title</label>
           <input
@@ -349,7 +396,7 @@
           <br/>
             <button type="submit" >Submit</button>
             <button class="hideButtonCreateC">Cancel</button>
-        </form>
+        </form> -->
       </section>
 
 <section>
@@ -360,7 +407,8 @@
 
       <section>
         <!-- <button class="submit">Update Cleaning Event</button> -->
-        <form class="updateCleaningEventForm hide">
+        
+        <!-- <form class="updateCleaningEventForm ">
         <h2>Update: Cleaning Event</h2>
           <label>Cal. Title</label>
           <input
@@ -483,13 +531,13 @@
           <br/>
             <button  type="submit" >Submit</button>
             <button class="hideButtonUpdateC">Cancel</button>
-        </form>
-      </section>
+        </form> -->
+      <!-- </section> -->
 
-      <section>
+      <!-- <section>
           <button class="hideButtonCreateR">Create Review</button>
           <div id="form-messages"></div>
-          <form class="createReviewForm hide" enctype="multipart/form-data" method="POST">
+          <form class="createReviewForm " enctype="multipart/form-data" method="POST">
             <h2>Create Review</h2>
             <label>Type</label>
             <input
@@ -539,7 +587,7 @@
         <section>
             <button class="hideButtonUpdateR">Update Review</button>
             <div id="form-messages"></div>
-            <form class="updateReviewForm hide" enctype="multipart/form-data" method="POST">
+            <form class="updateReviewForm " enctype="multipart/form-data" method="POST">
             <h2>Update Review</h2>
               <label>Type</label>
               <input
@@ -584,17 +632,634 @@
                 <button class="hideButtonUpdateR" type="submit" >Submit</button>
                 <button class="hideButtonUpdateR">Cancel</button>
             </form>
-          </section>
+          </section> -->
 
 
-  <main>
+
+
+
+
+
+
+
+<section>
+  <div class="ui longer modal createHUModal">
+  <div class="content">
+
+      <form class="ui equal width form createHousingUnitForm" method="POST">
+        <h2 class="ui dividing header">Create Housing Unit</h2>
+          <div class="field">
+            <label>Address</label>
+            <input
+              id="housingUnitAddress"
+              type="text"
+              name="address"
+              placeholder="Address"
+            />
+          </div>
+          <div class="field">
+            <label>Unit Description</label>
+            <input
+              id="housingUnitDescription"
+              type="text"
+              name="unitdescription"
+              placeholder="Unit Description"
+            />
+          </div>
+          <div class="field">
+            <label>Airbnb URL</label>
+            <input
+              id="housingUnitAirbnbURL"
+              type="url"
+              name="aribnburl"
+              placeholder="Airbnb URL"
+            />
+          </div>
+          <div class="field">
+            <label>Special Requirements</label>
+            <input
+              id="housingUnitSpecialReq"
+              type="text"
+              name="specialrequirements"
+              placeholder="Special Requirements"
+            />
+          </div>
+          <div class="field">
+            <label>Host Tips</label>
+            <input
+              id="housingUnitHostTips"
+              type="text"
+              name="hosttips"
+              placeholder="Host Tips"
+            />
+          </div>
+          <div class="field">
+            <label>Cleaner Tips</label>
+            <input
+              id="housingUnitCleanerTips"
+              type="text"
+              name="cleanertips"
+              placeholder="Cleaner Tips"
+            />
+          </div>
+        <div class="five fields">
+          <div class="field">
+            <label>Square Footage</label>
+            <input
+              id="housingUnitSizeSqFt"
+              type="number"
+              name="squarefootage"
+              placeholder="Square Footage"
+            />
+          </div>
+          <div class="field">
+            <label>Rooms</label>
+            <input
+              id="housingUnitSizeRooms"
+              type="number"
+              name="rooms"
+              placeholder="Rooms"
+            />
+          </div>
+          <div class="field">
+            <label>Bathrooms</label>
+            <input
+              id="housingUnitSizeBathrooms"
+              type="number"
+              name="bathrooms"
+              placeholder="Bathrooms"
+            />
+          </div>
+          <div class="field">
+            <label>Beds</label>
+            <input
+              id="housingUnitSizeBeds"
+              type="number"
+              name="beds"
+              placeholder="Beds"
+            />
+          </div>
+          <div class="field">
+            <label>Kitchen</label>
+            <input
+              id="housingUnitSizeKitchen"
+              type="number"
+              name="kitchen"
+              placeholder="Kitchen"
+            />
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <button class="ui button cancelModalCHU" type="submit" >Submit</button>
+          </div>
+          <div class="field">  
+            <button class="ui button cancelModalCHU hideButton" >Cancel</button>
+          </div>
+        </div>
+      </form>
+
+  </div>
+  </div>    
+</section>
+
+
+            
+          
+<!-- DONE -->
+<section>
+          <div class="ui longer modal createCE">
+              <div class="content">
+
+
+                <!-- <div id="form-messages"></div> -->
+                <form class="ui equal width form createCleaningEventForm " method="POST">
+                    <h2 class="ui dividing header">Create Cleaning Event</h2>
+                    <div class="two fields">
+                    <div class="field">
+                      <label>Start Cleaning</label>
+                      <input
+                        id="cleaningEventStart"
+                        type="datetime-local"
+                        name="start"
+                        placeholder="Start"
+                      />
+                    </div>
+                    <div class="field">
+                        <label>End Cleaning</label>
+                        <input
+                          id="cleaningEventEnd"
+                          type="datetime-local"
+                          name="end"
+                          placeholder="End"
+                        />
+                    </div>
+                  </div>
+                  <h4 class="ui dividing header">Cleaning Must Occur Between</h4>
+                  <div class="two fields">
+                      <div class="field">
+                        <label>Guest Checkout</label>
+                        <input
+                          id="cleaningEventGuestCheckout"
+                          type="datetime-local"
+                          name="guestcheckout"
+                          placeholder="Guest Checkout"
+                        />
+                      </div>
+                      <div class="field">
+                        <label>Next Guest Check In</label>
+                        <input
+                          id="cleaningEventNextGuestCheckIn"
+                          type="datetime-local"
+                          name="nextguestcheckin"
+                          placeholder="Next Guest Check In"
+                        />
+                      </div>
+                    </div>
+                  <div class="two fields">
+                    <div class="field">
+                        <label>Cal. Title</label>
+                        <input
+                          id="cleaningEventTitle"
+                          type="text"
+                          name="title"
+                          placeholder="Title"
+                        />
+                    </div>
+                    <div class="field">
+                      <label>Cal. URL</label>
+                      <input
+                        id="cleaningEventEnd"
+                        type="url"
+                        name="url"
+                        placeholder="URL"
+                      />
+                    </div>
+                  </div>
+                  <!-- <div class="two fields">
+                    <div class="field">
+                      <label>Cal. ClassName</label>
+                      <input
+                        id="cleaningEventClassName"
+                        type="text"
+                        name="classname"
+                        placeholder="ClassName"
+                      />
+                    </div>
+                    <div class="field">
+                    <label>Cal. Color</label>
+                    <input
+                      id="cleaningEventColor"
+                      type="text"
+                      name="color"
+                      placeholder="Color"
+                    />
+                  </div>
+                </div>
+                <div class="two fields">
+                  <div class="field">
+                    <label>Cal. Background Color</label>
+                    <input
+                      id="cleaningEventBackgroundColor"
+                      type="text"
+                      name="backgroundcolor"
+                      placeholder="Background Color"
+                    />
+                  </div>
+                  <div class="field">
+                    <label>Cal. Text Color</label>
+                    <input
+                      id="cleaningEventTextColor"
+                      type="text"
+                      name="textcolor"
+                      placeholder="Text Color"
+                    />
+                  </div>
+                </div> -->
+                <!-- <div class="two fields">
+                  <div class="field">
+                    <label>Cal. Description</label>
+                    <input
+                      id="cleaningEventDescription"
+                      type="text"
+                      name="description"
+                      placeholder="Description"
+                    />
+                  </div>
+                  <div class="field">
+                    <label>Address</label>
+                    <input
+                      id="cleaningEventAddress"
+                      type="text"
+                      name="address"
+                      placeholder="Address"
+                    />
+                  </div>
+                </div> -->
+
+                <div class="three fields">
+                  <div class="field">
+                    <label>Price Offered for: Cleaning</label>
+                    <input
+                      id="cleaningEventFinalPriceCleaning"
+                      type="number"
+                      name="amountdue"
+                      placeholder="Price Offered for Cleaning"
+                    />
+                  </div>
+                  <div class="field">
+                    <label>Amount Due</label>
+                    <input
+                      id="cleaningEventAmountDue"
+                      type="number"
+                      name="amountdue"
+                      placeholder="Amount Due"
+                    />
+                  </div>
+                  <div class="field">
+                    <label>Paid</label>
+                    <select id="cleaningEventPaid" class="ui dropdown">
+                        <option value="false" selected="selected">Paid?</option>
+                        <option value="false">No</option>
+                        <option value="true">Ues</option>
+                      </select>
+                  </div>
+                </div>
+                  <div class="two fields">
+                  <div class="field">
+                    <button class="ui button cancelModalCE" type="submit" >Submit</button>
+                  </div>
+                  <div class="field"> 
+                    <button class="ui button hideButtonCreateC cancelModalCE">Cancel</button>
+                  </div>
+                  </div>
+                
+                </form>
+
+              </div>
+            </div>
+</section>
+
+
+
+<!-- DONE -->
+<section>
+                <div class="ui longer modal CE">
+                <div class="content">
+
+                <form  id="updateCleaningEventForm" method="POST" class=" ui equal width form updateCleaningEventForm">
+                  <h2>Update: Cleaning Event</h2>
+                    <div class="two fields"> 
+                      <div class="field">
+                        <label>Cal. Title</label>
+                        <input
+                        id="cleaningEventTitleU"
+                        type="text"
+                        name="title"
+                        placeholder="Title"
+                        />
+                      </div>
+                      <div class="field">
+                        <label>Cal. Start</label>
+                        <input
+                        id="cleaningEventStartU"
+                        type="datetime-local"
+                        name="start"
+                        placeholder="Start"
+                        />
+                      </div>
+                    </div>
+                    <div class="two fields">
+                      <div class="field">
+                      <label>Cal. End</label>
+                      <input
+                        id="cleaningEventEndU"
+                        type="datetime-local"
+                        name="end"
+                        placeholder="End"
+                      />
+                      </div>
+                    <div class="field">
+                      <label>Cal. URL</label>
+                      <input
+                        id="cleaningEventURLU"
+                        type="url"
+                        name="url"
+                        placeholder="URL"
+                      />
+                    </div>
+                  </div>
+                  <div class="two fields">
+                    <div class="field">
+                      <label>Cal. ClassName</label>
+                      <input
+                        id="cleaningEventClassNameU"
+                        type="text"
+                        name="classname"
+                        placeholder="ClassName"
+                      />
+                    </div>
+                    <div class="field">
+                      <label>Cal. Color</label>
+                      <input
+                        id="cleaningEventColorU"
+                        type="text"
+                        name="color"
+                        placeholder="Color"
+                      />
+                    </div>
+                  </div>
+                  <div class="two fields">
+                    <div class="field">
+                      <label>Cal. Background Color</label>
+                      <input
+                        id="cleaningEventBackgroundColorU"
+                        type="text"
+                        name="backgroundcolor"
+                        placeholder="Background Color"
+                      />
+                    </div>
+                    <div class="field">
+                      <label>Cal. Text Color</label>
+                      <input
+                        id="cleaningEventTextColorU"
+                        type="text"
+                        name="textcolor"
+                        placeholder="Text Color"
+                      />
+                    </div>
+                  </div>
+                  <div class="two fields">
+                    <div class="field">
+                      <label>Cal. Description</label>
+                      <input
+                        id="cleaningEventDescriptionU"
+                        type="text"
+                        name="description"
+                        placeholder="Description"
+                      />
+                    </div>
+                    <div class="field">
+                      <label>Address</label>
+                      <input
+                        id="cleaningEventAddressU"
+                        type="text"
+                        name="address"
+                        placeholder="Address"
+                      />
+                    </div>
+                  </div>
+                  <div class="two fields">
+                    <div class="field">
+                      <label>Guest Checkout</label>
+                      <input
+                        id="cleaningEventGuestCheckoutU"
+                        type="datetime-local"
+                        name="guestcheckout"
+                        placeholder="Guest Checkout"
+                      />
+                    </div>
+                    <div class="field">
+                      <label>Next Guest Check In</label>
+                      <input
+                        id="cleaningEventNextGuestCheckInU"
+                        type="datetime-local"
+                        name="nextguestcheckin"
+                        placeholder="Next Guest Check In"
+                      />
+                    </div>
+                  </div>
+                    <div class="field">
+                      <label>Price Offered for: Cleaning</label>
+                      <input
+                        id="cleaningEventFinalPriceCleaningU"
+                        type="number"
+                        name="amountdue"
+                        placeholder="Price Offered for Cleaning"
+                      />
+                    </div>
+                    <div class="two fields">
+                    <div class="field">
+                      <label>Amount Due</label>
+                      <input
+                        id="cleaningEventAmountDueU"
+                        type="number"
+                        name="amountdue"
+                        placeholder="Amount Due"
+                      />
+                    </div>
+                    <div class="field">
+                      <label>Paid</label>
+                      <select id="cleaningEventPaidU">
+                          <option value="false" selected="selected">Paid?</option>
+                          <option value="false">No</option>
+                          <option value="true">Ues</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="two fields">
+                    <div class="field">
+                      <button class="ui button sendData cancelMo" type="submit">Submit</button>
+                    </div>
+                    <div class="field">
+                        <button class="ui button hideButtonUpdateC cancelMo">Cancel</button>
+                    </div>
+                  </div>
+                  
+              </form>
+              <!-- <div class="actions">
+                <input type="submit" value="submit" form="updateCleaningEventForm" class="ui button">
+              </div> -->
+          </div>
+        </div>
+
+</section>
+
+<!-- DONE -->
+<section>
+        <div class="ui longer modal updateHUModal ">
+        <div class="content">
+    
+          <form  id="updateHousingUnitForm" method="POST" class=" ui equal width form updateHousingUnitForm">
+              <h2>Update: Housing Unit</h2>
+              <div class="field">
+              <label>Address</label>
+              <input
+                id="housingUnitAddressU"
+                type="text"
+                name="address"
+                placeholder="Address"
+              />
+            </div>
+            <div class="field">
+              <label>Unit Description</label>
+              <input
+                id="housingUnitDescriptionU"
+                type="text"
+                name="unitdescription"
+                placeholder="Unit Description"
+              />
+            </div>
+            <div class="field">
+              <label>Airbnb URL</label>
+              <input
+                id="housingUnitAirbnbURLU"
+                type="url"
+                name="aribnburl"
+                placeholder="Airbnb URL"
+              />
+            </div>
+            <div class="field">
+              <label>Special Requirements</label>
+              <input
+                id="housingUnitSpecialReqU"
+                type="text"
+                name="specialrequirements"
+                placeholder="Special Requirements"
+              />
+            </div>
+            <div class="field">
+              <label>Host Tips</label>
+              <input
+                id="housingUnitHostTipsU"
+                type="text"
+                name="hosttips"
+                placeholder="Host Tips"
+              />
+            </div>
+            <div class="field">
+              <label>Cleaner Tips</label>
+              <input
+                id="housingUnitCleanerTipsU"
+                type="text"
+                name="cleanertips"
+                placeholder="Cleaner Tips"
+              />
+            </div>
+            <div class="five fields">
+              <div class="field">
+                <label>Square Footage</label>
+                <input
+                  id="housingUnitSizeSqFtU"
+                  type="number"
+                  name="squarefootage"
+                  placeholder="Square Footage"
+                />
+              </div>
+              <div class="field">
+                <label>Rooms</label>
+                <input
+                  id="housingUnitSizeRoomsU"
+                  type="number"
+                  name="rooms"
+                  placeholder="Rooms"
+                />
+              </div>
+              <div class="field">
+                <label>Bathrooms</label>
+                <input
+                  id="housingUnitSizeBathroomsU"
+                  type="number"
+                  name="bathrooms"
+                  placeholder="Bathrooms"
+                />
+              </div>
+              <div class="field">
+                <label>Beds</label>
+                <input
+                  id="housingUnitSizeBedsU"
+                  type="number"
+                  name="beds"
+                  placeholder="Beds"
+                />
+              </div>
+              <div class="field">
+                <label>Kitchen</label>
+                <input
+                  id="housingUnitSizeKitchenU"
+                  type="text"
+                  name="kitchen"
+                  placeholder="Kitchen"
+                />
+              </div>
+            </div>
+          <div class="two fields">
+              <div class="field">
+                  <button class="ui button cancelMoHU cancelModalHU" type="submit">Submit</button>
+                </div>
+            <div class="field">
+              <button class="ui button hideButtonUpdateHU cancelModalHU">Cancel</button>
+            </div>
+          </div>
+
+        </form>
+        <!-- <input type="submit" value="submit" form="updateHousingUnitForm" class="ui button"> -->
+    </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
   </main>
+  <!-- <div id="map"></div> -->
+
+
   <footer>
     <h4>Footer</h4>
   </footer>
+
   
-  <script src="scripts/moment.js" defer></script>
-  <script src="scripts/app.js" defer></script>
+  
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key={apiKey}&callback=initMap"
+  async defer></script> -->
+  <!-- <script src="scripts/googleMap.js"defer></script> -->
 
 </body>
 </html>
