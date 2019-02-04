@@ -12,6 +12,7 @@ $(document).ready(function(){
 ;
 
     let indexCleaningEventUrl = 'users/housingunits/cleaningevents/index'
+    let getUserUrl = '/users/'
 
     $.ajax({
         method: 'GET',
@@ -32,15 +33,16 @@ $(document).ready(function(){
         
     $('#calendar').fullCalendar({
         defaultView: 'month',
+            
         // sample callback function
         eventClick: function(calEvent, jsEvent, view) {
             console.log(`Cleaning Event Clicked:`, calEvent)
             console.log(calEvent.title)
 
             let card2 =(
-                `<p>Test ${calEvent.title}</p>
-                <button data-id=${calEvent._id} class="assignCleanerButton">Assign Cleaner</button>
-                <button data-id=${calEvent._id} class="deleteCleanerButton">Delete Cleaner</button>
+                `<p>Calendar Event Title: ${calEvent.title}</p>
+                <button data-id=${calEvent._id} class="ui big button teal assignCleanerButton">Assign Cleaner</button>
+                <button data-id=${calEvent._id} class="ui big button teal deleteCleanerButton">Delete Cleaner</button>
                     </div>`
             )
             $('.calCEModalWrapper').append(card2)
@@ -125,36 +127,85 @@ $(document).ready(function(){
         }
     })
 
+    // function addCleanerCleaningEvent(){
+    //     console.log("cleaner ajax function")
+    //     let cleanerUpdate = {
+    //         _id: cleaningEventId.id,
+    //         cleanerId: localStorage.userId
+    //     }
+    
+    //     $.ajax({
+    //         method: 'PATCH',
+    //         url: updateCleaningEventUrl,
+    //         json: true,
+    //         contentType : 'application/json',
+    //         data: JSON.stringify(cleanerUpdate),
+    //         success: onSuccess,
+    //         error: onError
+    //     });
+    //         function onError ( err ) {
+    //         console.log( err );
+    //         console.log("PATCH update error",err)
+    //         }
+    //         function onSuccess (updatedCleaningEvent) {
+    //         console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+    //         }   
+    //         };
+
     function addCleanerCleaningEvent(){
         console.log("cleaner ajax function")
-        let cleanerUpdate = {
-            _id: cleaningEventId.id,
-            cleanerId: localStorage.userId
-        }
+        
+        let userId = localStorage.userId 
+                $.ajax({
+                    method: 'GET',
+                    url: getUserUrl + userId,
+                    success: onSuccess,
+                    error: onError
+                });
+                    function onError ( err ) {
+                        console.log( err );
+                        console.log("post error",err)
+                    }
+                    function onSuccess (user) {
+                        console.log(`Cleaning User added to Cleaning Event:`, user)
+                        $('#cleanerAssigned').html(`Cleaner: ${user[0].name}`)
+                        // location.reload()
     
-        $.ajax({
-            method: 'PATCH',
-            url: updateCleaningEventUrl,
-            json: true,
-            contentType : 'application/json',
-            data: JSON.stringify(cleanerUpdate),
-            success: onSuccess,
-            error: onError
-        });
-            function onError ( err ) {
-            console.log( err );
-            console.log("PATCH update error",err)
-            }
-            function onSuccess (updatedCleaningEvent) {
-            console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
-            }   
-            };
+                    let cleanerUpdate = {
+                                        _id: cleaningEventId.id,
+                                        cleanerId: userId,
+                                        title: `Cleaner Assigned ${user[0].name}, cell: ${user[0].cellPhone}, company: ${user[0].company}`,
+                                        backgroundColor: "#549499"
+                                        }
+                    console.log(cleanerUpdate)
+                    console.log("PATCH update cleaner")
+                    $.ajax({
+                        method: 'PATCH',
+                        url: updateCleaningEventUrl,
+                        json: true,
+                        contentType : 'application/json',
+                        data: JSON.stringify(cleanerUpdate),
+                        success: onSuccess,
+                        error: onError
+                    });
+                    function onError ( err ) {
+                    console.log( err );
+                    console.log("PATCH update error",err)
+                    }
+                    function onSuccess (updatedCleaningEvent) {
+                    console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+                        location.reload()
+                    }   
+                    }
+    }
     
     function deleteCleanerCleaningEvent(){
         console.log("cleaner delete ajax")
         let cleanerUpdate = {
             _id: cleaningEventId.id,
-            cleanerId: null
+            cleanerId: null,
+            backgroundColor: "#ED6665",
+            title: "Cancelation: Cleaner Needed"
         }
     
         $.ajax({
@@ -172,6 +223,7 @@ $(document).ready(function(){
             }
             function onSuccess (updatedCleaningEvent) {
             console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+            location.reload()
             }
     }
 

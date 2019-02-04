@@ -28,14 +28,15 @@ let housingUnitId;
 
 
 checkForLogin()
+populateUserProfile()
 getUserHousingUnits()
 getUserCleaningEvents()
 
-$('.hideButton').on('click', hideUserForm)
-function hideUserForm(e) {
-    e.preventDefault()
-    // $('.updateUser').toggleClass('hide')
-}
+// $('.hideButton').on('click', hideUserForm)
+// function hideUserForm(e) {
+//     e.preventDefault()
+//     // $('.updateUser').toggleClass('hide')
+// }
 
 $('.hideButton').on('click', hideHUCreateForm)
 function hideHUCreateForm(e) {
@@ -145,6 +146,7 @@ $('.userCEWrapper').on('click', '.assignCleanerButton', function() {
     } else {
         console.log("Hey you are not a cleaner!")
     }
+
 })
 
 $('.userCEWrapper').on('click', '.deleteCleanerButton', function() {
@@ -166,9 +168,19 @@ $('.body').on('click', '.sendData', function(){
 $('.updateHousingUnitForm').form('submit', updateHousingUnit())
 })
 
+$('.showSidebar').on('click', showNavBar)
+
+function showNavBar(){
+$('.ui.sidebar')
+.sidebar('setting', 'transition', 'overlay')
+.sidebar('toggle')
+}
+
 function showModal() {
         console.log('open modal')
         $('.longer.modal.CE').modal({
+            transition: 'horizontal flip', 
+            duration: 800,
             blurring: true,
             closable : false,
             useCSS   : true
@@ -177,6 +189,8 @@ function showModal() {
 }
 
 function showUpdateHUmodal() { $('.modal.updateHUModal').modal({
+        transition: 'horizontal flip', 
+        duration: 800,
         blurring: true,
         closable : false,
         useCSS   : true
@@ -185,6 +199,8 @@ function showUpdateHUmodal() { $('.modal.updateHUModal').modal({
 }
 
 function showCreateHUmodal() { $('.modal.createHUModal').modal({
+    transition: 'horizontal flip', 
+    duration: 800,
     blurring: true,
     closable : false,
     useCSS   : true
@@ -193,12 +209,52 @@ function showCreateHUmodal() { $('.modal.createHUModal').modal({
 }
 
 function showCreateCEmodal() { $('.modal.createCE').modal({
+    transition: 'horizontal flip', 
+    duration: 800,
     blurring: true,
     closable : false,
     useCSS   : true
 })
 .modal('show') 
 }
+
+$('.modalTestButton').on('click', function(){
+    console.log('click')
+    $('.longer.modal').modal({
+        transition: 'horizontal flip', 
+        duration: 800,
+        blurring: true,
+        closable : false,
+        useCSS   : true
+    })
+    .modal('show')      
+})
+
+$('.updateHUModal').on('click', function(){
+    console.log('click')
+    $('.modal.updateHUModal').modal({
+        transition: 'horizontal flip', 
+        duration: 800,
+        blurring: true,
+        closable : false,
+        useCSS   : true
+    })
+    .modal('show')      
+})
+
+$('.updateUserButton').on('click', function(){
+    console.log('update user button clicked')
+    $('.longer.modal.updateU').modal({
+        transition: 'horizontal flip', 
+        duration: 800,
+        blurring: true,
+        closable : false,
+        useCSS   : true
+    })
+    .modal('show')
+    })
+
+
 
 // // Hide HU Update Modal
 // $('.cancelModalHU').on('click', function(){
@@ -219,16 +275,6 @@ function closeModalHU() {
 // function closeModalR() {
 //     $('.longer.modal').modal('hide') 
 // }
-
-$('.modalTestButton').on('click', function(){
-    console.log('click')
-    $('.longer.modal').modal({
-        blurring: true,
-        closable : false,
-        useCSS   : true
-    })
-    .modal('show')      
-})
 
 $('.cancelMo').on('click', function(){
     $('.longer.modal')
@@ -254,17 +300,22 @@ $('.cancelModalCE').on('click', function(){
     location.reload()
 })
 
-$('.updateHUModal').on('click', function(){
-    console.log('click')
-    $('.modal.updateHUModal').modal({
-        blurring: true,
-        closable : false,
-        useCSS   : true
-    })
-    .modal('show')      
+$('.cancelModalU').on('click', function(){
+    $('.longer.modal.updateU')
+    .modal('hide')
+    location.reload()
+})
+
+$('.cancelModalU').on('click', function(){
+    $('.longer.modal.updateUser')
+    .modal('hide')
+    location.reload()
 })
 
 
+$('.ui.dropdown')
+  .dropdown()
+;
 
 
 
@@ -336,6 +387,7 @@ function submitSignup(e){
             localStorage.cleaner = newUser.payload.user.cleaner
             user = newUser.payload
             console.log(user)
+            window.location.replace("/housingunit")
     }   
     };
 
@@ -359,6 +411,7 @@ function submitLogin(e){
                 localStorage.token = json.token;
                 localStorage.cleaner = json.cleaner.cleaner 
                 checkForLogin();
+                window.location.replace("/housingunit")
             } else {
                 console.log(json)
             }
@@ -416,6 +469,7 @@ function handleLogout(e) {
 function updateUser(e) {
     e.preventDefault();
     console.log("Update User Form Submit")
+    console.log(localStorage.userId)
     let userUpdateData = {
         _id: localStorage.userId,
         name: $('#userName').val(),
@@ -427,6 +481,7 @@ function updateUser(e) {
         businessPhone: $('#userBusinessPhone').val(),
         company: $('#userCompany').val(),
         emailAlerts: $('#userEmailAlerts').val(),
+        textAlerts: $('#userTextAlerts').val(),
         cleaningRadius: $('#userCleaningRadius').val(),
         hostAirbnbCalendar: $('#userHostAirbnbCalendar').val()
     }
@@ -482,6 +537,70 @@ function updateUserFormData(e) {
         }   
         };
 
+function populateUserProfile(e) {
+    console.log("Update User Profile with Data")
+        $.ajax({
+            method: 'GET',
+            url: getUserUrl + localStorage.userId,
+            success: onSuccess,
+            error: onError
+        });
+        function onError ( err ) {
+            console.log( err );
+            console.log("get user error",err)
+        }
+        function onSuccess (user) {
+            console.log(`User Profile Data:`, user)
+
+            let card1 = `
+            <div class="ui card" data="${user[0]._id}">
+            <div class="image">
+              <img src="/images/defaultUserPic.svg">
+              </div>
+            <div class="content">
+              <a class="header">${user[0].name}</a>
+              <div class="meta">
+                <span class="date">${user[0].username}</br> ${user[0].company}</span>
+              </div>
+              <div class="description">
+                <p>About: ${user[0].about}</p>
+                <h4 class="ui sub header">Contact</h4>
+                <a><i class="building icon"></i>
+                ${user[0].businessPhone}</a></br>
+                <a><i class="phone icon"></i>${user[0].phone}</a></br>
+                <a><i class="mobile alternate icon"></i>${user[0].cellPhone}</a></br>
+                <a>${user[0].email}</a></br>
+               <a>${user[0].hostAirbnbCalendar}</a>
+              </div>
+ 
+            </div>
+            <div class="extra content">
+              <a>
+                <i class="car icon"></i>
+                ${user[0].cleaningRadius} Miles
+              </a>
+              <a>
+                <i class="mail icon"></i>
+                Alerts ${user[0].emailAlerts}
+              </a>
+              <a>
+                <i class="phone icon"></i>
+                Alerts ${user[0].textAlerts}
+              </a>
+            </div>
+          </div>
+        `
+
+
+        $('.userProfileWrapper').append(card1)
+        
+        
+        
+        
+        
+        }   
+};
+
 
 // Housing Unit
 
@@ -502,31 +621,51 @@ function getUserHousingUnits(){
             console.log(`Host's HousingUnits`, userHUnits)
         
             userHUnits.forEach(unit => {
-                let card1 =
-                `<div data=${unit._id}>
-                <li>Address: ${unit.address}</li>
-                <li>Unit Description: ${unit.unitDescription}</li>
-                <li>Airbnb: <a href="${unit.airbnbURL}" >Airbnb Unit</a></li>
-                <li>Square Footage: ${unit.sizeSqFt}</li>
-                <li>Rooms: ${unit.sizeRooms}</li>
-                <li>Beds: ${unit.sizeBeds}</li>
-                <li>Bathrooms: ${unit.sizeBathrooms}</li>
-                <li>Kithchen: ${unit.sizeKitchen}</li>
-                <li>Special Requirements: ${unit.specialRequirements}</li>
-                <li>Cleaning Tips: ${unit.cleanerTip}</li>
-                <li>Host Tips: ${unit.hostTips}</li>
-                
-                <button data-id=${unit._id} class="ui button createHUModal hideButtonCreateHU">Create Housing Unit</button>
-                
-                <button data-id=${unit._id} class="ui button updateHUModal hideButtonUpdateHU">Update Housing Unit</button>
 
 
-                <button data-id=${unit._id} class="ui button deleteHousingUnitButton">Delete Housing Unit</button>
-                <button data-id=${unit._id} class="ui button hideButtonCreateC">Create Cleaning Event</button>
-                </div>
-                `
+let card1 =
+    `<section class="hUCardWrapper">
+    <div class="ui items">
+    <div class="item">
+      <div class="ui small image">
+        <img src="http://lorempixel.com/g/150/150/city">
+      </div>
+      <div class="middle aligned content">
+        <div class="header">
+        ${unit.address}
+        
+          </div>
+          <div class="description">
+              <div data=${unit._id}>
+              <div class="ui celled horizontal list">
+              <div class="item">Square Footage: ${unit.sizeSqFt}</div>
+              <div class="item">Rooms: ${unit.sizeRooms}</div>
+              <div class="item">Beds: ${unit.sizeBeds}</div>
+              <div class="item">Bathrooms: ${unit.sizeBathrooms}</div>
+              <div class="item">Kithchen: ${unit.sizeKitchen}</div>
+            </div>
+              <div class="ui celled horizontal list">
+              <div class="item">Unit Description: ${unit.unitDescription}</div>
+              <div class="item">Airbnb: <a href="${unit.airbnbURL}" >Airbnb Unit</a></div>
+            </div>
+                  <li>Special Requirements: ${unit.specialRequirements}</li>
+                  <li>Cleaning Tips: ${unit.cleanerTip}</li>
+                  <li>Host Tips: ${unit.hostTips}</li>
+          </div>
+                <div class="bottom aligned content extra">
+                  <button data-id=${unit._id} class="ui bottom aligned button teal  hideButtonCreateC">Create Cleaning Event</button>
+                  <button data-id=${unit._id} class="ui bottom aligned button teal updateHUModal hideButtonUpdateHU">Update Housing Unit</button>
+                  <button data-id=${unit._id} class="ui bottom aligned button teal createHUModal hideButtonCreateHU">Create Housing Unit</button>
+                  <button data-id=${unit._id} class="ui bottom aligned button teal deleteHousingUnitButton">Delete Housing Unit</button>
+              </div>
+            </div>
+        </div>
+        </div>
+    </section>`
+
             $('.userHUWrapper').append(card1)
-            })   
+            })
+
         }   
 };
 
@@ -568,6 +707,9 @@ function createHousingUnit(e){
             console.log(`HousingUnit Created:`, newHousingUnit)
             localStorage.housingUnitId = newHousingUnit._id
             getUserHousingUnits()
+            
+
+
         }   
         };    
 
@@ -675,29 +817,79 @@ function getUserCleaningEvents(){
                 console.log(`User Cleaning Events`, userCleaningEvents)
 
                 userCleaningEvents.forEach(cleaningEvent => {
-                    let card1 =
-                    `<div data=${cleaningEvent._id}>
-                    <li>housingUnit: ${cleaningEvent.housingUnit}</li>
-                    <li>Title: ${cleaningEvent.title}</li>
-                    <li>Start: ${moment(cleaningEvent.start).add(8, 'hours').format("M-DD-YYYY h:mm a")}</li>
-                    <li>End: ${moment(cleaningEvent.end).add(8, 'hours').format("M-DD-YYYY h:mm a")}</li>
-                    <li>Address: ${cleaningEvent.address}</li>
-                    <li>Guest Checkout: ${moment(cleaningEvent.guestCheckout).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</li>
-                    <li>Next Guest Checkin: ${moment(cleaningEvent.nextGuestCheckIn).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</li>
-                    <li>Cleaning Price: ${cleaningEvent.finalPriceCleaning}</li>
-                    <li>Paid: ${cleaningEvent.paid}</li>
+                    // let card1 =
+                    // `<div data=${cleaningEvent._id}>
+                    // <li>housingUnit: ${cleaningEvent.housingUnit}</li>
+                    // <li>Title: ${cleaningEvent.title}</li>
+                    // <li>Start: ${moment(cleaningEvent.start).add(8, 'hours').format("M-DD-YYYY h:mm a")}</li>
+                    // <li>End: ${moment(cleaningEvent.end).add(8, 'hours').format("M-DD-YYYY h:mm a")}</li>
+                    // <li>Address: ${cleaningEvent.address}</li>
+                    // <li>Guest Checkout: ${moment(cleaningEvent.guestCheckout).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</li>
+                    // <li>Next Guest Checkin: ${moment(cleaningEvent.nextGuestCheckIn).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</li>
+                    // <li>Cleaning Price: ${cleaningEvent.finalPriceCleaning}</li>
+                    // <li>Paid: ${cleaningEvent.paid}</li>
+                    // <li id='cleanerAssigned'></li>
                     
-                    <button type="submit" data-id=${cleaningEvent._id} class="ui button hideButtonUpdateCE">Update Cleaning Event</button>
+                    // <button type="submit" data-id=${cleaningEvent._id} class="ui button teal hideButtonUpdateCE">Update Cleaning Event</button>
 
-                    <button data-id=${cleaningEvent._id} class="ui button deleteCleaningEventButton">Delete Cleaning Event</button>
-                    <button data-id=${cleaningEvent._id} class="ui button assignCleanerButton">Assign Cleaner</button>
-                    <button data-id=${cleaningEvent._id} class="ui button deleteCleanerButton">Delete Cleaner</button>
-                    </div>
-                    `
+                    // <button data-id=${cleaningEvent._id} class="ui button teal deleteCleaningEventButton">Delete Cleaning Event</button>
+                    // <button data-id=${cleaningEvent._id} class="ui button teal assignCleanerButton">Assign Cleaner</button>
+                    // <button data-id=${cleaningEvent._id} class="ui button teal deleteCleanerButton">Delete Cleaner</button>
+                    // </div>
+                    // `
+
+let card1 = 
+`<section class="cECardWrapper">
+<div class="ui items">
+    <div class="item">
+      <div class="middle aligned content">
+        <div class="header">
+        ${cleaningEvent.title}
+          
+          </div>
+          <div class="description">
+              <div data=${cleaningEvent._id}>
+                <div class="ui celled horizontal list">
+                    <div class="item">Start: ${moment(cleaningEvent.start).add(8, 'hours').format("M-DD-YYYY h:mm a")}</div>
+                    <div class="item">End: ${moment(cleaningEvent.end).add(8, 'hours').format("M-DD-YYYY h:mm a")}</div>  
+                        </div></br>
+                <div class="ui celled horizontal list">
+                    <div class="item">Guest Checkout: ${moment(cleaningEvent.guestCheckout).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</div>
+                    <div class="item">Next Guest Checkin: ${moment(cleaningEvent.nextGuestCheckIn).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</div>
+                    </div></br> 
+                
+                <div class="ui celled horizontal list">   
+                    <div class="item">Cleaning Price: ${cleaningEvent.finalPriceCleaning}</div>
+                    <div class="item">Paid: ${cleaningEvent.paid}</div>
+                </div></br>
+
+                  <p>Address: ${cleaningEvent.address}</p>
+
+
+
+          </div>
+                <div class="bottom aligned content extra">
+
+                  <button type="submit" data-id=${cleaningEvent._id} class="ui bottom aligned button teal hideButtonUpdateCE">Update Cleaning Event</button>
+                  <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal deleteCleaningEventButton">Delete Cleaning Event</button>
+                  <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal assignCleanerButton">Assign Cleaner</button>
+                  <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal deleteCleanerButton">Delete Cleaner</button>
+
+              </div>              
+      </div>
+    </div>
+  </div>
+</section>`
+
+
+
                 $('.userCEWrapper').append(card1)
                 })   
             }   
     };
+
+
+;
 
     function deleteCleaningEvent(){
         $.ajax({
@@ -714,6 +906,7 @@ function getUserCleaningEvents(){
             console.log("Deleted CleaningEvent", deletedCleaningEvent)
     }
     }
+
 
     function updateCleaningEventFormData(){
         
@@ -745,12 +938,20 @@ function getUserCleaningEvents(){
         
         }   
 
+        
+
+    
+
+        
 function createCleaningEvent(e){
-    e.preventDefault();
+    console.log("this is it")
+    console.log(housingUnitId.id)
+    testHUid = housingUnitId.id
     console.log("submit create cleaning event clicked")
     let signUpData = {
         housingUnit: housingUnitId.id,
         hostId: localStorage.userId,
+        address: "",
         title: $('#cleaningEventTitle').val(),
         start: moment($('#cleaningEventStart').val()).subtract(8, 'hours').toISOString(),
         end: moment($('#cleaningEventEnd').val()).subtract(8, 'hours').toISOString(),
@@ -760,7 +961,6 @@ function createCleaningEvent(e){
         backgroundColor: $('#cleaningEventBackgroundColor').val(),
         textColor: $('#cleaningEventTextColor').val(),
         description: $('#cleaningEventDescription').val(),
-        address: $('#cleaningEventAddress').val(),
         guestCheckout: moment($('#cleaningEventGuestCheckout').val()).subtract(8, 'hours').toISOString(),
         nextGuestCheckIn: moment($('#cleaningEventNextGuestCheckIn').val()).subtract(8, 'hours').toISOString(),
         finalPriceCleaning: $('#cleaningEventFinalPriceCleaning').val(),
@@ -789,8 +989,11 @@ function createCleaningEvent(e){
         function onSuccess (newCleaningEvent) {
             console.log(`CleaningEvent Created:`, newCleaningEvent)
             localStorage.cleaningEventId = newCleaningEvent._id
+      
         }   
-        };    
+        
+       
+}
 
 
 function updateCleaningEvent(e){
@@ -838,36 +1041,149 @@ function updateCleaningEvent(e){
         }   
         };
 
+// function addCleanerCleaningEvent(){
+//     console.log("cleaner ajax function")
+//     let cleanerUpdate = {
+//         _id: cleaningEventId.id,
+//         cleanerId: localStorage.userId
+//     }
+
+//     $.ajax({
+//         method: 'PATCH',
+//         url: updateCleaningEventUrl,
+//         json: true,
+//         contentType : 'application/json',
+//         data: JSON.stringify(cleanerUpdate),
+//         success: onSuccess,
+//         error: onError
+//     });
+//         function onError ( err ) {
+//         console.log( err );
+//         console.log("PATCH update error",err)
+//         }
+//         function onSuccess (updatedCleaningEvent) {
+//         console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+        
+//         let userId = updatedCleaningEvent.cleanerId 
+//             $.ajax({
+//                 method: 'GET',
+//                 url: getUserUrl + userId,
+//                 success: onSuccess,
+//                 error: onError
+//             });
+//                 function onError ( err ) {
+//                     console.log( err );
+//                     console.log("post error",err)
+//                 }
+//                 function onSuccess (user) {
+//                     console.log(`Cleaning User added to Cleaning Event:`, user)
+//                     $('#cleanerAssigned').html(`Cleaner: ${user[0].name}`)
+//                     // location.reload()
+
+//             }   
+//             };
+// }
+
+// function addCleanerCleaningEvent(){
+//     console.log("cleaner ajax function")
+    
+//     let userId = localStorage.userId 
+//             $.ajax({
+//                 method: 'GET',
+//                 url: getUserUrl + userId,
+//                 success: onSuccess,
+//                 error: onError
+//             });
+//                 function onError ( err ) {
+//                     console.log( err );
+//                     console.log("post error",err)
+//                 }
+//                 function onSuccess (user) {
+//                     console.log(`Cleaning User added to Cleaning Event:`, user)
+//                     $('#cleanerAssigned').html(`Cleaner: ${user[0].name}`)
+//                     // location.reload()
+
+//                 let cleanerUpdate = {
+//                                     _id: cleaningEventId.id,
+//                                     cleanerId: userId,
+//                                     title: `"${user[0].name}, cell: ${user[0].cellPhone}, company: ${user[0].company}"`
+//                                     }
+//                 console.log(cleanerUpdate)
+//                 console.log("PATCH update cleaner")
+//                 $.ajax({
+//                     method: 'PATCH',
+//                     url: updateCleaningEventUrl,
+//                     json: true,
+//                     contentType : 'application/json',
+//                     data: JSON.stringify(cleanerUpdate),
+//                     success: onSuccess,
+//                     error: onError
+//                 });
+//                 function onError ( err ) {
+//                 console.log( err );
+//                 console.log("PATCH update error",err)
+//                 }
+//                 function onSuccess (updatedCleaningEvent) {
+//                 console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+//                     // location.reload()
+//                 }   
+//                 }
+// }
 function addCleanerCleaningEvent(){
     console.log("cleaner ajax function")
-    let cleanerUpdate = {
-        _id: cleaningEventId.id,
-        cleanerId: localStorage.userId
-    }
+    
+    let userId = localStorage.userId 
+            $.ajax({
+                method: 'GET',
+                url: getUserUrl + userId,
+                success: onSuccess,
+                error: onError
+            });
+                function onError ( err ) {
+                    console.log( err );
+                    console.log("post error",err)
+                }
+                function onSuccess (user) {
+                    console.log(`Cleaning User added to Cleaning Event:`, user)
+                    $('#cleanerAssigned').html(`Cleaner: ${user[0].name}`)
+                    // location.reload()
 
-    $.ajax({
-        method: 'PATCH',
-        url: updateCleaningEventUrl,
-        json: true,
-        contentType : 'application/json',
-        data: JSON.stringify(cleanerUpdate),
-        success: onSuccess,
-        error: onError
-    });
-        function onError ( err ) {
-        console.log( err );
-        console.log("PATCH update error",err)
-        }
-        function onSuccess (updatedCleaningEvent) {
-        console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
-        }   
-        };
+                let cleanerUpdate = {
+                                    _id: cleaningEventId.id,
+                                    cleanerId: userId,
+                                    title: `Cleaner Assigned ${user[0].name}, cell: ${user[0].cellPhone}, company: ${user[0].company}`,
+                                    backgroundColor: "#549499"
+                                    }
+                console.log(cleanerUpdate)
+                console.log("PATCH update cleaner")
+                $.ajax({
+                    method: 'PATCH',
+                    url: updateCleaningEventUrl,
+                    json: true,
+                    contentType : 'application/json',
+                    data: JSON.stringify(cleanerUpdate),
+                    success: onSuccess,
+                    error: onError
+                });
+                function onError ( err ) {
+                console.log( err );
+                console.log("PATCH update error",err)
+                }
+                function onSuccess (updatedCleaningEvent) {
+                console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+                    location.reload()
+                }   
+                }
+}
+
 
 function deleteCleanerCleaningEvent(){
     console.log("cleaner delete ajax")
     let cleanerUpdate = {
         _id: cleaningEventId.id,
-        cleanerId: null
+        cleanerId: null,
+        backgroundColor: "#ED6665",
+        title: "Cancelation: Cleaner Needed"
     }
 
     $.ajax({
@@ -885,6 +1201,7 @@ function deleteCleanerCleaningEvent(){
         }
         function onSuccess (updatedCleaningEvent) {
         console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+        location.reload()
         }
 }
 
@@ -957,11 +1274,39 @@ function updateReview(e){
         function onSuccess (updatedReview) {
         console.log(`Review Updated:`, updatedReview)
         }   
-        };
+}
 
 
-
-
-        
+// Sample NavBar
+$('.navTrigger').click(function () {
+    $(this).toggleClass('active');
+    console.log("Clicked menu");
+    $("#mainListDiv").toggleClass("show_list");
+    $("#mainListDiv").fadeIn();
 
 });
+
+// Sticky footer
+
+$("#add").on("click", function() {
+    $("<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>").appendTo(".page-wrap");
+  });
+  });
+
+
+
+// Smoth scrool
+  var scrollLink = $('.scroll');
+
+scrollLink.on('click', function(e){
+    e.preventDefault();
+    $('body,html').animate({
+        scrollTop: $(this.hash).offset().top -10
+    }, 1000)
+})
+
+
+
+
+
+

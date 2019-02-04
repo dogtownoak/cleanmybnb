@@ -10,243 +10,429 @@
     <script src="scripts/jQuery.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css" >
+
+
+
 </head>
 <body>
-  <header class="hidden">
-    <nav>
-      <h1>Under Construction</h1>
-      <ul>
-          <li><a class="checkForLogin" href="/">Login</a></li>
-          <li><a class="checkForLogin" href="/m">Sample Landing Page</a></li> 
-          <li><a class="checkForLogin" href="/fullcalendar">Full Calendar</a></li>
-          <li><a class="checkForLogin" href="/googlecalendar">Google Calendar</a></li>
-          <li><a class="checkForLogin" href="/housingunit">Housing Unit</a></li>
-      </ul>
-    </nav>
-  </header>
-  <section class="signIn">
-    <h2>Sign In</h2>
-    <form class="signInForm" enctype="multipart/form-data" method="POST">
-      <!-- <label>User Name</label>
-      <input
-        id="signIn-username"  
-        type="text"
-        name="username"
-        placeholder="username"
-      /> -->
-        <label>Email</label>
-        <input
-        id="signIn-email"  
-        type="text"
-        name="email"
-        placeholder="email"
-        />
-        <label>Password</label>
-        <input
-        id="signIn-password"
-        type="password"
-        name="password"
-        placeholder="password"
-        />
-        <div class="formControlsSignIn">
-          <button type="submit">Sign In</button>
-          <button>Cancel</button>
+<header>
+  <nav class="nav">
+      <div class="container">
+          <div class="logo">
+              <a href="./"><img src="/images/Logo 4 224 80png.jpg"></a>
+          </div>
+          
+          <div id="mainListDiv" class="main_list">
+              <ul class="navlinks">
+                  <li><a class="navLink scroll checkForLogin" href="#signIn">Login</a></li>
+                  <li><a class="checkForLogin" href="/fullcalendar">Local Calendar</a></li>
+                  <li><a class="checkForLogin" href="/housingunit">Profile</a></li>
+              </ul>
+          </div>
+          <span class="navTrigger">
+              <i></i>
+              <i></i>
+              <i></i>
+          </span>
+      </div>
+  </nav>
+</header>
+<div class="page-wrap">
+  <section class="home">
+  </section>
+  <div style="height: 1000px">
+      <!-- just to make scrolling effect possible -->
+    <h2 class="myH2">Never Clean A Unit Again</h2>
+    <div class="cleanerImage">
+      <img class="cleanerImg" src="/images/adult-bath-towels-bed.jpg">
+    </div>
+
+  </div>
+
+
+<!-- Function used to shrink nav bar removing paddings and adding black background -->
+  <script>
+      $(window).scroll(function() {
+          if ($(document).scrollTop() > 50) {
+              $('.nav').addClass('affix');
+              console.log("OK");
+          } else {
+              $('.nav').removeClass('affix');
+          }
+      });
+  </script>
+
+
+<!-- 
+<section class="hUCardWrapper">
+  <div class="ui items">
+      <div class="item">
+        <div class="ui small image">
+          <img src="http://lorempixel.com/g/150/150/city">
+        </div>
+        <div class="middle aligned content">
+          <div class="header">
+              ${unit.address}
+            
+            </div>
+            <div class="description">
+                <div data=${unit._id}>
+                    <div class="ui celled horizontal list">
+                        <div class="item">Unit Description: ${unit.unitDescription}</div>
+                        <div class="item">Airbnb: <a href="${unit.airbnbURL}" >Airbnb Unit</a></div>
+                      </div>
+
+                    <li>Special Requirements: ${unit.specialRequirements}</li>
+                    <li>Cleaning Tips: ${unit.cleanerTip}</li>
+                    <li>Host Tips: ${unit.hostTips}</li>
+
+                    <div class="ui celled horizontal list">
+                        <div class="item">Square Footage: ${unit.sizeSqFt}</div>
+                        <div class="item">Rooms: ${unit.sizeRooms}</div>
+                        <div class="item">Beds: ${unit.sizeBeds}</div>
+                        <div class="item">Bathrooms: ${unit.sizeBathrooms}</div>
+                        <div class="item">Kithchen: ${unit.sizeKitchen}</div>
+                      </div>
+            </div>
+                  <div class="bottom aligned content extra">
+                    <button data-id=${unit._id} class="ui bottom aligned button teal  hideButtonCreateC">Create Cleaning Event</button>
+                    <button data-id=${unit._id} class="ui bottom aligned button teal updateHUModal hideButtonUpdateHU">Update Housing Unit</button>
+                    <button data-id=${unit._id} class="ui bottom aligned button teal createHUModal hideButtonCreateHU">Create Housing Unit</button>
+                    <button data-id=${unit._id} class="ui bottom aligned button teal deleteHousingUnitButton">Delete Housing Unit</button>
+                </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  <section class="cECardWrapper">
+      <div class="ui items">
+          <div class="item">
+            <div class="ui small image">
+              <img src="http://lorempixel.com/g/150/150/city">
+            </div>
+            <div class="middle aligned content">
+              <div class="header">
+                  ${unit.address}
+                
+                </div>
+                <div class="description">
+                    <div data=${cleaningEvent._id}>
+
+                        <div class="ui celled horizontal list">
+                          <div class="item">Start: ${moment(cleaningEvent.start).add(8, 'hours').format("M-DD-YYYY h:mm a")}</div>
+                          <div class="item">End: ${moment(cleaningEvent.end).add(8, 'hours').format("M-DD-YYYY h:mm a")}</div>  
+                        </div>
+
+                        <li>Address: ${cleaningEvent.address}</li>
+
+                        <div class="ui celled horizontal list">
+                            <div class="item">Guest Checkout: ${moment(cleaningEvent.guestCheckout).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</div>
+                              <div class="item">Next Guest Checkin: ${moment(cleaningEvent.nextGuestCheckIn).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</div>
+                        </div>
+
+                        <li>Cleaning Price: ${cleaningEvent.finalPriceCleaning}</li>
+                        <li>Paid: ${cleaningEvent.paid}</li>
+                        <li id='cleanerAssigned'></li>
+
+
+                </div>
+                      <div class="bottom aligned content extra">
+
+                        <button type="submit" data-id=${cleaningEvent._id} class="ui bottom aligned button teal hideButtonUpdateCE">Update Cleaning Event</button>
+                        <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal deleteCleaningEventButton">Delete Cleaning Event</button>
+                        <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal assignCleanerButton">Assign Cleaner</button>
+                        <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal deleteCleanerButton">Delete Cleaner</button>
+
+                    </div>              
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <li>Start: ${moment(cleaningEvent.start).add(8, 'hours').format("M-DD-YYYY h:mm a")}</li>
+      <li>End: ${moment(cleaningEvent.end).add(8, 'hours').format("M-DD-YYYY h:mm a")}</li>  -->
+  
+  <!-- DONE -->
+  <div class="signInUpWrapper">
+
+
+    <!-- <section class="signOut">
+        <h2>Sign Out</h2>
+        <button class="ui teal big button logOut">Sign Out</button>
+    </section> -->
+
+    <section class="signUp">
+      <form class="ui form signUpForm" method="POST">
+        <h2 class="ui dividing header">Sign Up</h2>
+        <div class="field">
+          <label>User Name</label>
+          <div class="ui left icon input">
+            <input
+              id="signup-username"
+              type="text"
+              name="username"
+              placeholder="username"
+            />
+            <i class="user icon"></i>
+          </div>
+          </div>
+        <div class="field"> 
+          <label>Password</label>
+          <div class="ui left icon input">
+            <input
+              id="signup-password"
+              type="password"
+              name="password"
+              placeholder="password"
+            />
+            <i class="lock icon"></i>
+          </div>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <div class="ui left icon input">
+            <input
+              id="signup-email"
+              type="email"
+              name="email"
+              placeholder="email"
+            />
+            <i class="envelope icon"></i>
+          </div>
+        <div class="field">
+          <!-- THIS IS A DROPDOWN WITH ICONS...try to modify if time permits -->
+          <div class="ui selection dropdown signup-cleaner" id="signup-cleaner">
+            <input type="hidden" name="Host or Cleaner?">
+            <i class="dropdown icon"></i>
+            <div class="default text"><i class="users icon"></i>Host or Cleaner?</div>
+            <div class="menu" >
+              <div class="item" value="true" data-value="heart"><i class="heart icon"></i>Cleaner</div>
+              <div class="item" data-value="0"><i class="home icon"></i>Host</div>
+            </div>
+          </div>
+        
+          <!-- <select name="host or cleaner" class="ui dropdown signup-cleaner" id="signup-cleaner">
+                <option value="true" data-value="true"><i class="heart icon"></i>Cleaner</option>
+                <option value="false" data-value="false"><i class="home icon"></i>Host</option>
+            </select> -->
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui toggle checkbox">
+                <input type="checkbox" name="public">
+                <label>I agree to the Terms and Conditions</label>
+            </div>
+        <div class="field">
+          <button class="ui big button teal ssubmitSignUp" type="submit" >Submit</button>
         </div>
       </form>
     </section>
-    <section>
-      <h2>Sign Out</h2>
-      <button class="logOut">Sign Out</button>
-    </section>
-    <section class="signUp">
-      <h2>Sign Up</h2>
-      <div id="form-messages"></div>
-      <form class="signUpForm" enctype="multipart/form-data" method="POST">
-        <label>User Name</label>
-        <input
-          id="signup-username"
+
+    <section id="signIn" class="signIn">
+        <form class="ui form signInForm" method="POST">
+          <h2 class="ui dividing header">Sign In</h2>
+          <div class="field">
+            <label>Email</label>
+            <div class="ui left icon input">
+            <input
+          id="signIn-email"  
           type="text"
-          name="username"
-          placeholder="username"
-        />
-        <label>Password</label>
-        <input
-          id="signup-password"
-          type="password"
-          name="password"
-          placeholder="password"
-        />
-        <label>Email</label>
-        <input
-          id="signup-email"
-          type="email"
           name="email"
           placeholder="email"
-        />
-        <br/>
-        <select id="signup-cleaner" required>
-          <option value="false" selected="selected">Select Host or Cleaner</option>
-          <option value="false">Host</option>
-          <option value="true">Cleaner</option>
-        </select>
-        <br/>
-        <!-- <label >Upload a profile picture:</label>
-        <input
-          type="file"
-          accept="image/*"
-          name="profilePic"
-          id="signup-profilePic"
-        />
-        <br/> -->
-          <button class="submitSignUp" type="submit" >Submit</button>
-          <button>Cancel</button>
-      </form>
-    </section>
+          />
+          <i class="envelope icon"></i>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <div class="ui left icon input">
+            <input
+            id="signIn-password"
+            type="password"
+            name="password"
+            placeholder="password"
+            />
+            <i class="lock icon"></i>
+          </div>
+          <div class="field">
+              <button class="ui teal big button" type="submit">Login</button>
+          </div>
+          </div>
+  
+          </form>
+      </section>
+    
+<!-- MODAL below button -->
+<!-- <section>
+    <button class="ui big button teal updateUserButton">Update User</button>
+</section> -->
     <section>
-      <button class="updateUserButton">Update User</button>
-      <form class="updateUser hide">
-      <h2>Update: User</h2>
-      <label>Name</label>
-        <input
-          id="userName"
-          type="text"
-          name="nameU"
-          placeholder="name"
-        />
-        <br/>
-        <label>Username</label>
-        <input
-          id="userUsername"
-          type="text"
-          name="username"
-          placeholder="username"
-        />
-        <br/>
-        <label>About Me</label>
-        <input
-          id="userAboutMe"
-          type="text"
-          name="about"
-          placeholder=""
-        />
-        <br/>
-        <!-- <label>Profile Pic</label>
-        <input
-        type="file"
-        accept="image/*"
-        name="profilePic"
-        id="userProfilePic"
-        />
-        <br/> -->
-        <!-- <label>Password</label> -->
-        <!-- <input
-          id="userPassword"
-          type="password"
-          name="password"
-          placeholder="password"
-        /> -->
-        <!-- <br/> -->
-        <label>Email</label>
-        <input
-          id="userEmail"
-          type="email"
-          name="email"
-          placeholder="email"
-        />
-        <br/>
-        <label>Phone</label>
-        <input
-          id="userPhone"
-          type="tel"
-          name="phone"
-          placeholder=""
-        />
-        <br/>
-        <label>Cell Phone</label>
-        <input
-          id="userCell"
-          type="tel"
-          name="cellPhone"
-          placeholder=""
-        />
-        <br/>
-        <label>Business Phone</label>
-        <input
-          id="userBusinessPhone"
-          type="tel"
-          name="businesPhone"
-          placeholder=""
-        />
-        <br/>
-        <label>Company</label>
-        <input
-          id="userCompany"
-          type="text"
-          name="company"
-          placeholder=""
-        />
-        <br/>
-        <label>Email Alerts</label>
-        <select id="userEmailAlerts">
-            <option value="false" selected="selected">Do you want email alerts?</option>
-            <option value="false">No</option>
-            <option value="true">Yes</option>
-          </select>
-        <br/>
-        <label>Text Alerts</label>
-        <select id="userTextAlerts">
-            <option value="false" selected="selected">Do you want text alerts?</option>
-            <option value="false">No</option>
-            <option value="true">Yes</option>
-          </select>
-        <br/>
-        <label>Host Airbnb Calendar</label>
-        <input
-          id="userHostAirbnbCalendar"
-          type="url"
-          name="hostAirbnbCalendar"
-          placeholder=""
-        />
-        <br/>
-        <label>Cleaning Radius (miles):</label>
-        <input
-          id="userCleaningRadius"
-          type="number"
-          name="cleaningRadius"
-          placeholder="miles"
-        />
-        <br/>
-        <!-- <label>Admin</label>
-        <input
-          id="userAdmin"
-          type="checkbox"
-          name="admin"
-          placeholder=""
-        />
-        <br/> -->
-        <label>Cleaner</label>
-        <select id="userCleaner">
-            <option value="false" selected="selected">Select Host or Cleaner</option>
-            <option value="false">Host</option>
-            <option value="true">Cleaner</option>
-          </select>
-        <br/>
-        <button class="hideButton" type="submit">Submit</button>
-        <button class="hideButton">Cancel</button>
-        </form>
+        <div class="ui longer modal updateU">
+          <div class="content">    
+            <form class="ui equal width form updateUser" method="POST">
+              <h2 class="ui dividing header">Update User</h2>
+                <div class="two fields">
+                  <div class="field">  
+                    <label>Name</label>
+                      <input
+                        id="userName"
+                        type="text"
+                        name="nameU"
+                        placeholder="name"
+                      />
+                  </div>
+                  <div class="field">
+                      <label>Username</label>
+                      <input
+                        id="userUsername"
+                        type="text"
+                        name="username"
+                        placeholder="username"
+                      />
+                  </div>
+                </div>
+                  <div class="field">
+                      <label>About Me</label>
+                      <input
+                        id="userAboutMe"
+                        type="text"
+                        name="about"
+                        placeholder=""
+                      />
+                  </div>
+                  <div class="three fields">
+                    <div class="field">
+                      <label>Company</label>
+                      <input
+                        id="userCompany"
+                        type="text"
+                        name="company"
+                        placeholder=""
+                      />
+                    </div>
 
-    </section>
-
-  <main>
-
+          <!-- <select name="host or cleaner" class="ui dropdown signup-cleaner" id="signup-cleaner">
+                <option value="true" data-value="true"><i class="heart icon"></i>Cleaner</option>
+                <option value="false" data-value="false"><i class="home icon"></i>Host</option>
+            </select> -->
+                    <div class="field">
+                      <label>Business Phone</label>
+                      <input
+                        id="userBusinessPhone"
+                        type="tel"
+                        name="businesPhone"
+                        placeholder=""
+                      />      
+                    </div>    
+                    <div class="field">
+                      <label>Phone</label>
+                      <input
+                        id="userPhone"
+                        type="tel"
+                        name="phone"
+                        placeholder=""
+                      />          
+                    </div>
+                  </div>
+                  <div class="two fields">
+                      <div class="field">
+                        <label>Cell Phone</label>
+                        <input
+                          id="userCell"
+                          type="tel"
+                          name="cellPhone"
+                          placeholder=""
+                        />
+                      </div>
+                      <div class="field">
+                  <!-- <label>Text Alerts</label>
+                  <select id="userTextAlerts">
+                    <option value="false" selected="selected">Do you want text alerts?</option>
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select> -->
+                      <label>Text Alerts</label>
+                      <select id="userTextAlerts">
+                          <option value="false" selected="selected">Do you want text alerts?</option>
+                          <option value="false">No</option>
+                          <option value="true">Yes</option>
+                        </select>
+                      </div>
+                  </div>
+                  <div class="two fields">
+                    <div class="field">
+                      <label>Email</label>
+                      <input
+                        id="userEmail"
+                        type="email"
+                        name="email"
+                        placeholder="email"
+                      />
+                    </div>
+                    <div class="field">
+                      <label>Email Alerts</label>
+                      <select id="userEmailAlerts">
+                        <option value="false" selected="selected">Do you want email alerts?</option>
+                        <option value="false">No</option>
+                        <option value="true">Yes</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="field">
+                      <label>Host Airbnb Calendar</label>
+                      <input
+                      id="userHostAirbnbCalendar"
+                      type="url"
+                      name="hostAirbnbCalendar"
+                      placeholder=""
+                      />
+                    </div>
+                  <div class="two fields">
+                    <div class="field">
+                      <label>Cleaning Radius (miles):</label>
+                      <input
+                        id="userCleaningRadius"
+                        type="number"
+                        name="cleaningRadius"
+                        placeholder="miles"
+                      />
+                    </div>
+                    <div class="field">
+                      <label>Cleaner</label>
+                      <select id="userCleaner">
+                        <option value="false"   selected="selected">Select Host or  Cleaner</option>
+                        <option value="false">Host</option>
+                        <option value="true">Cleaner</option>
+                      </select>
+                  </div>
+                </div>
+                <div class="two fields">
+                  <div class="field">
+                      <button class="ui button teal cancelModalU" type="submit">Submit</button>
+                      <!-- Deleted hideButton class -->
+                  </div>
+                  <div class="field">
+                      <button class="ui button teal hideButton cancelModalU">Cancel</button>
+                  </div>
+                </div>
+              </form>
+          </div>
+          </div>
+          </section>
+        </div>
+      </section>
   </main>
-  <footer>
-    <h4>Footer</h4>
+  </div>
+  <footer class="stickyFooter">
+    <h4 class="footerHeader">2019 <i class="clock outline icon"></i> Why Brandon? </h4>
   </footer>
   
 
   <script src="scripts/moment.js" defer></script>
   <script src="scripts/app.js" defer></script>
   <script src="semantic/dist/semantic.min.js"></script>
+
 </body>
 </html>
