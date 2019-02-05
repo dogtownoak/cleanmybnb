@@ -32,6 +32,7 @@ module.exports = {
         } else {
         let newUser = req.body
         newUser.password = hash
+        
       User.findOne({ email: req.body.email })
         .then((user) => {
           if (!user) {
