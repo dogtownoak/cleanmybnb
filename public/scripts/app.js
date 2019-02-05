@@ -361,7 +361,7 @@ function checkForLogin(){
 }
 
 function checkLocation(){
-    if (window.location.href != "/") {
+    if (window.location.href !== `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`) {
         window.location.href = "/"
     } else console.log("correct location")
 }
