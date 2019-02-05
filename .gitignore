@@ -86,8 +86,7 @@ typings/
 
 gcal.js
 Materialize/
-jQuery.js
-moment.js
+
 
 
 # End of https://www.gitignore.io/api/node
