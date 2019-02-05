@@ -360,11 +360,24 @@ function checkForLogin(){
     }
 }
 
+// http://localhost:3000
+// This works on local host but not Heroku
+// function checkLocation(){
+//     if (window.location.href !== `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`) {
+//         window.location.href = "/"
+//     } else console.log("correct location")
+// }
+
 function checkLocation(){
-    if (window.location.href !== `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`) {
+    if (window.location.href !== `${window.location.protocol}//${window.location.hostname}/`) {
         window.location.href = "/"
     } else console.log("correct location")
 }
+
+
+
+
+// https://gentle-fjord-24826.herokuapp.com/
 
 function handleLogout(e) {
     e.preventDefault();
