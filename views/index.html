@@ -4,14 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Clean My Airbnb JS Version</title>
+    <title>CleanMyBnb</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <script src="scripts/jQuery.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css" >
-
-
 
 </head>
 <body>
@@ -62,107 +60,8 @@
       });
   </script>
 
-
-<!-- 
-<section class="hUCardWrapper">
-  <div class="ui items">
-      <div class="item">
-        <div class="ui small image">
-          <img src="http://lorempixel.com/g/150/150/city">
-        </div>
-        <div class="middle aligned content">
-          <div class="header">
-              ${unit.address}
-            
-            </div>
-            <div class="description">
-                <div data=${unit._id}>
-                    <div class="ui celled horizontal list">
-                        <div class="item">Unit Description: ${unit.unitDescription}</div>
-                        <div class="item">Airbnb: <a href="${unit.airbnbURL}" >Airbnb Unit</a></div>
-                      </div>
-
-                    <li>Special Requirements: ${unit.specialRequirements}</li>
-                    <li>Cleaning Tips: ${unit.cleanerTip}</li>
-                    <li>Host Tips: ${unit.hostTips}</li>
-
-                    <div class="ui celled horizontal list">
-                        <div class="item">Square Footage: ${unit.sizeSqFt}</div>
-                        <div class="item">Rooms: ${unit.sizeRooms}</div>
-                        <div class="item">Beds: ${unit.sizeBeds}</div>
-                        <div class="item">Bathrooms: ${unit.sizeBathrooms}</div>
-                        <div class="item">Kithchen: ${unit.sizeKitchen}</div>
-                      </div>
-            </div>
-                  <div class="bottom aligned content extra">
-                    <button data-id=${unit._id} class="ui bottom aligned button teal  hideButtonCreateC">Create Cleaning Event</button>
-                    <button data-id=${unit._id} class="ui bottom aligned button teal updateHUModal hideButtonUpdateHU">Update Housing Unit</button>
-                    <button data-id=${unit._id} class="ui bottom aligned button teal createHUModal hideButtonCreateHU">Create Housing Unit</button>
-                    <button data-id=${unit._id} class="ui bottom aligned button teal deleteHousingUnitButton">Delete Housing Unit</button>
-                </div>
-          
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  
-  <section class="cECardWrapper">
-      <div class="ui items">
-          <div class="item">
-            <div class="ui small image">
-              <img src="http://lorempixel.com/g/150/150/city">
-            </div>
-            <div class="middle aligned content">
-              <div class="header">
-                  ${unit.address}
-                
-                </div>
-                <div class="description">
-                    <div data=${cleaningEvent._id}>
-
-                        <div class="ui celled horizontal list">
-                          <div class="item">Start: ${moment(cleaningEvent.start).add(8, 'hours').format("M-DD-YYYY h:mm a")}</div>
-                          <div class="item">End: ${moment(cleaningEvent.end).add(8, 'hours').format("M-DD-YYYY h:mm a")}</div>  
-                        </div>
-
-                        <li>Address: ${cleaningEvent.address}</li>
-
-                        <div class="ui celled horizontal list">
-                            <div class="item">Guest Checkout: ${moment(cleaningEvent.guestCheckout).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</div>
-                              <div class="item">Next Guest Checkin: ${moment(cleaningEvent.nextGuestCheckIn).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</div>
-                        </div>
-
-                        <li>Cleaning Price: ${cleaningEvent.finalPriceCleaning}</li>
-                        <li>Paid: ${cleaningEvent.paid}</li>
-                        <li id='cleanerAssigned'></li>
-
-
-                </div>
-                      <div class="bottom aligned content extra">
-
-                        <button type="submit" data-id=${cleaningEvent._id} class="ui bottom aligned button teal hideButtonUpdateCE">Update Cleaning Event</button>
-                        <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal deleteCleaningEventButton">Delete Cleaning Event</button>
-                        <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal assignCleanerButton">Assign Cleaner</button>
-                        <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal deleteCleanerButton">Delete Cleaner</button>
-
-                    </div>              
-            </div>
-          </div>
-        </div>
-      </section>
-  
-      <li>Start: ${moment(cleaningEvent.start).add(8, 'hours').format("M-DD-YYYY h:mm a")}</li>
-      <li>End: ${moment(cleaningEvent.end).add(8, 'hours').format("M-DD-YYYY h:mm a")}</li>  -->
-  
   <!-- DONE -->
   <div class="signInUpWrapper">
-
-
-    <!-- <section class="signOut">
-        <h2>Sign Out</h2>
-        <button class="ui teal big button logOut">Sign Out</button>
-    </section> -->
 
     <section class="signUp">
       <form class="ui form signUpForm" method="POST">
@@ -213,11 +112,7 @@
               <div class="item" data-value="0"><i class="home icon"></i>Host</div>
             </div>
           </div>
-        
-          <!-- <select name="host or cleaner" class="ui dropdown signup-cleaner" id="signup-cleaner">
-                <option value="true" data-value="true"><i class="heart icon"></i>Cleaner</option>
-                <option value="false" data-value="false"><i class="home icon"></i>Host</option>
-            </select> -->
+
             </div>
         </div>
         <div class="field">
@@ -262,12 +157,8 @@
           </div>
   
           </form>
-      </section>
-    
+      </section> 
 <!-- MODAL below button -->
-<!-- <section>
-    <button class="ui big button teal updateUserButton">Update User</button>
-</section> -->
     <section>
         <div class="ui longer modal updateU">
           <div class="content">    
@@ -313,10 +204,6 @@
                       />
                     </div>
 
-          <!-- <select name="host or cleaner" class="ui dropdown signup-cleaner" id="signup-cleaner">
-                <option value="true" data-value="true"><i class="heart icon"></i>Cleaner</option>
-                <option value="false" data-value="false"><i class="home icon"></i>Host</option>
-            </select> -->
                     <div class="field">
                       <label>Business Phone</label>
                       <input
@@ -347,12 +234,6 @@
                         />
                       </div>
                       <div class="field">
-                  <!-- <label>Text Alerts</label>
-                  <select id="userTextAlerts">
-                    <option value="false" selected="selected">Do you want text alerts?</option>
-                    <option value="false">No</option>
-                    <option value="true">Yes</option>
-                  </select> -->
                       <label>Text Alerts</label>
                       <select id="userTextAlerts">
                           <option value="false" selected="selected">Do you want text alerts?</option>
@@ -426,10 +307,10 @@
   </main>
   </div>
   <footer class="stickyFooter">
-    <h4 class="footerHeader">2019 <i class="clock outline icon"></i> Why Brandon? </h4>
+    <h4 class="footerHeader">2019
+      why brandon? </h4>
   </footer>
   
-
   <script src="scripts/moment.js" defer></script>
   <script src="scripts/app.js" defer></script>
   <script src="semantic/dist/semantic.min.js"></script>

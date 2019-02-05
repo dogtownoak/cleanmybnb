@@ -21,62 +21,34 @@ let createReviewUrl = '/users/housingunits/cleaningevents/review/create'
 let updateReviewUrl = '/users/housingunits/cleaningevents/review/update'
 let deleteReviewUrl = '/users/housingunits/cleaningevents/review/:_id'
 
-
 let user ;
 let loggedIn ;
 let housingUnitId;
-
 
 checkForLogin()
 populateUserProfile()
 getUserHousingUnits()
 getUserCleaningEvents()
 
-// $('.hideButton').on('click', hideUserForm)
-// function hideUserForm(e) {
-//     e.preventDefault()
-//     // $('.updateUser').toggleClass('hide')
-// }
-
 $('.hideButton').on('click', hideHUCreateForm)
 function hideHUCreateForm(e) {
     e.preventDefault()
-    // $('.createHousingUnitForm').toggleClass('hide')
 }
-
-// $('.hideButtonUpdate').on('click', hideHUUpdateForm)
-// function hideHUUpdateForm(e) {
-//     updateHousingUnitFormData()
-//     e.preventDefault()
-//     // $('.updateHousingUnitForm').toggleClass('hide')
-// }
 
 $('.hideButtonCreateC').on('click', hideCEForm)
 function hideCEForm(e) {
-
     e.preventDefault()
-    // $('.createCleaningEventForm').toggleClass('hide')
 }
-
-// $('.hideButtonUpdateC').on('click', hideCEUForm)
-// function hideCEUForm(e) {
-//     e.preventDefault()
-//     // $('.updateCleaningEventForm').toggleClass('hide')
-// }
 
 $('.hideButtonCreateR').on('click', hideRCreateForm)
 function hideRCreateForm(e) {
     e.preventDefault()
-    // $('.createReviewForm').toggleClass('hide')
 }
 
 $('.hideButtonUpdateR').on('click', hideRUForm)
 function hideRUForm(e) {
     e.preventDefault()
-    // $('.updateReviewForm').toggleClass('hide')
 }
-
-
 
 $('.userHUWrapper').on('click', '.deleteHousingUnitButton', function() {
     housingUnitId = $(this).data()
@@ -89,35 +61,20 @@ $('.userHUWrapper').on('click', '.hideButtonCreateC', function() {
     housingUnitId = $(this).data()
     console.log(housingUnitId)
     showCreateCEmodal()
-
-
 })
 
-
 $('.userHUWrapper').on('click', '.hideButtonUpdateHU', function() {
-    
     housingUnitId = $(this).data()
     console.log(`this is it ${housingUnitId.id}`)
     updateHousingUnitFormData()
-    showUpdateHUmodal()
-    
+    showUpdateHUmodal() 
 })
 
-$('.userHUWrapper').on('click', '.hideButtonCreateHU', function() {
-    
+$('.userHUWrapper').on('click', '.hideButtonCreateHU', function() {  
     housingUnitId = $(this).data()
     console.log(`this is it ${housingUnitId.id}`)
-    showCreateHUmodal()
-    
+    showCreateHUmodal()   
 })
-
-// $('.userHUWrapper').on('click', '.hideButtonUpdateHU', function() {
-//     closeModalHE()
-
-// })
-
-
-
 
 $('.userCEWrapper').on('click', '.hideButtonUpdateCE', function(e) {
     e.preventDefault()
@@ -146,7 +103,6 @@ $('.userCEWrapper').on('click', '.assignCleanerButton', function() {
     } else {
         console.log("Hey you are not a cleaner!")
     }
-
 })
 
 $('.userCEWrapper').on('click', '.deleteCleanerButton', function() {
@@ -162,7 +118,6 @@ $('.userCEWrapper').on('click', '.deleteCleanerButton', function() {
     location.reload()
 })
 
-
 $('.body').on('click', '.sendData', function(){
 
 $('.updateHousingUnitForm').form('submit', updateHousingUnit())
@@ -177,15 +132,15 @@ $('.ui.sidebar')
 }
 
 function showModal() {
-        console.log('open modal')
-        $('.longer.modal.CE').modal({
-            transition: 'horizontal flip', 
-            duration: 800,
-            blurring: true,
-            closable : false,
-            useCSS   : true
-        })
-        .modal('show') 
+    console.log('open modal')
+    $('.longer.modal.CE').modal({
+        transition: 'horizontal flip', 
+        duration: 800,
+        blurring: true,
+        closable : false,
+        useCSS   : true
+    })
+    .modal('show') 
 }
 
 function showUpdateHUmodal() { $('.modal.updateHUModal').modal({
@@ -205,7 +160,7 @@ function showCreateHUmodal() { $('.modal.createHUModal').modal({
     closable : false,
     useCSS   : true
 })
-.modal('show') 
+    .modal('show') 
 }
 
 function showCreateCEmodal() { $('.modal.createCE').modal({
@@ -215,7 +170,7 @@ function showCreateCEmodal() { $('.modal.createCE').modal({
     closable : false,
     useCSS   : true
 })
-.modal('show') 
+    .modal('show') 
 }
 
 $('.modalTestButton').on('click', function(){
@@ -254,27 +209,9 @@ $('.updateUserButton').on('click', function(){
     .modal('show')
     })
 
-
-
-// // Hide HU Update Modal
-// $('.cancelModalHU').on('click', function(){
-//     location.reload()
-// })
-
-
-// used on form stubmit: using "this modal" works but there is a delay when closing
-// function closeModalCE() {
-//         $('.longer.modal.CE').modal('hide') 
-// }
 function closeModalHU() {
     $('.modal.updateHUModal').modal('hide') 
 }
-// function closeModalU() {
-//     $('.longer.modal').modal('hide') 
-// }
-// function closeModalR() {
-//     $('.longer.modal').modal('hide') 
-// }
 
 $('.cancelMo').on('click', function(){
     $('.longer.modal')
@@ -312,24 +249,7 @@ $('.cancelModalU').on('click', function(){
     location.reload()
 })
 
-
-$('.ui.dropdown')
-  .dropdown()
-;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$('.ui.dropdown').dropdown();
 
 // User
 $('.signUpForm').on('submit', submitSignup)
@@ -341,19 +261,14 @@ $('.updateUserButton').on('click', updateUserFormData)
 // Housing Unit
 $('.createHousingUnitForm').on('submit', createHousingUnit)
 $('.updateHousingUnitForm').on('submit', updateHousingUnit)
-// $('.deleteHousingUnitFomr').on('submit', deleteHousingUnit)
-// $('.updateHousingUnitButton').on('click', updateHousingUnitFormData)
 
 // Cleaning Event
 $('.createCleaningEventForm').on('submit', createCleaningEvent)
 $('.updateCleaningEventForm').on('submit', updateCleaningEvent)
-// $('.deleteCleaningEventForm').on('submit', deleteCleaningEvent)
 
 // Review
 $('.createReviewForm').on('submit', createReview)
 $('.updateReviewForm').on('submit', updateReview)
-// $('.deleteReviewForm').on('submit', deleteReview)
-
 
 // User
 function submitSignup(e){
@@ -389,12 +304,11 @@ function submitSignup(e){
             console.log(user)
             window.location.replace("/housingunit")
     }   
-    };
+};
 
 function submitLogin(e){
     e.preventDefault();
     console.log("LOGIN FORM SUBMITTED")
-    // let userData = $(this).serialize()
     let signInData = {
         password: $('#signIn-password').val(),
         email: $('#signIn-email').val()
@@ -420,8 +334,7 @@ function submitLogin(e){
         error: function signupError(e1,e2,e3) {
             console.log(e2);
         }
-    })
-    
+    })   
 }
 
 function checkForLogin(){
@@ -502,12 +415,10 @@ function updateUser(e) {
         function onSuccess (userUpdates) {
             console.log(`User updated:`, userUpdates)
     }   
-    };
+};
 
-function updateUserFormData(e) {
-        
+function updateUserFormData(e) {     
         e.preventDefault();
-        // $('.updateUser').toggleClass('hide')
         console.log("Update User Form with Data")
         $.ajax({
             method: 'GET',
@@ -535,7 +446,7 @@ function updateUserFormData(e) {
                 $('input[id="userHostAirbnbCalendar"]').val(user[0].hostAirbnbCalendar),
                 $('input[id="userCleaningRadius"]').val(user[0].cleaningRadius)
         }   
-        };
+};
 
 function populateUserProfile(e) {
     console.log("Update User Profile with Data")
@@ -572,7 +483,6 @@ function populateUserProfile(e) {
                 <a>${user[0].email}</a></br>
                <a>${user[0].hostAirbnbCalendar}</a>
               </div>
- 
             </div>
             <div class="extra content">
               <a>
@@ -590,20 +500,11 @@ function populateUserProfile(e) {
             </div>
           </div>
         `
-
-
         $('.userProfileWrapper').append(card1)
-        
-        
-        
-        
-        
         }   
 };
 
-
 // Housing Unit
-
 function getUserHousingUnits(){
     $.ajax({
         method: 'GET',
@@ -611,68 +512,60 @@ function getUserHousingUnits(){
         success: onSuccess,
         error: onError
     });
-        function onError ( err ) {
-            console.log( err );
-            console.log("post error",err)
-        }
-        function onSuccess (housingUnits) {
-            console.log(`HousingUnit Arr:`, housingUnits)
-            let userHUnits = housingUnits.filter(housingUnit => housingUnit.hostID === localStorage.userId)
-            console.log(`Host's HousingUnits`, userHUnits)
-        
-            userHUnits.forEach(unit => {
-
-
-let card1 =
-    `<section class="hUCardWrapper">
-    <div class="ui items">
-    <div class="item">
-      <div class="ui small image">
-        <img src="http://lorempixel.com/g/150/150/city">
-      </div>
-      <div class="middle aligned content">
-        <div class="header">
-        ${unit.address}
-        
-          </div>
-          <div class="description">
-              <div data=${unit._id}>
-              <div class="ui celled horizontal list">
-              <div class="item">Square Footage: ${unit.sizeSqFt}</div>
-              <div class="item">Rooms: ${unit.sizeRooms}</div>
-              <div class="item">Beds: ${unit.sizeBeds}</div>
-              <div class="item">Bathrooms: ${unit.sizeBathrooms}</div>
-              <div class="item">Kithchen: ${unit.sizeKitchen}</div>
-            </div>
-              <div class="ui celled horizontal list">
-              <div class="item">Unit Description: ${unit.unitDescription}</div>
-              <div class="item">Airbnb: <a href="${unit.airbnbURL}" >Airbnb Unit</a></div>
-            </div>
-                  <li>Special Requirements: ${unit.specialRequirements}</li>
-                  <li>Cleaning Tips: ${unit.cleanerTip}</li>
-                  <li>Host Tips: ${unit.hostTips}</li>
-          </div>
-                <div class="bottom aligned content extra">
-                  <button data-id=${unit._id} class="ui bottom aligned button teal  hideButtonCreateC">Create Cleaning Event</button>
-                  <button data-id=${unit._id} class="ui bottom aligned button teal updateHUModal hideButtonUpdateHU">Update Housing Unit</button>
-                  <button data-id=${unit._id} class="ui bottom aligned button teal createHUModal hideButtonCreateHU">Create Housing Unit</button>
-                  <button data-id=${unit._id} class="ui bottom aligned button teal deleteHousingUnitButton">Delete Housing Unit</button>
+    function onError ( err ) {
+        console.log( err );
+        console.log("post error",err)
+    }
+    function onSuccess (housingUnits) {
+        console.log(`HousingUnit Arr:`, housingUnits)
+        let userHUnits = housingUnits.filter(housingUnit => housingUnit.hostID === localStorage.userId)
+        console.log(`Host's HousingUnits`, userHUnits)
+        userHUnits.forEach(unit => {
+            let card1 =
+            `<section class="hUCardWrapper">
+            <div class="ui items">
+            <div class="item">
+              <div class="ui small image">
+                <img src="http://lorempixel.com/g/150/150/city">
               </div>
+              <div class="middle aligned content">
+                <div class="header">
+                ${unit.address} 
+                </div>
+                <div class="description">
+                <div data=${unit._id}>
+                <div class="ui celled horizontal list">
+                <div class="item">Square Footage: ${unit.sizeSqFt}</div>
+                <div class="item">Rooms: ${unit.sizeRooms}</div>
+                <div class="item">Beds: ${unit.sizeBeds}</div>
+                <div class="item">Bathrooms: ${unit.sizeBathrooms}</div>
+                <div class="item">Kithchen: ${unit.sizeKitchen}</div>
+                </div>
+                <div class="ui celled horizontal list">
+                <div class="item">Unit Description: ${unit.unitDescription}</div>
+                <div class="item">Airbnb: <a href="${unit.airbnbURL}" >Airbnb Unit</a></div>
+                </div>
+                <li>Special Requirements: ${unit.specialRequirements}</li>
+                <li>Cleaning Tips: ${unit.cleanerTip}</li>
+                <li>Host Tips: ${unit.hostTips}</li>
+                </div>
+                <div class="bottom aligned content extra">
+                <button data-id=${unit._id} class="ui bottom aligned button teal  hideButtonCreateC">Create Cleaning Event</button>
+                <button data-id=${unit._id} class="ui bottom aligned button teal updateHUModal hideButtonUpdateHU">Update Housing Unit</button>
+                <button data-id=${unit._id} class="ui bottom aligned button teal createHUModal hideButtonCreateHU">Create Housing Unit</button>
+                <button data-id=${unit._id} class="ui bottom aligned button teal deleteHousingUnitButton">Delete Housing Unit</button>
+                </div>
             </div>
-        </div>
-        </div>
-    </section>`
-
+            </div>
+            </div>
+            </section>`
             $('.userHUWrapper').append(card1)
             })
-
-        }   
+    }   
 };
-
 
 function createHousingUnit(e){
     e.preventDefault();
-    // $('.createHousingUnitForm').toggleClass('hide')
     console.log("submit create housing unit clicked")
     let signUpData = {
         hostID: localStorage.userId,
@@ -707,11 +600,8 @@ function createHousingUnit(e){
             console.log(`HousingUnit Created:`, newHousingUnit)
             localStorage.housingUnitId = newHousingUnit._id
             getUserHousingUnits()
-            
-
-
         }   
-        };    
+};    
 
 function updateHousingUnit(e){
     console.log(housingUnitId.id)
@@ -748,10 +638,9 @@ function updateHousingUnit(e){
         function onSuccess (updatedHousingUnit) {
         console.log(`HousingUnit Updated:`, updatedHousingUnit)
         }   
-        };
+};
 
 function updateHousingUnitFormData(){
-    // $('.updateHousingUnitForm').toggleClass('hide')
     console.log("submit update housing unit form data clicked")
     $.ajax({
         method: 'GET',
@@ -759,27 +648,25 @@ function updateHousingUnitFormData(){
         success: onSuccess,
         error: onError
     });
-        function onError ( err ) {
-        console.log( err );
-        console.log("GET  error",err)
-        }
-        function onSuccess (housingUnit) {
-            console.log(`HousingUnit Form Updated:`, housingUnit)
-            $('input[id="housingUnitAddressU"]').val(housingUnit[0].address)
-            $('input[id="housingUnitDescriptionU"]').val(housingUnit[0].unitDescription)
-            $('input[id="housingUnitAirbnbURLU"]').val(housingUnit[0].airbnbURL)
-            $('input[id="housingUnitSpecialReqU"]').val(housingUnit[0].specialRequirements),
-            $('input[id="housingUnitHostTipsU"]').val(housingUnit[0].hostTips),
-            $('input[id="housingUnitCleanerTipsU"]').val(housingUnit[0].cleanerTips),
-            $('input[id="housingUnitSizeSqFtU"]').val(housingUnit[0].sizeSqFt),
-            $('input[id="housingUnitSizeRoomsU"]').val(housingUnit[0].sizeRooms),
-            $('input[id="housingUnitSizeBathroomsU"]').val(housingUnit[0].sizeBathrooms),
-            $('input[id="housingUnitSizeBedsU"]').val(housingUnit[0].sizeBeds),
-            $('input[id="housingUnitSizeKitchenU"]').val(housingUnit[0].sizeKitchen)
-        }   
-    
-    
-    }   
+    function onError ( err ) {
+    console.log( err );
+    console.log("GET  error",err)
+    }
+    function onSuccess (housingUnit) {
+        console.log(`HousingUnit Form Updated:`, housingUnit)
+        $('input[id="housingUnitAddressU"]').val(housingUnit[0].address)
+        $('input[id="housingUnitDescriptionU"]').val(housingUnit[0].unitDescription)
+        $('input[id="housingUnitAirbnbURLU"]').val(housingUnit[0].airbnbURL)
+        $('input[id="housingUnitSpecialReqU"]').val(housingUnit[0].specialRequirements),
+        $('input[id="housingUnitHostTipsU"]').val(housingUnit[0].hostTips),
+        $('input[id="housingUnitCleanerTipsU"]').val(housingUnit[0].cleanerTips),
+        $('input[id="housingUnitSizeSqFtU"]').val(housingUnit[0].sizeSqFt),
+        $('input[id="housingUnitSizeRoomsU"]').val(housingUnit[0].sizeRooms),
+        $('input[id="housingUnitSizeBathroomsU"]').val(housingUnit[0].sizeBathrooms),
+        $('input[id="housingUnitSizeBedsU"]').val(housingUnit[0].sizeBeds),
+        $('input[id="housingUnitSizeKitchenU"]').val(housingUnit[0].sizeKitchen)
+    } 
+}   
 
 function deleteHousingUnit(){
     $.ajax({
@@ -794,155 +681,108 @@ function deleteHousingUnit(){
         }
     function onSuccess (deletedHousingUnit) {
         console.log("Deleted Housing Unit", deletedHousingUnit)
-}
+    }
 }
 
     // Cleaning Events
 function getUserCleaningEvents(){
-
-        $.ajax({
-            method: 'GET',
-            url: getUserCleaningEventsUrl ,
-            success: onSuccess,
-            error: onError
-        });
-            function onError ( err ) {
-                console.log( err );
-                console.log("get error",err)
-            }
-            function onSuccess (cleaningEvents) {
-                console.log(`cleaningEvent Arr:`, cleaningEvents)
-
-                let userCleaningEvents = cleaningEvents.filter(cleaningEvent => cleaningEvent.hostId === localStorage.userId || cleaningEvent.cleanerId === localStorage.userId)
-                console.log(`User Cleaning Events`, userCleaningEvents)
-
-                userCleaningEvents.forEach(cleaningEvent => {
-                    // let card1 =
-                    // `<div data=${cleaningEvent._id}>
-                    // <li>housingUnit: ${cleaningEvent.housingUnit}</li>
-                    // <li>Title: ${cleaningEvent.title}</li>
-                    // <li>Start: ${moment(cleaningEvent.start).add(8, 'hours').format("M-DD-YYYY h:mm a")}</li>
-                    // <li>End: ${moment(cleaningEvent.end).add(8, 'hours').format("M-DD-YYYY h:mm a")}</li>
-                    // <li>Address: ${cleaningEvent.address}</li>
-                    // <li>Guest Checkout: ${moment(cleaningEvent.guestCheckout).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</li>
-                    // <li>Next Guest Checkin: ${moment(cleaningEvent.nextGuestCheckIn).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</li>
-                    // <li>Cleaning Price: ${cleaningEvent.finalPriceCleaning}</li>
-                    // <li>Paid: ${cleaningEvent.paid}</li>
-                    // <li id='cleanerAssigned'></li>
-                    
-                    // <button type="submit" data-id=${cleaningEvent._id} class="ui button teal hideButtonUpdateCE">Update Cleaning Event</button>
-
-                    // <button data-id=${cleaningEvent._id} class="ui button teal deleteCleaningEventButton">Delete Cleaning Event</button>
-                    // <button data-id=${cleaningEvent._id} class="ui button teal assignCleanerButton">Assign Cleaner</button>
-                    // <button data-id=${cleaningEvent._id} class="ui button teal deleteCleanerButton">Delete Cleaner</button>
-                    // </div>
-                    // `
-
-let card1 = 
-`<section class="cECardWrapper">
-<div class="ui items">
-    <div class="item">
-      <div class="middle aligned content">
-        <div class="header">
-        ${cleaningEvent.title}
-          
-          </div>
-          <div class="description">
-              <div data=${cleaningEvent._id}>
-                <div class="ui celled horizontal list">
-                    <div class="item">Start: ${moment(cleaningEvent.start).add(8, 'hours').format("M-DD-YYYY h:mm a")}</div>
-                    <div class="item">End: ${moment(cleaningEvent.end).add(8, 'hours').format("M-DD-YYYY h:mm a")}</div>  
-                        </div></br>
-                <div class="ui celled horizontal list">
-                    <div class="item">Guest Checkout: ${moment(cleaningEvent.guestCheckout).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</div>
-                    <div class="item">Next Guest Checkin: ${moment(cleaningEvent.nextGuestCheckIn).add(8, 'hours').format("MM-DD-YYYY h:mm a")}</div>
-                    </div></br> 
-                
-                <div class="ui celled horizontal list">   
-                    <div class="item">Cleaning Price: ${cleaningEvent.finalPriceCleaning}</div>
-                    <div class="item">Paid: ${cleaningEvent.paid}</div>
-                </div></br>
-
-                  <p>Address: ${cleaningEvent.address}</p>
-
-
-
-          </div>
+    $.ajax({
+        method: 'GET',
+        url: getUserCleaningEventsUrl ,
+        success: onSuccess,
+        error: onError
+    });
+    function onError ( err ) {
+        console.log( err );
+        console.log("get error",err)
+    }
+    function onSuccess (cleaningEvents) {
+        console.log(`cleaningEvent Arr:`, cleaningEvents)
+        let userCleaningEvents = cleaningEvents.filter(cleaningEvent => cleaningEvent.hostId === localStorage.userId || cleaningEvent.cleanerId === localStorage.userId)
+        console.log(`User Cleaning Events`, userCleaningEvents)
+        userCleaningEvents.forEach(cleaningEvent => {
+            let card1 = 
+            `<section class="cECardWrapper">
+                <div class="ui items">
+                    <div class="item">
+                    <div class="middle aligned content">
+                <div class="header">
+                    ${cleaningEvent.title}  
+                </div>
+                <div class="description">
+                <div data=${cleaningEvent._id}>
+                  <div class="ui celled horizontal list">
+                      <div class="item">Start: ${moment(cleaningEvent.start).add(8, 'hours').format("M-DD-YYYY h:mm a")}</div>
+                      <div class="item">End: ${moment(cleaningEvent.end).add(8, 'hours').format("M-DD-YYYY h:mm a")}</div>  
+                          </div></br>
+                  <div class="ui celled horizontal list">
+                      <div class="item">Guest Checkout: ${moment(cleaningEvent.guestCheckout).add(8, 'hours').format("MM-DD-YYYY  h:mm a")}</div>
+                      <div class="item">Next Guest Checkin: ${moment(cleaningEvent.nextGuestCheckIn).add(8, 'hours').format   ("MM-DD-YYYY h:mm a")}</div>
+                      </div></br> 
+                  <div class="ui celled horizontal list">   
+                      <div class="item">Cleaning Price: ${cleaningEvent.finalPriceCleaning}</div>
+                      <div class="item">Paid: ${cleaningEvent.paid}</div>
+                  </div></br>
+                    <p>Address: ${cleaningEvent.address}</p>
+                </div>
                 <div class="bottom aligned content extra">
+                    <button type="submit" data-id=${cleaningEvent._id} class="ui bottom aligned button teal     hideButtonUpdateCE">Update Cleaning Event</button>
+                    <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal deleteCleaningEventButton">Delete     Cleaning Event</button>
+                    <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal assignCleanerButton">Assign   Cleaner</button>
+                    <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal deleteCleanerButton">Delete   Cleaner</button>
+                </div>              
+                </div>
+                    </div>
+                </div>
+            </section>`
+        $('.userCEWrapper').append(card1)
+        })   
+    }   
+};
 
-                  <button type="submit" data-id=${cleaningEvent._id} class="ui bottom aligned button teal hideButtonUpdateCE">Update Cleaning Event</button>
-                  <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal deleteCleaningEventButton">Delete Cleaning Event</button>
-                  <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal assignCleanerButton">Assign Cleaner</button>
-                  <button data-id=${cleaningEvent._id} class="ui bottom aligned button teal deleteCleanerButton">Delete Cleaner</button>
-
-              </div>              
-      </div>
-    </div>
-  </div>
-</section>`
-
-
-
-                $('.userCEWrapper').append(card1)
-                })   
-            }   
-    };
-
-
-;
-
-    function deleteCleaningEvent(){
-        $.ajax({
-            method: 'DELETE',
-            url: updateCleaningEventFormURL + cleaningEventId.id,
-            success: onSuccess,
-            error: onError
-        });
-        function onError ( err ) {
-            console.log( err );
-            console.log("Delete  error",err)
-            }
-        function onSuccess (deletedCleaningEvent) {
-            console.log("Deleted CleaningEvent", deletedCleaningEvent)
+function deleteCleaningEvent(){
+    $.ajax({
+        method: 'DELETE',
+        url: updateCleaningEventFormURL + cleaningEventId.id,
+        success: onSuccess,
+        error: onError
+    });
+    function onError ( err ) {
+        console.log( err );
+        console.log("Delete  error",err)
+        }
+    function onSuccess (deletedCleaningEvent) {
+        console.log("Deleted CleaningEvent", deletedCleaningEvent)
     }
+}
+
+
+function updateCleaningEventFormData(){  
+    console.log("submit update cleaning event form data clicked")
+    $.ajax({
+        method: 'GET',
+        url: updateCleaningEventFormURL + cleaningEventId.id,
+        success: onSuccess,
+        error: onError
+    });
+    function onError ( err ) {
+    console.log( err );
+    console.log("GET  error",err)
     }
+    function onSuccess (cleaningEvent) {
+    console.log(`CleaningEvent Form Updated:`,cleaningEvent)
+        $('input[id="cleaningEventURLU"]').val(cleaningEvent[0].url)
+        $('input[id="cleaningEventTitleU"]').val(cleaningEvent[0].title)
+        $('input[id="cleaningEventStartU"]').val(moment(cleaningEvent[0].start).add(8, 'hours').format("YYYY-MM-DD[T]HH:mm:ss"))
+        $('input[id="cleaningEventEndU"]').val(moment(cleaningEvent[0].end).add(8, 'hours').format("YYYY-MM-DD[T]HH:mm:ss")),
+        $('input[id="cleaningEventAddressU"]').val(cleaningEvent[0].address),
+        $('input[id="cleaningEventGuestCheckoutU"]').val(moment(cleaningEvent[0].guestCheckout).add(8, 'hours').format("YYYY-MM-DD[T]HH:mm:ss")),
+        $('input[id="cleaningEventNextGuestCheckInU"]').val(moment(cleaningEvent[0].nextGuestCheckIn).add(8, 'hours').format("YYYY-MM-DD[T]HH:mm:ss")),
+        $('input[id="cleaningEventFinalPriceCleaningU"]').val(cleaningEvent[0].finalPriceCleaning),
+        $('input[id="cleaningEventPaidU"]').val(cleaningEvent[0].paid)
+    }       
+}   
 
-
-    function updateCleaningEventFormData(){
-        
-        console.log("submit update cleaning event form data clicked")
-        $.ajax({
-            method: 'GET',
-            url: updateCleaningEventFormURL + cleaningEventId.id,
-            success: onSuccess,
-            error: onError
-        });
-            function onError ( err ) {
-            console.log( err );
-            console.log("GET  error",err)
-            }
-            function onSuccess (cleaningEvent) {
-                console.log(`CleaningEvent Form Updated:`,cleaningEvent)
-                $('input[id="cleaningEventURLU"]').val(cleaningEvent[0].url)
-                $('input[id="cleaningEventTitleU"]').val(cleaningEvent[0].title)
-                $('input[id="cleaningEventStartU"]').val(moment(cleaningEvent[0].start).add(8, 'hours').format("YYYY-MM-DD[T]HH:mm:ss"))
-                $('input[id="cleaningEventEndU"]').val(moment(cleaningEvent[0].end).add(8, 'hours').format("YYYY-MM-DD[T]HH:mm:ss")),
-                $('input[id="cleaningEventAddressU"]').val(cleaningEvent[0].address),
-                $('input[id="cleaningEventGuestCheckoutU"]').val(moment(cleaningEvent[0].guestCheckout).add(8, 'hours').format("YYYY-MM-DD[T]HH:mm:ss")),
-                $('input[id="cleaningEventNextGuestCheckInU"]').val(moment(cleaningEvent[0].nextGuestCheckIn).add(8, 'hours').format("YYYY-MM-DD[T]HH:mm:ss")),
-                $('input[id="cleaningEventFinalPriceCleaningU"]').val(cleaningEvent[0].finalPriceCleaning),
-                $('input[id="cleaningEventPaidU"]').val(cleaningEvent[0].paid)
-    
-            }   
-            // $('.updateCleaningEventForm').toggleClass('hide')
-        
-        }   
-
-        
-
-    
-
-        
 function createCleaningEvent(e){
     console.log("this is it")
     console.log(housingUnitId.id)
@@ -989,12 +829,8 @@ function createCleaningEvent(e){
         function onSuccess (newCleaningEvent) {
             console.log(`CleaningEvent Created:`, newCleaningEvent)
             localStorage.cleaningEventId = newCleaningEvent._id
-      
         }   
-        
-       
 }
-
 
 function updateCleaningEvent(e){
     e.preventDefault();
@@ -1039,143 +875,51 @@ function updateCleaningEvent(e){
         function onSuccess (updatedCleaningEvent) {
         console.log(`CleaningEvent Updated:`, updatedCleaningEvent)
         }   
-        };
+};
 
-// function addCleanerCleaningEvent(){
-//     console.log("cleaner ajax function")
-//     let cleanerUpdate = {
-//         _id: cleaningEventId.id,
-//         cleanerId: localStorage.userId
-//     }
-
-//     $.ajax({
-//         method: 'PATCH',
-//         url: updateCleaningEventUrl,
-//         json: true,
-//         contentType : 'application/json',
-//         data: JSON.stringify(cleanerUpdate),
-//         success: onSuccess,
-//         error: onError
-//     });
-//         function onError ( err ) {
-//         console.log( err );
-//         console.log("PATCH update error",err)
-//         }
-//         function onSuccess (updatedCleaningEvent) {
-//         console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
-        
-//         let userId = updatedCleaningEvent.cleanerId 
-//             $.ajax({
-//                 method: 'GET',
-//                 url: getUserUrl + userId,
-//                 success: onSuccess,
-//                 error: onError
-//             });
-//                 function onError ( err ) {
-//                     console.log( err );
-//                     console.log("post error",err)
-//                 }
-//                 function onSuccess (user) {
-//                     console.log(`Cleaning User added to Cleaning Event:`, user)
-//                     $('#cleanerAssigned').html(`Cleaner: ${user[0].name}`)
-//                     // location.reload()
-
-//             }   
-//             };
-// }
-
-// function addCleanerCleaningEvent(){
-//     console.log("cleaner ajax function")
-    
-//     let userId = localStorage.userId 
-//             $.ajax({
-//                 method: 'GET',
-//                 url: getUserUrl + userId,
-//                 success: onSuccess,
-//                 error: onError
-//             });
-//                 function onError ( err ) {
-//                     console.log( err );
-//                     console.log("post error",err)
-//                 }
-//                 function onSuccess (user) {
-//                     console.log(`Cleaning User added to Cleaning Event:`, user)
-//                     $('#cleanerAssigned').html(`Cleaner: ${user[0].name}`)
-//                     // location.reload()
-
-//                 let cleanerUpdate = {
-//                                     _id: cleaningEventId.id,
-//                                     cleanerId: userId,
-//                                     title: `"${user[0].name}, cell: ${user[0].cellPhone}, company: ${user[0].company}"`
-//                                     }
-//                 console.log(cleanerUpdate)
-//                 console.log("PATCH update cleaner")
-//                 $.ajax({
-//                     method: 'PATCH',
-//                     url: updateCleaningEventUrl,
-//                     json: true,
-//                     contentType : 'application/json',
-//                     data: JSON.stringify(cleanerUpdate),
-//                     success: onSuccess,
-//                     error: onError
-//                 });
-//                 function onError ( err ) {
-//                 console.log( err );
-//                 console.log("PATCH update error",err)
-//                 }
-//                 function onSuccess (updatedCleaningEvent) {
-//                 console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
-//                     // location.reload()
-//                 }   
-//                 }
-// }
 function addCleanerCleaningEvent(){
     console.log("cleaner ajax function")
-    
     let userId = localStorage.userId 
-            $.ajax({
-                method: 'GET',
-                url: getUserUrl + userId,
-                success: onSuccess,
-                error: onError
-            });
-                function onError ( err ) {
-                    console.log( err );
-                    console.log("post error",err)
-                }
-                function onSuccess (user) {
-                    console.log(`Cleaning User added to Cleaning Event:`, user)
-                    $('#cleanerAssigned').html(`Cleaner: ${user[0].name}`)
-                    // location.reload()
-
-                let cleanerUpdate = {
-                                    _id: cleaningEventId.id,
-                                    cleanerId: userId,
-                                    title: `Cleaner Assigned ${user[0].name}, cell: ${user[0].cellPhone}, company: ${user[0].company}`,
-                                    backgroundColor: "#549499"
-                                    }
-                console.log(cleanerUpdate)
-                console.log("PATCH update cleaner")
-                $.ajax({
-                    method: 'PATCH',
-                    url: updateCleaningEventUrl,
-                    json: true,
-                    contentType : 'application/json',
-                    data: JSON.stringify(cleanerUpdate),
-                    success: onSuccess,
-                    error: onError
-                });
-                function onError ( err ) {
-                console.log( err );
-                console.log("PATCH update error",err)
-                }
-                function onSuccess (updatedCleaningEvent) {
-                console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
-                    location.reload()
-                }   
-                }
+    $.ajax({
+        method: 'GET',
+        url: getUserUrl + userId,
+        success: onSuccess,
+        error: onError
+    });
+    function onError ( err ) {
+    console.log( err );
+    console.log("post error",err)
+    }
+    function onSuccess (user) {
+    console.log(`Cleaning User added to Cleaning Event:`, user)
+    $('#cleanerAssigned').html(`Cleaner: ${user[0].name}`)
+    let cleanerUpdate = {
+        _id: cleaningEventId.id,
+        cleanerId: userId,
+        title: `Cleaner Assigned ${user[0].name}, cell: ${user[0].cellPhone}, company: ${user[0].company}`,
+        backgroundColor: "#549499"
+    }
+    console.log(cleanerUpdate)
+    console.log("PATCH update cleaner")
+    $.ajax({
+        method: 'PATCH',
+        url: updateCleaningEventUrl,
+        json: true,
+        contentType : 'application/json',
+        data: JSON.stringify(cleanerUpdate),
+        success: onSuccess,
+        error: onError
+    });
+    function onError ( err ) {
+    console.log( err );
+    console.log("PATCH update error",err)
+    }
+    function onSuccess (updatedCleaningEvent) {
+    console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
+    location.reload()
+    }   
+    }
 }
-
 
 function deleteCleanerCleaningEvent(){
     console.log("cleaner delete ajax")
@@ -1185,7 +929,6 @@ function deleteCleanerCleaningEvent(){
         backgroundColor: "#ED6665",
         title: "Cancelation: Cleaner Needed"
     }
-
     $.ajax({
         method: 'PATCH',
         url: updateCleaningEventUrl,
@@ -1267,15 +1010,14 @@ function updateReview(e){
         success: onSuccess,
         error: onError
     });
-        function onError ( err ) {
-        console.log( err );
-        console.log("PATCH update error",err)
-        }
-        function onSuccess (updatedReview) {
-        console.log(`Review Updated:`, updatedReview)
-        }   
+    function onError ( err ) {
+    console.log( err );
+    console.log("PATCH update error",err)
+    }
+    function onSuccess (updatedReview) {
+    console.log(`Review Updated:`, updatedReview)
+    }   
 }
-
 
 // Sample NavBar
 $('.navTrigger').click(function () {
@@ -1283,20 +1025,17 @@ $('.navTrigger').click(function () {
     console.log("Clicked menu");
     $("#mainListDiv").toggleClass("show_list");
     $("#mainListDiv").fadeIn();
-
 });
 
 // Sticky footer
-
 $("#add").on("click", function() {
     $("<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>").appendTo(".page-wrap");
-  });
-  });
+});
+// Check on this
+});
 
-
-
-// Smoth scrool
-  var scrollLink = $('.scroll');
+// Smooth scrool
+let scrollLink = $('.scroll');
 
 scrollLink.on('click', function(e){
     e.preventDefault();
