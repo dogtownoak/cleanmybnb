@@ -361,8 +361,8 @@ function checkForLogin(){
 }
 
 function checkLocation(){
-    if (window.location.href != "http://localhost:3000/") {
-        window.location.href = "http://localhost:3000/"
+    if (window.location.href != "/") {
+        window.location.href = "/"
     } else console.log("correct location")
 }
 
