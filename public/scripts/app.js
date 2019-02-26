@@ -50,6 +50,11 @@ function hideRUForm(e) {
     e.preventDefault()
 }
 
+$('.userButtonWrapper').on('click', '.hideButtonCreateHU', function() {  
+    console.log(`create housing unit clicked`)
+    showCreateHUmodal()   
+})
+
 $('.userHUWrapper').on('click', '.deleteHousingUnitButton', function() {
     housingUnitId = $(this).data()
     console.log(housingUnitId)
@@ -362,17 +367,19 @@ function checkForLogin(){
 
 // http://localhost:3000
 // This works on local host but not Heroku
-// function checkLocation(){
-//     if (window.location.href !== `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`) {
-//         window.location.href = "/"
-//     } else console.log("correct location")
-// }
-
 function checkLocation(){
-    if (window.location.href !== `${window.location.protocol}//${window.location.hostname}/`) {
+    if (window.location.href !== `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`) {
         window.location.href = "/"
     } else console.log("correct location")
 }
+
+
+// This works on Heroku but not local host
+// function checkLocation(){
+//     if (window.location.href !== `${window.location.protocol}//${window.location.hostname}/`) {
+//         window.location.href = "/"
+//     } else console.log("correct location")
+// }
 
 
 
@@ -1032,7 +1039,7 @@ function updateReview(e){
     }   
 }
 
-// Sample NavBar
+// NavBar
 $('.navTrigger').click(function () {
     $(this).toggleClass('active');
     console.log("Clicked menu");
