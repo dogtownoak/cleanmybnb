@@ -42,7 +42,8 @@ li a {
     width: 100%;
     height: auto;
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -540,6 +541,11 @@ html, body {
 @media screen and (max-width: 800px) {
     .stickyFooter, footer {
         display: none !important;
+    }
+
+    .signIn, .signUp {
+        width: 80vw;
+        height: auto;
     }
 
 }
