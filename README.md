@@ -15,7 +15,7 @@ Technologies: MongoDB, Express, Node.js, Semantic UI, FullCalendar
 
 Overview:
 
-CleanMyBnb matches Airbnb hosts with cleaners.  Holding several rental units, I sought an effortless platform to secure cleaners for Airbnb units with each guest’s departure.  I developed a process providing hosts the automated ability to secure cleaners efficiently and effectively.   Hosts are able to find reasonably priced cleaners without the tedious scheduling work.  Cleaners fill their schedules with a large pipeline of back to back appointments.
+CleanMyBnb matches Airbnb hosts with cleaners and helps automate the booking process. Hosts are able to find reasonably priced cleaners without the tedious scheduling work. Cleaners fill their schedules with a large pipeline of back to back appointments.
 
 Context & Challenge
 
@@ -57,7 +57,7 @@ Assumptions:
 
 Solution
 
-Hosts and cleaners can login on the home page.  Upon login both user types are taken to the home page.  Host can create Airbnb housing units and cleaning events.  Hosts can view all housing units and cleaning events in their profile and unassign cleaners.  Cleaner can assign and unassign themselves to cleaning events.  Both users can navigate to a calendar where they can view all guest checkouts and cleaning events.  Here cleaners can also assign and unassign themselves to cleaning events.
+Hosts and cleaners can login on the home page.  Upon login both user types are taken to the profile page.  Host can create Airbnb housing units and cleaning events.  Hosts can view all housing units and cleaning events in their profile and unassign cleaners.  Cleaner can assign and unassign themselves to cleaning events.  Both users can navigate to a calendar where they can view all guest checkouts and cleaning events.  Here cleaners can also assign and unassign themselves to cleaning events.
 
 Result
 
