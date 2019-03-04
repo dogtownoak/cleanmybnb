@@ -1,7 +1,6 @@
-// import moment = require("moment");
+
 
 $(document).ready(function(){
-    console.log("jQuery up and running");
 
 // CRUD API Endpoints
 let signUpUrl = '/users/signup'
@@ -51,74 +50,59 @@ function hideRUForm(e) {
 }
 
 $('.userButtonWrapper').on('click', '.hideButtonCreateHU', function() {  
-    console.log(`create housing unit clicked`)
     showCreateHUmodal()   
 })
 
 $('.userHUWrapper').on('click', '.deleteHousingUnitButton', function() {
     housingUnitId = $(this).data()
-    console.log(housingUnitId)
     deleteHousingUnit()
     location.reload()
 })
 
 $('.userHUWrapper').on('click', '.hideButtonCreateC', function() {
     housingUnitId = $(this).data()
-    console.log(housingUnitId)
     showCreateCEmodal()
 })
 
 $('.userHUWrapper').on('click', '.hideButtonUpdateHU', function() {
     housingUnitId = $(this).data()
-    console.log(`this is it ${housingUnitId.id}`)
     updateHousingUnitFormData()
     showUpdateHUmodal() 
 })
 
 $('.userHUWrapper').on('click', '.hideButtonCreateHU', function() {  
     housingUnitId = $(this).data()
-    console.log(`this is it ${housingUnitId.id}`)
     showCreateHUmodal()   
 })
 
 $('.userCEWrapper').on('click', '.hideButtonUpdateCE', function(e) {
     e.preventDefault()
     cleaningEventId = $(this).data()
-    console.log(cleaningEventId)
-    console.log("udpate cleaning event form clicked")
     updateCleaningEventFormData()
     showModal()
 })
 
 $('.userCEWrapper').on('click', '.deleteCleaningEventButton', function() {
     cleaningEventId = $(this).data()
-    console.log(cleaningEventId)
+
     deleteCleaningEvent()
     location.reload()
 })
 
 $('.userCEWrapper').on('click', '.assignCleanerButton', function() {
     cleaningEventId = $(this).data()
-    console.log(cleaningEventId)
-    console.log("assign cleaner clicked")
     addCleanerCleaningEvent()
     if(localStorage.cleaner === true ){
-        console.log("I'm a cleaner")
         addCleanerCleaningEvent()
     } else {
-        console.log("Hey you are not a cleaner!")
     }
 })
 
 $('.userCEWrapper').on('click', '.deleteCleanerButton', function() {
     cleaningEventId = $(this).data()
-    console.log(cleaningEventId)
-    console.log("delete cleaner clicked")
     deleteCleanerCleaningEvent()
     if(localStorage.cleaner === true ){
-        console.log("I'm a cleaner")
     } else {
-        console.log("Hey you are not a cleaner!")
     }
     location.reload()
 })
@@ -137,7 +121,6 @@ $('.ui.sidebar')
 }
 
 function showModal() {
-    console.log('open modal')
     $('.longer.modal.CE').modal({
         transition: 'horizontal flip', 
         duration: 800,
@@ -179,7 +162,6 @@ function showCreateCEmodal() { $('.modal.createCE').modal({
 }
 
 $('.modalTestButton').on('click', function(){
-    console.log('click')
     $('.longer.modal').modal({
         transition: 'horizontal flip', 
         duration: 800,
@@ -191,7 +173,6 @@ $('.modalTestButton').on('click', function(){
 })
 
 $('.updateHUModal').on('click', function(){
-    console.log('click')
     $('.modal.updateHUModal').modal({
         transition: 'horizontal flip', 
         duration: 800,
@@ -203,7 +184,6 @@ $('.updateHUModal').on('click', function(){
 })
 
 $('.updateUserButton').on('click', function(){
-    console.log('update user button clicked')
     $('.longer.modal.updateU').modal({
         transition: 'horizontal flip', 
         duration: 800,
@@ -278,15 +258,12 @@ $('.updateReviewForm').on('submit', updateReview)
 // User
 function submitSignup(e){
     e.preventDefault();
-    console.log("submit sign up clicked")
     let signUpData = {
         password: $('#signup-password').val(),
         username: $('#signup-username').val(),
         email: $('#signup-email').val()
         // cleaner: $('#signup-cleaner').val()
     }
-    console.log(signUpData)
-    console.log(JSON.stringify(signUpData))
     $.ajax({
         method: 'POST',
         url: signUpUrl,
@@ -301,20 +278,16 @@ function submitSignup(e){
             console.log("post error",err)
         }
         function onSuccess (newUser) {
-            console.log(`User Created:`, newUser)
-            console.log(newUser.payload.user._id)
             localStorage.token = newUser.token
             localStorage.userId = newUser.payload.user._id
             localStorage.cleaner = newUser.payload.user.cleaner
             user = newUser.payload
-            console.log(user)
             window.location.replace("/housingunit")
     }   
 };
 
 function submitLogin(e){
     e.preventDefault();
-    console.log("LOGIN FORM SUBMITTED")
     let signInData = {
         password: $('#signIn-password').val(),
         email: $('#signIn-email').val()
@@ -326,8 +299,6 @@ function submitLogin(e){
         contentType : 'application/json',
         data: JSON.stringify(signInData),
         success: function signupSuccess(json) {
-            console.log(json);
-            console.log("sign in")
             if (json.token){
                 localStorage.token = json.token;
                 localStorage.cleaner = json.cleaner.cleaner
@@ -346,8 +317,6 @@ function submitLogin(e){
 }
 
 function checkForLogin(){
-    console.log("checking for login")
-    console.log(window.location.href)
     if(localStorage.token){
         let jwt = localStorage.token
         $.ajax({
@@ -357,8 +326,6 @@ function checkForLogin(){
                 xhr.setRequestHeader("Authorization", 'Bearer '+ localStorage.token)
             }
         }).done(function (response) {
-            console.log(response)
-            // localStorage.userId = response.id
         }).fail(function (err) {
             console.log(err)
         })
@@ -371,19 +338,19 @@ function checkForLogin(){
 
 // http://localhost:3000
 // This works on local host but not Heroku
-function checkLocation(){
-    if (window.location.href !== `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`) {
-        window.location.href = "/"
-    } else console.log("correct location")
-}
-
-
-// This works on Heroku but not local host
 // function checkLocation(){
-//     if (window.location.href !== `${window.location.protocol}//${window.location.hostname}/`) {
+//     if (window.location.href !== `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`) {
 //         window.location.href = "/"
 //     } else console.log("correct location")
 // }
+
+
+// This works on Heroku but not local host
+function checkLocation(){
+    if (window.location.href !== `${window.location.protocol}//${window.location.hostname}/`) {
+        window.location.href = "/"
+    } else console.log("correct location")
+}
 
 
 
@@ -405,8 +372,6 @@ function handleLogout(e) {
 
 function updateUser(e) {
     e.preventDefault();
-    console.log("Update User Form Submit")
-    console.log(localStorage.userId)
     let userUpdateData = {
         _id: localStorage.userId,
         name: $('#userName').val(),
@@ -422,7 +387,6 @@ function updateUser(e) {
         cleaningRadius: $('#userCleaningRadius').val(),
         hostAirbnbCalendar: $('#userHostAirbnbCalendar').val()
     }
-    console.log(userUpdateData)
     $.ajax({
         method: 'PATCH',
         url: updateUserUrl,
@@ -437,13 +401,11 @@ function updateUser(e) {
             console.log("post error",err)
         }
         function onSuccess (userUpdates) {
-            console.log(`User updated:`, userUpdates)
     }   
 };
 
 function updateUserFormData(e) {     
         e.preventDefault();
-        console.log("Update User Form with Data")
         $.ajax({
             method: 'GET',
             url: getUserUrl + localStorage.userId,
@@ -455,7 +417,6 @@ function updateUserFormData(e) {
                 console.log("get user error",err)
             }
             function onSuccess (user) {
-                console.log(`User Form Updated:`, user)
                 $('input[id="userUsername"]').val(user[0].username)
                 $('input[id="userName"]').val(user[0].name)
                 $('input[id="userUsername"]').val(user[0].username)
@@ -473,7 +434,6 @@ function updateUserFormData(e) {
 };
 
 function populateUserProfile(e) {
-    console.log("Update User Profile with Data")
         $.ajax({
             method: 'GET',
             url: getUserUrl + localStorage.userId,
@@ -485,7 +445,6 @@ function populateUserProfile(e) {
             console.log("get user error",err)
         }
         function onSuccess (user) {
-            console.log(`User Profile Data:`, user)
 
             let card1 = `
             <div class="ui card" data="${user[0]._id}">
@@ -541,9 +500,7 @@ function getUserHousingUnits(){
         console.log("post error",err)
     }
     function onSuccess (housingUnits) {
-        console.log(`HousingUnit Arr:`, housingUnits)
         let userHUnits = housingUnits.filter(housingUnit => housingUnit.hostID === localStorage.userId)
-        console.log(`Host's HousingUnits`, userHUnits)
         userHUnits.forEach(unit => {
             let card1 =
             `<section class="hUCardWrapper">
@@ -590,7 +547,6 @@ function getUserHousingUnits(){
 
 function createHousingUnit(e){
     e.preventDefault();
-    console.log("submit create housing unit clicked")
     let signUpData = {
         hostID: localStorage.userId,
         address: $('#housingUnitAddress').val(),
@@ -605,8 +561,6 @@ function createHousingUnit(e){
         sizeBeds: $('#housingUnitSizeBeds').val(),
         sizeKitchen: $('#housingUnitSizeKitchen').val()
         }
-    console.log(signUpData)
-    console.log(JSON.stringify(signUpData))
     $.ajax({
         method: 'POST',
         url: createHousingUnitUrl,
@@ -621,16 +575,13 @@ function createHousingUnit(e){
             console.log("post error",err)
         }
         function onSuccess (newHousingUnit) {
-            console.log(`HousingUnit Created:`, newHousingUnit)
             localStorage.housingUnitId = newHousingUnit._id
             getUserHousingUnits()
         }   
 };    
 
 function updateHousingUnit(e){
-    console.log(housingUnitId.id)
     e.preventDefault();
-    console.log("submit update housing unit clicked")
     let signUpData = {
         _id: housingUnitId.id,
         address: $('#housingUnitAddressU').val(),
@@ -645,7 +596,6 @@ function updateHousingUnit(e){
         sizeBeds: $('#housingUnitSizeBedsU').val(),
         sizeKitchen: $('#housingUnitSizeKitchenU').val()
         }
-    console.log(JSON.stringify(signUpData))
     $.ajax({
         method: 'PATCH',
         url: updateHousingUnitUrl ,
@@ -660,12 +610,10 @@ function updateHousingUnit(e){
         console.log("PATCH update error",err)
         }
         function onSuccess (updatedHousingUnit) {
-        console.log(`HousingUnit Updated:`, updatedHousingUnit)
         }   
 };
 
 function updateHousingUnitFormData(){
-    console.log("submit update housing unit form data clicked")
     $.ajax({
         method: 'GET',
         url: updateHouseingUnitForm + housingUnitId.id,
@@ -677,7 +625,6 @@ function updateHousingUnitFormData(){
     console.log("GET  error",err)
     }
     function onSuccess (housingUnit) {
-        console.log(`HousingUnit Form Updated:`, housingUnit)
         $('input[id="housingUnitAddressU"]').val(housingUnit[0].address)
         $('input[id="housingUnitDescriptionU"]').val(housingUnit[0].unitDescription)
         $('input[id="housingUnitAirbnbURLU"]').val(housingUnit[0].airbnbURL)
@@ -704,7 +651,6 @@ function deleteHousingUnit(){
         console.log("Delete  error",err)
         }
     function onSuccess (deletedHousingUnit) {
-        console.log("Deleted Housing Unit", deletedHousingUnit)
     }
 }
 
@@ -721,9 +667,7 @@ function getUserCleaningEvents(){
         console.log("get error",err)
     }
     function onSuccess (cleaningEvents) {
-        console.log(`cleaningEvent Arr:`, cleaningEvents)
         let userCleaningEvents = cleaningEvents.filter(cleaningEvent => cleaningEvent.hostId === localStorage.userId || cleaningEvent.cleanerId === localStorage.userId)
-        console.log(`User Cleaning Events`, userCleaningEvents)
         userCleaningEvents.forEach(cleaningEvent => {
             let card1 = 
             `<section class="cECardWrapper">
@@ -776,13 +720,11 @@ function deleteCleaningEvent(){
         console.log("Delete  error",err)
         }
     function onSuccess (deletedCleaningEvent) {
-        console.log("Deleted CleaningEvent", deletedCleaningEvent)
     }
 }
 
 
 function updateCleaningEventFormData(){  
-    console.log("submit update cleaning event form data clicked")
     $.ajax({
         method: 'GET',
         url: updateCleaningEventFormURL + cleaningEventId.id,
@@ -794,7 +736,6 @@ function updateCleaningEventFormData(){
     console.log("GET  error",err)
     }
     function onSuccess (cleaningEvent) {
-    console.log(`CleaningEvent Form Updated:`,cleaningEvent)
         $('input[id="cleaningEventURLU"]').val(cleaningEvent[0].url)
         $('input[id="cleaningEventTitleU"]').val(cleaningEvent[0].title)
         $('input[id="cleaningEventStartU"]').val(moment(cleaningEvent[0].start).add(8, 'hours').format("YYYY-MM-DD[T]HH:mm:ss"))
@@ -808,10 +749,7 @@ function updateCleaningEventFormData(){
 }   
 
 function createCleaningEvent(e){
-    console.log("this is it")
-    console.log(housingUnitId.id)
     testHUid = housingUnitId.id
-    console.log("submit create cleaning event clicked")
     let signUpData = {
         housingUnit: housingUnitId.id,
         hostId: localStorage.userId,
@@ -833,9 +771,6 @@ function createCleaningEvent(e){
         }
     let startCE = $('#cleaningEventStart').val()
     let testMomentCE = moment(startCE).toISOString()
-    console.log(testMomentCE)
-    console.log(signUpData)
-    console.log(JSON.stringify(signUpData))
     
     $.ajax({
         method: 'POST',
@@ -851,14 +786,12 @@ function createCleaningEvent(e){
             console.log("post error",err)
         }
         function onSuccess (newCleaningEvent) {
-            console.log(`CleaningEvent Created:`, newCleaningEvent)
             localStorage.cleaningEventId = newCleaningEvent._id
         }   
 }
 
 function updateCleaningEvent(e){
     e.preventDefault();
-    console.log("submit update cleaning event clicked")
     let signUpData = {
         _id: cleaningEventId.id,
         title: $('#cleaningEventTitleU').val(),
@@ -879,10 +812,6 @@ function updateCleaningEvent(e){
         }
     let start = $('#cleaningEventStartU').val()
     let testMoment = moment(start).toISOString()
-    console.log(testMoment)
-    console.log(signUpData)
-    console.log(moment($('#cleaningEventStartU').val()).toISOString())
-    console.log(JSON.stringify(signUpData))
     $.ajax({
         method: 'PATCH',
         url: updateCleaningEventUrl,
@@ -897,12 +826,10 @@ function updateCleaningEvent(e){
         console.log("PATCH update error",err)
         }
         function onSuccess (updatedCleaningEvent) {
-        console.log(`CleaningEvent Updated:`, updatedCleaningEvent)
         }   
 };
 
 function addCleanerCleaningEvent(){
-    console.log("cleaner ajax function")
     let userId = localStorage.userId 
     $.ajax({
         method: 'GET',
@@ -915,7 +842,6 @@ function addCleanerCleaningEvent(){
     console.log("post error",err)
     }
     function onSuccess (user) {
-    console.log(`Cleaning User added to Cleaning Event:`, user)
     $('#cleanerAssigned').html(`Cleaner: ${user[0].name}`)
     let cleanerUpdate = {
         _id: cleaningEventId.id,
@@ -923,8 +849,6 @@ function addCleanerCleaningEvent(){
         title: `Cleaner Assigned ${user[0].name}, cell: ${user[0].cellPhone}, company: ${user[0].company}`,
         backgroundColor: "#549499"
     }
-    console.log(cleanerUpdate)
-    console.log("PATCH update cleaner")
     $.ajax({
         method: 'PATCH',
         url: updateCleaningEventUrl,
@@ -939,14 +863,12 @@ function addCleanerCleaningEvent(){
     console.log("PATCH update error",err)
     }
     function onSuccess (updatedCleaningEvent) {
-    console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
     location.reload()
     }   
     }
 }
 
 function deleteCleanerCleaningEvent(){
-    console.log("cleaner delete ajax")
     let cleanerUpdate = {
         _id: cleaningEventId.id,
         cleanerId: null,
@@ -967,7 +889,6 @@ function deleteCleanerCleaningEvent(){
         console.log("PATCH update error",err)
         }
         function onSuccess (updatedCleaningEvent) {
-        console.log(`Cleaner on Cleaning Event Updated:`, updatedCleaningEvent)
         location.reload()
         }
 }
@@ -1046,7 +967,6 @@ function updateReview(e){
 // NavBar
 $('.navTrigger').click(function () {
     $(this).toggleClass('active');
-    console.log("Clicked menu");
     $("#mainListDiv").toggleClass("show_list");
     $("#mainListDiv").fadeIn();
 });
