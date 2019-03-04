@@ -16,14 +16,14 @@ module.exports = {
         .then(users => res.json(users))
   },
   findUser: (req, res) => {
-    console.log(req.params._id)
+    // console.log(req.params._id)
       User.find({ _id: req.params._id}, (err, user) => {
         if (err) return res.status(500).send(err);
         return res.send(user)
     })
   },
   signup: (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     if (req.body.email && req.body.password) { 
       bcrypt.hash(req.body.password, 10, (err, hash) =>{
         if(err){
@@ -56,16 +56,17 @@ module.exports = {
     }
   },
   login: (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     if (req.body.email && req.body.password) {
       User.findOne({ email: req.body.email }).then(user => {
         if (user) {
           bcrypt.compare(req.body.password, user.password, (err, match) => {
             if (match) {
               let cleaner = { cleaner: user.cleaner }
+              let uid = { id: user.id }
               let payload = { id: user.id }
               let token = jwt.encode(payload, config.jwtSecret)
-              res.json({ token, cleaner })
+              res.json({ token, cleaner, uid })
             } else {
               res.json({error:'username/password incorrect'})
             }
@@ -79,7 +80,7 @@ module.exports = {
     }
   },
   update: (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     User.findByIdAndUpdate(req.body._id, req.body, {new : true}, (err, user) => {
       if (err) return res.status(500).send(err);
       return res.send(user)
@@ -97,33 +98,33 @@ module.exports = {
 
 // HousingUnit
   indexHousingUnit: (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     HousingUnit.find({})
       .then(housingUnits => res.json(housingUnits))
   },
   findHousingUnit: (req, res) => {
-    console.log(req.params._id)
+    // console.log(req.params._id)
       HousingUnit.find({ _id: req.params._id}, (err, housingUnit) => {
         if (err) return res.status(500).send(err);
         return res.send(housingUnit)
     })
   },
   updateHousingUnit: (req, res) => {
-    console.log("req.body")
+    // console.log("req.body")
         HousingUnit.findByIdAndUpdate(req.body._id, req.body, {new : true}, (err, housingUnit) => {
           if (err) return res.status(500).send(err);
           return res.send(housingUnit)
       })       
   },
   createHousingUnit: (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
       HousingUnit.create(req.body, (err, newHousingUnit) => {
         if (err) return res.status(500).send(err)
         return res.send(newHousingUnit)
       })
   },
   deleteHousingUnit: (req, res) => {
-    console.log(req.params._id)
+    // console.log(req.params._id)
       HousingUnit.deleteOne({_id: req.params._id}, (err, deletedHousingUnit)=>{
         if (err) {
         res.json({err:'delete HousingUnit error'})
@@ -136,19 +137,19 @@ module.exports = {
 
 // CleaningEvents
   indexCleaningEvent: (req, res) => {
-    console.log(req)
+    // console.log(req)
     CleaningEvent.find({})
         .then(cleaningEvents => res.json(cleaningEvents))
   },
   findCleaningEvent: (req, res) => {
-    console.log(req.params._id)
+    // console.log(req.params._id)
     CleaningEvent.find({ _id : req.params._id }, (err, cleaningEvent) => {
         if (err) return res.status(500).send(err);
         return res.send(cleaningEvent)
     })
   },
   updateCleaningEvent: (req, res) => {
-    console.log("udateCleaningEventRoute")
+    // console.log("udateCleaningEventRoute")
     // console.log(req.body._id)
     CleaningEvent.findByIdAndUpdate(req.body._id, req.body, {new : true}, (err, cleaningEvent) => {
           if (err) return res.status(500).send(err);
@@ -156,14 +157,14 @@ module.exports = {
       })       
   },
   createCleaningEvent: (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     CleaningEvent.create(req.body, (err, cleaningEvent) => {
         if (err) return res.status(500).send(err)
         return res.send(cleaningEvent)
       })
   },
   deleteCleaningEvent: (req, res) => {
-    console.log(req.params._id)
+    // console.log(req.params._id)
     CleaningEvent.deleteOne({_id: req.params._id}, (err, deletedCleaningEvent)=>{
         if (err) {
         res.json({err:'delete CleaningEvent error'})
@@ -175,7 +176,7 @@ module.exports = {
 
   // Reviews
   indexReview: (req, res) => {
-    console.log(req)
+    // console.log(req)
     Review.find({})
         .then(reviews => res.json(reviews))
   },

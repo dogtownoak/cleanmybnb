@@ -282,8 +282,8 @@ function submitSignup(e){
     let signUpData = {
         password: $('#signup-password').val(),
         username: $('#signup-username').val(),
-        email: $('#signup-email').val(),
-        cleaner: $('#signup-cleaner').val()
+        email: $('#signup-email').val()
+        // cleaner: $('#signup-cleaner').val()
     }
     console.log(signUpData)
     console.log(JSON.stringify(signUpData))
@@ -302,6 +302,7 @@ function submitSignup(e){
         }
         function onSuccess (newUser) {
             console.log(`User Created:`, newUser)
+            console.log(newUser.payload.user._id)
             localStorage.token = newUser.token
             localStorage.userId = newUser.payload.user._id
             localStorage.cleaner = newUser.payload.user.cleaner
@@ -326,9 +327,11 @@ function submitLogin(e){
         data: JSON.stringify(signInData),
         success: function signupSuccess(json) {
             console.log(json);
+            console.log("sign in")
             if (json.token){
                 localStorage.token = json.token;
-                localStorage.cleaner = json.cleaner.cleaner 
+                localStorage.cleaner = json.cleaner.cleaner
+                localStorage.userId = json.uid.id
                 checkForLogin();
                 window.location.replace("/housingunit")
             } else {
@@ -355,7 +358,7 @@ function checkForLogin(){
             }
         }).done(function (response) {
             console.log(response)
-            localStorage.userId = response.id
+            // localStorage.userId = response.id
         }).fail(function (err) {
             console.log(err)
         })
@@ -364,22 +367,23 @@ function checkForLogin(){
         checkLocation()
     }
 }
+// id at signin user at signup
 
 // http://localhost:3000
 // This works on local host but not Heroku
-// function checkLocation(){
-//     if (window.location.href !== `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`) {
-//         window.location.href = "/"
-//     } else console.log("correct location")
-// }
-
-
-// This works on Heroku but not local host
 function checkLocation(){
-    if (window.location.href !== `${window.location.protocol}//${window.location.hostname}/`) {
+    if (window.location.href !== `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`) {
         window.location.href = "/"
     } else console.log("correct location")
 }
+
+
+// This works on Heroku but not local host
+// function checkLocation(){
+//     if (window.location.href !== `${window.location.protocol}//${window.location.hostname}/`) {
+//         window.location.href = "/"
+//     } else console.log("correct location")
+// }
 
 
 
