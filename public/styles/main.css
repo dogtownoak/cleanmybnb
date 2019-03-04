@@ -1,7 +1,6 @@
 * {
     font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
-
 }
 
 main {
@@ -125,14 +124,11 @@ section {
     top: 0;
 }
 
-/* Nav */
-@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
 html,
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Quicksand", sans-serif;
     font-size: 62.5%;
     font-size: 10px;
 }
@@ -218,6 +214,28 @@ body {
     padding-bottom: 20px;
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
+}
+
+/* Sticky footer */
+
+html, body {
+	height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+	margin-bottom: -142px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  /* .push must be the same height as footer */
+	height: 142px; 
+}
+.site-footer {
+  background: orange;
 }
 
 
@@ -466,11 +484,6 @@ body {
     background-color: #111;
 }
 
-
-
-
-
-
 .myH2 {
 	text-align:center;
     font-size: 4em;
@@ -500,38 +513,6 @@ body {
     z-index: 1000;
 }
 
-/* Sticky footer */
-
-html, body {
-	height: 100%;
-}
-.page-wrap {
-  min-height: 100%;
-  /* equal to footer height */
-	margin-bottom: -142px; 
-}
-.page-wrap:after {
-  content: "";
-  display: block;
-}
-.site-footer, .page-wrap:after {
-  /* .push must be the same height as footer */
-	height: 142px; 
-}
-.site-footer {
-  background: orange;
-}
-
-
-
-
-
-
-
-
-
-
-
 @media screen and (min-width: 600px) {
     .mainCalendar {
         min-width: 100vw;
@@ -542,11 +523,33 @@ html, body {
     .stickyFooter, footer {
         display: none !important;
     }
-
     .signIn, .signUp {
         width: 80vw;
         height: auto;
     }
+
+    .userButtonWrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hUCardWrapper, .cECardWrapper {
+        width: 80vw;
+    }
+
+    .cardSectionHeader {
+        text-align: center;
+    } 
+
+    .updateUserButton {
+        margin-bottom: .5em !important;
+    }
+
+    .logOut {
+        margin-top: .5em !important;
+    }
+
+
 
 }
 
